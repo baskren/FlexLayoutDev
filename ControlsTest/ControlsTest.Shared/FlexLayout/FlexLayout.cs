@@ -381,7 +381,7 @@ namespace Bc3.Forms
             if (_root == null)
                 return null;
 
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".AddChild ENTER view: " + (view is TextBlock ? "\""+((TextBlock)view).Text + "\"" : view.GetType().ToString()));
+            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".AddChild ENTER view: " + (view is TextBlock ? "\""+((TextBlock)view).Text + "\"" : view.GetType().ToString()));
 
             var item = (view as FlexLayout)?._root ?? new Flex.Item();
             InitItemProperties(view, item);
@@ -442,7 +442,7 @@ namespace Bc3.Forms
             _root.InsertAt(Children.IndexOf(view), item);
             SetFlexItem(view, item);
 
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".AddChild EXIT view: " + (view is TextBlock ? "\"" + ((TextBlock)view).Text + "\"" : view.GetType().ToString()));
+            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".AddChild EXIT view: " + (view is TextBlock ? "\"" + ((TextBlock)view).Text + "\"" : view.GetType().ToString()));
             return item;
         }
 
@@ -528,8 +528,8 @@ namespace Bc3.Forms
                 return new Size(widthConstraint, heightConstraint);
 
             //All of this is a HACK as X.Flex doesn't supports measuring
-            if (!double.IsPositiveInfinity(widthConstraint) && !double.IsPositiveInfinity(heightConstraint))
-                return new Size(widthConstraint, heightConstraint);
+            //if (!double.IsPositiveInfinity(widthConstraint) && !double.IsPositiveInfinity(heightConstraint))
+            //    return new Size(widthConstraint, heightConstraint);
 
             _measuring = true;
             //1. Keep track of missing layout items

@@ -263,11 +263,12 @@ namespace Bc3.Flex
     /// </summary>
     class Item : IEnumerable<Item>
 	{
-		/// <summary>
-		/// Gets the frame (x, y, w, h).
-		/// </summary>
-		/// <value>The frame.</value>
-		public double[] Frame { get; } = new double[4];
+        #region Properties
+        /// <summary>
+        /// Gets the frame (x, y, w, h).
+        /// </summary>
+        /// <value>The frame.</value>
+        public double[] Frame { get; } = new double[4];
 
 		/// <summary>The parent item.</summary>
 		/// <value>The parent item, or null if the item is a root item.</value>
@@ -406,26 +407,32 @@ namespace Bc3.Flex
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Wrap" /> enumeration.</value>
 		/// <remarks>The default value for this property is NoWrap.</remarks>
 		public Wrap Wrap { get; set; } = Wrap.NoWrap;
+        #endregion
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
-		/// </summary>
-		public Item()
+
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
+        /// </summary>
+        public Item()
 		{
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
-		/// </summary>
-		/// <param name="width">Width.</param>
-		/// <param name="height">Height.</param>
-		public Item(double width, double height)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
+        /// </summary>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
+        public Item(double width, double height)
 		{
 			Width = width;
 			Height = height;
 		}
+        #endregion
 
-		public void Add(Item child)
+
+        #region IList
+        public void Add(Item child)
 		{
 			ValidateChild(child);
 			(Children ?? (Children = new List<Item>())).Add(child);
@@ -459,8 +466,12 @@ namespace Bc3.Flex
 		{
 			get => ItemAt(index);
 		}
+        #endregion
 
-		public Item Root
+
+        #region Layout
+
+        public Item Root
 		{
 			get
 			{
@@ -545,8 +556,8 @@ namespace Bc3.Flex
 				// Initialize frame.
 				child.Frame[0] = 0;
 				child.Frame[1] = 0;
-				child.Frame[2] = child.Width;
-				child.Frame[3] = child.Height;
+				child.Frame[2] = child.Width + child.MarginThickness(false);
+				child.Frame[3] = child.Height + child.MarginThickness(true);
 				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    A - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 
 				// Main axis size defaults to 0.
@@ -1125,5 +1136,7 @@ namespace Bc3.Flex
 				lines = null;
 			}
 		}
-	}
+
+        #endregion
+    }
 }

@@ -15,11 +15,12 @@
             AlignItems="Center"
             JustifyContent="SpaceEvenly">
 
-            <TextBox 
+            <TextBlock 
                 Text="FlexLayout in Action"
                 FontSize="40" />
 
             <Image 
+                Stretch="None"
                 Source="/Assets/SeatedMonkey.jpg" />
 
             <Button 

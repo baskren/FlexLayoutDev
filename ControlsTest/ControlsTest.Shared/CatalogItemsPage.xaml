@@ -7,22 +7,30 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bc3="using:Bc3.Forms"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Padding="0"
+    Margin="0"
+    Background="LightGray">
     <Page.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="LightYellow" />
             <Setter Property="BorderBrush" Value="Blue" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Width" Value="350"/>
+            <Setter Property="Height" Value="500" />
         </Style>
 
         <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="0, 4" />
+            <Setter Property="Margin" Value="0, 2" />
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
 
         <Style x:Key="headerTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="0, 8" />
-            <Setter Property="FontSize" Value="48" />
+            <Setter Property="FontSize" Value="30" />
             <Setter Property="Foreground" Value="Blue" />
         </Style>
 
@@ -33,19 +41,37 @@
 
         <Style TargetType="Button">
             <Setter Property="Content" Value="LEARN MORE" />
-            <Setter Property="FontSize" Value="48" />
+            <Setter Property="FontSize" Value="30" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Green" />
-            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="bc3:FlexLayout.AlignSelf" Value="Center" />
         </Style>
     </Page.Resources>
 
-    <Grid>
-        <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
-            <bc3:FlexLayout>
-                <Border Width="300"
-                   Height="480">
-
+    <Grid
+        Background="Orange"
+        >
+        <ScrollViewer 
+            Background="Pink"
+            HorizontalScrollMode="Enabled"  
+            HorizontalScrollBarVisibility="Visible"
+            IsHorizontalRailEnabled="True"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            
+            VerticalScrollMode="Auto"
+            VerticalScrollBarVisibility="Hidden"
+            IsVerticalRailEnabled="True"
+            VerticalAlignment="Stretch"
+            VerticalContentAlignment="Top"
+                        
+            >
+            <bc3:FlexLayout
+                Background="Cyan"
+                Padding="0"
+                >
+                <Border >
                     <bc3:FlexLayout Direction="Column">
                         <TextBlock Text="Seated Monkey" 
                            Style="{StaticResource headerTextBlock}" />
@@ -55,15 +81,14 @@
                         <TextBlock Text="  &#x2022; Sleeps sitting up" />
                         <Image Source="/Assets/SeatedMonkey.jpg"
                            Width="180"
-                           Height="180" />
+                           Height="180"
+                               />
                         <TextBlock bc3:FlexLayout.Grow="1" />
                         <Button />
                     </bc3:FlexLayout>
                 </Border>
 
-                <Border Width="300"
-                   Height="480">
-
+                <Border>
                     <bc3:FlexLayout Direction="Column">
                         <TextBlock Text="Banana Monkey"
                            Style="{StaticResource headerTextBlock}" />
@@ -78,9 +103,7 @@
                     </bc3:FlexLayout>
                 </Border>
 
-                <Border Width="300"
-                   Height="480">
-
+                <Border>
                     <bc3:FlexLayout Direction="Column">
                         <TextBlock Text="Face-Palm Monkey"
                            Style="{StaticResource headerTextBlock}" />

@@ -70,7 +70,7 @@ namespace ControlsTest
                             byte[] imageBytes = await webClient.DownloadDataTaskAsync(imageUri);
                             var bitmapImage = await BitmapImageFromBytes(imageBytes);
                             System.Diagnostics.Debug.WriteLine(GetType() + ".LoadBitmapCollection: " + imageUri + " Size: [" + bitmapImage.PixelWidth + ", " + bitmapImage.PixelHeight + "]");
-                            var image = new Image { Source = bitmapImage };
+                            var image = new Image { Stretch=Stretch.None, Source = bitmapImage };
                             flexLayout.Children.Add(image);
                         }
                     }
