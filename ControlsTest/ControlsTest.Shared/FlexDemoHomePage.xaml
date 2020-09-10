@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="ControlsTest.FlexDemoHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ControlsTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <muxc:NavigationView x:Name="NavView"
+                         Loaded="NavView_Loaded"
+                         SelectionChanged="NavView_SelectionChanged"
+                         BackRequested="NavView_BackRequested">
+            <muxc:NavigationView.MenuItems>
+
+                <muxc:NavigationViewItem Tag="simpleStack" Icon="Page" Content="Simple Stack Page"/>
+                <muxc:NavigationViewItem Tag="photoWrapping" Icon="Page" Content="Photo Wrapping Page"/>
+                <muxc:NavigationViewItem Tag="holyGrail" Icon="Page" Content="Holy Grail Page"/>
+                <muxc:NavigationViewItem Tag="catalogItems" Icon="Page"  Content="Catalog Items Page" />
+                <muxc:NavigationViewItem Tag="experiment" Icon="Page" Content="Experiement Page"/>
+                <muxc:NavigationViewItem Tag="basisExperiment" Icon="Page" Content="Basis Experiement Page"/>
+                <muxc:NavigationViewItem Tag="growExperiment" Icon="Page" Content="Grow Experiement Page"/>
+                <muxc:NavigationViewItem Tag="shrinkExperiment" Icon="Page" Content="Shrink Experiement Page"/>
+                <muxc:NavigationViewItem Tag="cssCatalogItems" Icon="Page"  Content="CSS Catalog Items Page" />
+
+            </muxc:NavigationView.MenuItems>
+
+            <ScrollViewer>
+                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"
+                   NavigationFailed="ContentFrame_NavigationFailed"/>
+            </ScrollViewer>
+
+        </muxc:NavigationView>
+    </Grid>
+</Page>

@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="ControlsTest.ExperimentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ControlsTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:bc3="using:Bc3.Forms"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Margin="10, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Control Panel -->
+        <Grid 
+              Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </ResourceDictionary>
+            </Grid.Resources>
+
+            <TextBlock 
+                Text="Number of items:"
+                VerticalAlignment="Center"       
+                Grid.Row="0" Grid.Column="0" />
+
+            <StackPanel 
+                Orientation="Horizontal"
+                Spacing="10"
+                Grid.Row="0" Grid.Column="1">
+
+                <!--TextBlock 
+                    Text="{x:Bind Path=numberStepper.Value }" 
+                    VerticalAlignment="Center"       
+                    /-->
+
+                <local:Stepper x:Name="numberStepper"
+                         MinValue="0"
+                         MaxValue="99"
+                         Increment="1"
+                         Value="3"
+                         ValueChanged="OnNumberStepperValueChanged" />
+
+            </StackPanel>
+
+            <TextBlock 
+                Text="Direction:"
+                Grid.Row="1" Grid.Column="0" 
+                VerticalAlignment="Center"       
+                />
+            <local:EnumPicker EnumType="bc3:FlexDirection"
+                              SelectedItem="{x:Bind flexLayout.Direction, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="1" Grid.Column="1"  />
+
+            <TextBlock Text="Wrap:"
+                   Grid.Row="2" Grid.Column="0" 
+                VerticalAlignment="Center"       
+                />
+
+            <local:EnumPicker EnumType="bc3:FlexWrap"
+                              SelectedItem="{x:Bind flexLayout.Wrap, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="2" Grid.Column="1" />
+
+            <TextBlock Text="JustifyContent:"
+                   Grid.Row="3" Grid.Column="0" 
+                VerticalAlignment="Center"       
+                />
+            <local:EnumPicker EnumType="bc3:FlexJustify"
+                              SelectedItem="{x:Bind flexLayout.JustifyContent, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="3" Grid.Column="1" />
+
+            <TextBlock Text="AlignItems:"
+                   Grid.Row="4" Grid.Column="0"
+                VerticalAlignment="Center"       
+                />
+            <local:EnumPicker EnumType="bc3:FlexAlignItems"
+                              SelectedItem="{x:Bind flexLayout.AlignItems, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="4" Grid.Column="1" />
+
+            <TextBlock Text="AlignContent:"
+                   Grid.Row="5" Grid.Column="0"
+                VerticalAlignment="Center"       
+                />
+            <local:EnumPicker EnumType="bc3:FlexAlignContent"
+                              SelectedItem="{x:Bind flexLayout.AlignContent, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="5" Grid.Column="1" />
+        </Grid>
+
+        <!-- FlexLayout -->
+        <bc3:FlexLayout x:Name="flexLayout"
+                    Background="AliceBlue"
+                    Grid.Row="1" />
+    </Grid>
+</Page>

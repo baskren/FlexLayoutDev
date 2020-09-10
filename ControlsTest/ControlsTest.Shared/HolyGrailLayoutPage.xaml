@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="ControlsTest.HolyGrailLayoutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ControlsTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bc3="using:Bc3.Forms"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <bc3:FlexLayout Direction="Column">
+
+            <!-- Header -->
+            <Border Background="Aqua">
+                <TextBlock
+                Text="HEADER"
+                FontSize="40"
+                HorizontalTextAlignment="Center" />
+            </Border>
+                
+
+            <!-- Body -->
+            <bc3:FlexLayout bc3:FlexLayout.Grow="1.0">
+
+                <!-- Content -->
+                <Border 
+                    Background="Gray"
+                    >
+                    <TextBlock Text="CONTENT"
+                   FontSize="40"
+                   HorizontalTextAlignment="Center"
+                   VerticalAlignment="Center"
+                   bc3:FlexLayout.Grow="1.0" />
+                </Border>
+
+                <!-- Navigation items-->
+                <Rectangle 
+                    bc3:FlexLayout.Order="-1"
+                    bc3:FlexLayout.Basis="50"
+                     Fill="Blue" />
+
+                <!-- Aside items -->
+                <Rectangle 
+                    Fill="Green" 
+                    bc3:FlexLayout.Basis="50"
+                    />
+
+            </bc3:FlexLayout>
+
+            <!-- Footer -->
+            <Border Background="Pink" >
+                <TextBlock Text="FOOTER"
+               FontSize="40"
+               HorizontalTextAlignment="Center" />
+            </Border>
+
+        </bc3:FlexLayout>
+
+    </Grid>
+</Page>
