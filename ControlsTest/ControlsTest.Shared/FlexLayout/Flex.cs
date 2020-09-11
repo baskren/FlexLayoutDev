@@ -498,9 +498,7 @@ namespace Bc3.Flex
 				throw new InvalidOperationException("Layout() must be called on an item that has proper values for the Width and Height properties");
 			if (SelfSizing != null)
 				throw new InvalidOperationException("Layout() cannot be called on an item that has the SelfSizing property set");
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + ".Layout layout_item(this) ENTER");
 			layout_item(this, Width, Height);
-			//System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".Layout layout_item(this) EXIT");
 		}
 
 		public delegate void SelfSizingDelegate(Item item, ref double width, ref double height);

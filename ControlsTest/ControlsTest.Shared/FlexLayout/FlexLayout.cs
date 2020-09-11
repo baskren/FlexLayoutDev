@@ -25,10 +25,7 @@ namespace Bc3.Forms
         );
         protected virtual void OnPaddingChanged(DependencyPropertyChangedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnPaddingChanged ENTER");
             InvalidateMeasure();
-            //InvalidateArrange();
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnPaddingChanged EXIT");
         }
         public Thickness Padding
         {
@@ -49,11 +46,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnDirectionChanged ENTER");
                 _root.Direction = (Flex.Direction)(FlexDirection)e.NewValue;
                 InvalidateMeasure();
-                //InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnDirectionChanged EXTI");
             }
         }
         public FlexDirection Direction
@@ -75,11 +69,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnJustifyContentChanged ENTER");
                 _root.JustifyContent = (Flex.Justify)(FlexJustify)e.NewValue;
                 InvalidateMeasure();
-                //InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnJustifyContentChanged EXIT");
             }
         }
         public FlexJustify JustifyContent
@@ -101,11 +92,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnAlignContentChanged ENTER");
                 _root.AlignContent = (Flex.AlignContent)(FlexAlignContent)e.NewValue;
                 InvalidateMeasure();
-                //InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnAlignContentChanged EXIT");
             }
         }
         public FlexAlignContent AlignContent
@@ -127,11 +115,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnAlignItemsChanged ENTER");
                 _root.AlignItems = (Flex.AlignItems)(FlexAlignItems)e.NewValue;
                 InvalidateMeasure();
-               // InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnAlignItemsChanged EXIT");
             }
         }
         public FlexAlignItems AlignItems
@@ -153,11 +138,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnPositionChanged ENTER");
                 _root.Position = (Flex.Position)(FlexPosition)e.NewValue;
                 InvalidateMeasure();
-               // InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(11) + GetType() + ".OnPositionChanged EXIT");
             }
         }
         public FlexPosition Position
@@ -179,11 +161,8 @@ namespace Bc3.Forms
         {
             if (_root != null)
             {
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".OnWrapChanged ENTER");
                 _root.Wrap = (Flex.Wrap)(FlexWrap)e.NewValue;
                 InvalidateMeasure();
-                //InvalidateArrange();
-                //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".OnWrapChanged EXIT");
             }
         }
         public FlexWrap Wrap
@@ -423,24 +402,13 @@ namespace Bc3.Forms
                 item.SelfSizing = (Flex.Item it, ref double w, ref double h) => {
 
                     UpdateItemProperties(view, item);                    
-                    /*
-                    if (view.ActualSize.X > 0 && view.ActualSize.Y > 0)
-                    {
-                        w = (double)view.DesiredSize.Width;
-                        h = (double)view.DesiredSize.Height;
-                        System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + GetType() + ". item.SelfSizing EXISTING  " + (view is TextBlock ? "Text: " + "\"" + ((TextBlock)view).Text + "\"" : view.GetType().ToString()) + "   DESIRED[" + view.DesiredSize + "]  ACTUAL[" + view.ActualSize + "]");
-                        return;
-                    }
-                    */
 
                     if (view.DesiredSize.Width > 0 && view.DesiredSize.Height > 0)
                     {
                         w = (double)view.DesiredSize.Width;
                         h = (double)view.DesiredSize.Height;
-                        //System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + GetType() + ". item.SelfSizing EXISTING  " + (view is TextBlock ? "Text: " + "\"" + ((TextBlock)view).Text + "\"" : view.GetType().ToString()) + "   DESIRED[" + view.DesiredSize + "]  ACTUAL["+view.ActualSize+"]");
                         return;
                     }
-
 
                     var sizeConstraints = item.GetConstraints();
                     sizeConstraints.Width = (_measuring && sizeConstraints.Width == 0) ? double.PositiveInfinity : sizeConstraints.Width;
@@ -448,7 +416,6 @@ namespace Bc3.Forms
                     view.Measure(sizeConstraints);
                     w = (double)view.DesiredSize.Width;
                     h = (double)view.DesiredSize.Height;
-
                 };
             }
 
@@ -496,15 +463,10 @@ namespace Bc3.Forms
         #region Layout Handlers
         protected override Size ArrangeOverride(Size finalSize)
         {
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + $".ArrangeOverride ENTER [{finalSize}]");
-            //protected override void LayoutChildren(double x, double y, double width, double height)
             var width = finalSize.Width;
             var height = finalSize.Height;
 
-
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + $".ArrangeOverride.Layout ENTER [{finalSize}]");
             Layout(width, height);
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".ArrangeOverride.Layout EXIT [{finalSize}]");
 
             foreach (var child in Children)
             {
@@ -519,21 +481,13 @@ namespace Bc3.Forms
                     //frame = frame.Offset(x, y); //flex doesn't support offset on _root
                     child.Arrange(frame);
                 }
-                else
-                {
-                    //throw new Exception("ARGH");
-                    //AddChild(child);
-                }
             }
-
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".ArrangeOverride EXIT [{finalSize}]");
             return finalSize;
         }
 
         bool _measuring;
         protected override Size MeasureOverride(Size availableSize)
         {
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + $".MeasureOverride ENTER [{availableSize}]");
             var widthConstraint = availableSize.Width;
             var heightConstraint = availableSize.Height;
 
@@ -567,9 +521,7 @@ namespace Bc3.Forms
                 _root.Remove(item);
 
 
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + $".MeasureOverride.Layout ENTER [{availableSize}]");
             Layout(widthConstraint, heightConstraint);
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".MeasureOverride.Layout EXIT [{availableSize}]");
 
             //4. look at the children location
             if (double.IsPositiveInfinity(widthConstraint))
@@ -597,7 +549,6 @@ namespace Bc3.Forms
             _measuring = false;
 
             var result = new Size(widthConstraint, heightConstraint);
-            //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".MeasureOverride EXIT [{result}]");
             return result;
         }
 
