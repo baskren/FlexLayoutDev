@@ -57,7 +57,7 @@
                     </StackPanel>
                 </Border>
         </Popup>
-        <flex:FlexLayout
+        <flex:FlexPanel
             x:Name="_customPanel"
             Grid.Row="2"
             
@@ -72,7 +72,7 @@
                 Text="TEXT0"
                 Foreground="White"/>
 
-        </flex:FlexLayout>
+        </flex:FlexPanel>
 
 
     </Grid>

@@ -11,7 +11,7 @@
 
     <Grid>
         <ScrollViewer>
-            <bc3:FlexLayout x:Name="flexLayout"
+            <bc3:FlexPanel x:Name="flexPanel"
                         Wrap="Wrap"
                         JustifyContent="SpaceAround" />
         </ScrollViewer>

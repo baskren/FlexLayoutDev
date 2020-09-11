@@ -35,8 +35,8 @@
         </Style>
 
         <Style TargetType="Image">
-            <Setter Property="bc3:FlexLayout.Order" Value="-1" />
-            <Setter Property="bc3:FlexLayout.AlignSelf" Value="Center" />
+            <Setter Property="bc3:FlexPanel.Order" Value="-1" />
+            <Setter Property="bc3:FlexPanel.AlignSelf" Value="Center" />
         </Style>
 
         <Style TargetType="Button">
@@ -45,7 +45,7 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Green" />
             <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="bc3:FlexLayout.AlignSelf" Value="Center" />
+            <Setter Property="bc3:FlexPanel.AlignSelf" Value="Center" />
         </Style>
     </Page.Resources>
 
@@ -67,12 +67,12 @@
             VerticalContentAlignment="Top"
                         
             >
-            <bc3:FlexLayout
+            <bc3:FlexPanel
                 Background="Cyan"
                 Padding="0"
                 >
                 <Border >
-                    <bc3:FlexLayout Direction="Column">
+                    <bc3:FlexPanel Direction="Column">
                         <TextBlock Text="Seated Monkey" 
                            Style="{StaticResource headerTextBlock}" />
                         <TextBlock Text="This monkey is laid back and relaxed, and likes to watch the world go by." />
@@ -83,13 +83,13 @@
                            Width="180"
                            Height="180"
                                />
-                        <TextBlock bc3:FlexLayout.Grow="1" />
+                        <TextBlock bc3:FlexPanel.Grow="1" />
                         <Button />
-                    </bc3:FlexLayout>
+                    </bc3:FlexPanel>
                 </Border>
 
                 <Border>
-                    <bc3:FlexLayout Direction="Column">
+                    <bc3:FlexPanel Direction="Column">
                         <TextBlock Text="Banana Monkey"
                            Style="{StaticResource headerTextBlock}" />
                         <TextBlock Text="Watch this monkey eat a giant banana." />
@@ -98,13 +98,13 @@
                         <Image Source="/Assets/Banana.jpg"
                            Width="240"
                            Height="180" />
-                        <TextBlock bc3:FlexLayout.Grow="1" />
+                        <TextBlock bc3:FlexPanel.Grow="1" />
                         <Button />
-                    </bc3:FlexLayout>
+                    </bc3:FlexPanel>
                 </Border>
 
                 <Border>
-                    <bc3:FlexLayout Direction="Column">
+                    <bc3:FlexPanel Direction="Column">
                         <TextBlock Text="Face-Palm Monkey"
                            Style="{StaticResource headerTextBlock}" />
                         <TextBlock Text="This monkey reacts appropriately to ridiculous assertions and actions." />
@@ -114,11 +114,11 @@
                         <Image Source="/Assets/FacePalm.jpg"
                            Width="180"
                            Height="180" />
-                        <TextBlock bc3:FlexLayout.Grow="1" />
+                        <TextBlock bc3:FlexPanel.Grow="1" />
                         <Button />
-                    </bc3:FlexLayout>
+                    </bc3:FlexPanel>
                 </Border>
-            </bc3:FlexLayout>
+            </bc3:FlexPanel>
         </ScrollViewer>
 
     </Grid>

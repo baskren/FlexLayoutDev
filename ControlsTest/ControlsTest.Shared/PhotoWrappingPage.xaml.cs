@@ -69,13 +69,13 @@ namespace ControlsTest
                             byte[] imageBytes = await webClient.DownloadDataTaskAsync(imageUri);
                             var bitmapImage = await BitmapImageFromBytes(imageBytes);
                             var image = new Image { Stretch=Stretch.None, Source = bitmapImage };
-                            flexLayout.Children.Add(image);
+                            flexPanel.Children.Add(image);
                         }
                     }
                 }
                 catch
                 {
-                    flexLayout.Children.Add(new TextBox
+                    flexPanel.Children.Add(new TextBox
                     {
                         Text = "Cannot access list of bitmap files"
                     });

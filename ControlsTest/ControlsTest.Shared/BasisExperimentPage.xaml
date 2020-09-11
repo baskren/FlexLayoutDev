@@ -133,8 +133,8 @@
 
         </Grid>
 
-        <!-- FlexLayout -->
-        <bc3:FlexLayout 
+        <!-- FlexPanel -->
+        <bc3:FlexPanel 
             x:Name="_flexLayout"
             Grid.Row="1"
             Direction="Row"
@@ -148,7 +148,7 @@
             </Border>
 
             <Border x:Name="label2"
-                     bc3:FlexLayout.Basis="50"
+                     bc3:FlexPanel.Basis="50"
                 Background="Cyan">
                 <!--TextBlock 
                    Text="TextBlock 2"
@@ -162,7 +162,7 @@
             </Border>
 
             <Border  x:Name="label4"
-                     bc3:FlexLayout.Basis="50"
+                     bc3:FlexPanel.Basis="50"
                 Background="Cyan">
                 <!--TextBlock
                    Text="TextBlock 4"
@@ -175,6 +175,6 @@
                    Foreground="Blue"/>
             </Border>
             
-        </bc3:FlexLayout>
+        </bc3:FlexPanel>
     </Grid>
 </Page>

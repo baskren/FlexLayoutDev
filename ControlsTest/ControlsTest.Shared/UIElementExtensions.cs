@@ -70,12 +70,12 @@ namespace ControlsTest
             CompositionTarget.Rendering += renderingFrameEventHandler;
         }
 
-        public static FlexLayout GetFlexLayoutParent(this FrameworkElement element)
+        public static FlexPanel GetFlexLayoutParent(this FrameworkElement element)
         {
             var parent = element.Parent;
             do
             {
-                if (parent is FlexLayout flexParent)
+                if (parent is FlexPanel flexParent)
                     return flexParent;
                 if (parent is FrameworkElement grandParent)
                     parent = grandParent;

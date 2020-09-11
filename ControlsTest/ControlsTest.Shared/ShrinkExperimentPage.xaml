@@ -78,11 +78,11 @@
                    HorizontalAlignment="Center" />
         </Grid>
 
-        <!-- FlexLayout -->
-        <bc3:FlexLayout Grid.Row="1"
+        <!-- FlexPanel -->
+        <bc3:FlexPanel Grid.Row="1"
                     Background="AliceBlue">
 
-            <bc3:FlexLayout.Resources>
+            <bc3:FlexPanel.Resources>
                 <Style TargetType="TextBlock">
                     <Setter win:Property="FontSize" Value="48"/>
                     <!--
@@ -95,7 +95,7 @@
                         -->
 
                 </Style>
-            </bc3:FlexLayout.Resources>
+            </bc3:FlexPanel.Resources>
 
             <Border
                 Background="Pink">
@@ -105,7 +105,7 @@
 
             <Border
                 Background="Cyan" 
-                bc3:FlexLayout.Shrink="{x:Bind shrink2Slider.Value, Mode=TwoWay}" 
+                bc3:FlexPanel.Shrink="{x:Bind shrink2Slider.Value, Mode=TwoWay}" 
                 >
                 <TextBlock Text="TextBlock 2"
                    Foreground="Red"
@@ -120,7 +120,7 @@
 
             <Border
                 Background="Cyan" 
-                bc3:FlexLayout.Shrink="{x:Bind shrink4Slider.Value, Mode=TwoWay}" 
+                bc3:FlexPanel.Shrink="{x:Bind shrink4Slider.Value, Mode=TwoWay}" 
                 >
                 <TextBlock Text="TextBlock 4"
                    Foreground="Red"
@@ -132,6 +132,6 @@
                 <TextBlock Text="TextBlock 5"
                    Foreground="Blue"/>
             </Border>
-        </bc3:FlexLayout>
+        </bc3:FlexPanel>
     </Grid>
 </Page>

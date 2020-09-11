@@ -34,9 +34,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)FlexDemoHomePage.xaml.cs">
       <DependentUpon>FlexDemoHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)FlexLayout\FlexItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FlexLayout\FlexEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FlexLayout\FlexLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GrowExperimentPage.xaml.cs">
       <DependentUpon>GrowExperimentPage.xaml</DependentUpon>

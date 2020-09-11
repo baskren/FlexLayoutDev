@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Bc3.Forms
 {
-    public class FlexLayout : Panel
+    public class FlexPanel : Panel
     {
         #region Properties
 
@@ -19,8 +19,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register(
             nameof(Padding),
             typeof(Thickness),
-            typeof(FlexLayout),
-            new PropertyMetadata(new Thickness(0), new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnPaddingChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(new Thickness(0), new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnPaddingChanged(e)))
         );
         protected virtual void OnPaddingChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -38,8 +38,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register(
             nameof(Direction),
             typeof(FlexDirection),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexDirection.Row, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnDirectionChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexDirection.Row, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnDirectionChanged(e)))
         );
         protected virtual void OnDirectionChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -61,8 +61,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty JustifyContentProperty = DependencyProperty.Register(
             nameof(JustifyContent),
             typeof(FlexJustify),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexJustify.Start, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnJustifyContentChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexJustify.Start, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnJustifyContentChanged(e)))
         );
         protected virtual void OnJustifyContentChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -84,8 +84,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty AlignContentProperty = DependencyProperty.Register(
             nameof(AlignContent),
             typeof(FlexAlignContent),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexAlignContent.Stretch, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnAlignContentChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexAlignContent.Stretch, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnAlignContentChanged(e)))
         );
         protected virtual void OnAlignContentChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -107,8 +107,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty AlignItemsProperty = DependencyProperty.Register(
             nameof(AlignItems),
             typeof(FlexAlignItems),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexAlignItems.Stretch, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnAlignItemsChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexAlignItems.Stretch, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnAlignItemsChanged(e)))
         );
         protected virtual void OnAlignItemsChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -130,8 +130,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
             nameof(Position),
             typeof(FlexPosition),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexPosition.Relative, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnPositionChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexPosition.Relative, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnPositionChanged(e)))
         );
         protected virtual void OnPositionChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -153,8 +153,8 @@ namespace Bc3.Forms
         public static readonly DependencyProperty WrapProperty = DependencyProperty.Register(
             nameof(Wrap),
             typeof(FlexWrap),
-            typeof(FlexLayout),
-            new PropertyMetadata(FlexWrap.NoWrap, new PropertyChangedCallback((d,e) => ((FlexLayout)d).OnWrapChanged(e)))
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexWrap.NoWrap, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnWrapChanged(e)))
         );
         protected virtual void OnWrapChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -176,15 +176,15 @@ namespace Bc3.Forms
         static readonly DependencyProperty FlexItemProperty = DependencyProperty.Register(
             "FlexItem",
             typeof(object),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata(null)
         );
         static FlexItem GetFlexItem(UIElement element)
         {
             if (element is null)
                 return null;
-            if (element is FlexLayout flexLayout)
-                return flexLayout._root;
+            if (element is FlexPanel flexPanel)
+                return flexPanel._root;
             var item = (FlexItem)element.GetValue(FlexItemProperty);
             if (item is null)
             {
@@ -205,7 +205,7 @@ namespace Bc3.Forms
         public static readonly DependencyProperty OrderProperty = DependencyProperty.RegisterAttached(
             "Order",
             typeof(int),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata(default(int), OnOrderChanged)
         );
         static void OnOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -227,7 +227,7 @@ namespace Bc3.Forms
         public static readonly DependencyProperty GrowProperty = DependencyProperty.RegisterAttached(
             "Grow",
             typeof(double),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata(default(double), OnGrowChanged)
         );
         static void OnGrowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -249,7 +249,7 @@ namespace Bc3.Forms
         public static readonly DependencyProperty ShrinkProperty = DependencyProperty.RegisterAttached(
             "Shrink",
             typeof(double),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata(1.0, OnShrinkChanged)
         );
         static void OnShrinkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -271,7 +271,7 @@ namespace Bc3.Forms
         public static readonly DependencyProperty AlignSelfProperty = DependencyProperty.RegisterAttached(
             "AlignSelf",
             typeof(FlexAlignSelf),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata(FlexAlignSelf.Auto, OnAlignSelfChanged)
         );
         static void OnAlignSelfChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -293,7 +293,7 @@ namespace Bc3.Forms
         public static readonly DependencyProperty BasisProperty = DependencyProperty.RegisterAttached(
             "Basis",
             typeof(string),
-            typeof(FlexLayout),
+            typeof(FlexPanel),
             new PropertyMetadata("auto", OnBasisChanged)
         );
         static void OnBasisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -329,10 +329,10 @@ namespace Bc3.Forms
 
         static void InternalInvalidateArrange(UIElement element)
         {
-            if (element is FlexLayout)
+            if (element is FlexPanel)
                 element.InvalidateArrange();
-            else if (element is FrameworkElement frameworkElement && frameworkElement.Parent is FlexLayout flexLayout)
-                flexLayout.InvalidateArrange();
+            else if (element is FrameworkElement frameworkElement && frameworkElement.Parent is FlexPanel flexPanel)
+                flexPanel.InvalidateArrange();
         }
 
         static void UpdateItemProperties(UIElement view, FlexItem item)
@@ -367,7 +367,7 @@ namespace Bc3.Forms
 
 
         #region Construction
-        public FlexLayout()
+        public FlexPanel()
         {
             InitLayoutProperties(_root = new FlexItem());
         }
@@ -390,9 +390,9 @@ namespace Bc3.Forms
                 return null;
 
             view.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            var item = (view as FlexLayout)?._root ?? new FlexItem();
+            var item = (view as FlexPanel)?._root ?? new FlexItem();
             InitItemProperties(view, item);
-            if (!(view is FlexLayout))
+            if (!(view is FlexPanel))
             { 
                 //inner layouts don't get measured
                 item.SelfSizing = (FlexItem it, ref double w, ref double h) => {
@@ -443,13 +443,13 @@ namespace Bc3.Forms
             item.Height = height <= 0 ? double.NaN : (double)height;
 
             item.IsVisible = Visibility.Visible == (Visibility)view.GetValue(VisibilityProperty);
-            if (view is FlexLayout flexLayout)
+            if (view is FlexPanel flexPanel)
             {
-                //var (pleft, ptop, pright, pbottom) = (Thickness)flexLayout.GetValue(PaddingProperty);
-                item.PaddingLeft = (double)flexLayout.Padding.Left;
-                item.PaddingTop = (double)flexLayout.Padding.Top;
-                item.PaddingRight = (double)flexLayout.Padding.Right;
-                item.PaddingBottom = (double)flexLayout.Padding.Bottom;
+                //var (pleft, ptop, pright, pbottom) = (Thickness)flexPanel.GetValue(PaddingProperty);
+                item.PaddingLeft = (double)flexPanel.Padding.Left;
+                item.PaddingTop = (double)flexPanel.Padding.Top;
+                item.PaddingRight = (double)flexPanel.Padding.Right;
+                item.PaddingBottom = (double)flexPanel.Padding.Bottom;
             }
 
         }
@@ -557,9 +557,11 @@ namespace Bc3.Forms
             _root.Layout();
         }
         #endregion
+
+
     }
 
-    static class FlexExtensions
+    static class FlexItemExtensions
     {
         public static int IndexOf(this FlexItem parent, FlexItem child)
         {

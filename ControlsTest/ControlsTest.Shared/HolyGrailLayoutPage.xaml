@@ -11,7 +11,7 @@
 
     <Grid>
         
-        <bc3:FlexLayout Direction="Column">
+        <bc3:FlexPanel Direction="Column">
 
             <Border Background="Aqua">
                 <TextBlock
@@ -22,23 +22,23 @@
 
 
             <!-- Body -->
-            <bc3:FlexLayout 
+            <bc3:FlexPanel 
             Grid.Row="0"
             Direction="Row"
             Background="AliceBlue"
-            bc3:FlexLayout.Grow="1.0"
+            bc3:FlexPanel.Grow="1.0"
             >
 
                 <!-- Navigation items-->
                 <Rectangle 
-                    bc3:FlexLayout.Order="-1"
-                    bc3:FlexLayout.Basis="50"
+                    bc3:FlexPanel.Order="-1"
+                    bc3:FlexPanel.Basis="50"
                      Fill="Blue" />
 
                 <!-- Content -->
                 <Border 
                     Background="Gray"
-                    bc3:FlexLayout.Grow="1" 
+                    bc3:FlexPanel.Grow="1" 
                     >
                     <TextBlock 
                         Text="CONTENT"
@@ -53,17 +53,17 @@
                 <!-- Aside items -->
                 <Rectangle 
                     Fill="Green" 
-                    bc3:FlexLayout.Basis="50"
+                    bc3:FlexPanel.Basis="50"
                     />
 
-            </bc3:FlexLayout>
+            </bc3:FlexPanel>
             <Border Background="Pink" >
                 <TextBlock Text="FOOTER"
                FontSize="40"
                HorizontalTextAlignment="Center" />
             </Border>
 
-        </bc3:FlexLayout>
+        </bc3:FlexPanel>
 
 
 

@@ -10,13 +10,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <bc3:FlexLayout 
+        <bc3:FlexPanel 
             Direction="Column"
             AlignItems="Center"
             JustifyContent="SpaceEvenly">
 
             <TextBlock 
-                Text="FlexLayout in Action"
+                Text="FlexPanel in Action"
                 FontSize="40" />
 
             <Image 
@@ -28,6 +28,6 @@
 
             <TextBox 
                 Text="Another Label" />
-        </bc3:FlexLayout>
+        </bc3:FlexPanel>
     </Grid>
 </Page>

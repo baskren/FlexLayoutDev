@@ -69,20 +69,20 @@
                 HorizontalAlignment="Center" />
         </Grid>
 
-        <!-- bc3.FlexLayout -->
-        <bc3:FlexLayout 
+        <!-- bc3.FlexPanel -->
+        <bc3:FlexPanel 
             Grid.Row="1"
             Direction="Row"
             Background="AliceBlue">
 
-            <bc3:FlexLayout.Resources>
+            <bc3:FlexPanel.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="30" />
                 </Style>
-            </bc3:FlexLayout.Resources>
+            </bc3:FlexPanel.Resources>
 
             <Border Background="Pink" 
-                    bc3:FlexLayout.Basis="50"
+                    bc3:FlexPanel.Basis="50"
                     >
                 <!--TextBlock Text="TextBlock 1"
                    Foreground="Blue"/-->
@@ -91,7 +91,7 @@
 
             <Border
                    Background="Cyan"
-                   bc3:FlexLayout.Grow="{Binding Value, ElementName=grow2Slider, Mode=TwoWay}" 
+                   bc3:FlexPanel.Grow="{Binding Value, ElementName=grow2Slider, Mode=TwoWay}" 
                 >
                 <TextBlock Text="TextBlock 2"
                    Foreground="Red"
@@ -100,7 +100,7 @@
 
             <Border 
                    Background="Pink" 
-                    bc3:FlexLayout.Basis="50"
+                    bc3:FlexPanel.Basis="50"
                 >
                 <!--TextBlock Text="TextBlock 3"
                    Foreground="Blue"
@@ -109,7 +109,7 @@
 
             <Border
                    Background="Cyan"
-                   bc3:FlexLayout.Grow="{Binding Value, ElementName=grow4Slider, Mode=TwoWay}" 
+                   bc3:FlexPanel.Grow="{Binding Value, ElementName=grow4Slider, Mode=TwoWay}" 
                 >
                 <TextBlock Text="TextBlock 4"
                    Foreground="Red"
@@ -118,12 +118,12 @@
 
             <Border
                    Background="Pink" 
-                    bc3:FlexLayout.Basis="50"
+                    bc3:FlexPanel.Basis="50"
                 >
                 <!--TextBlock Text="TextBlock 5"
                    Foreground="Blue"
                            /-->
             </Border>            
-        </bc3:FlexLayout>
+        </bc3:FlexPanel>
     </Grid>
 </Page>

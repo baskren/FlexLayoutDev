@@ -38,7 +38,7 @@ namespace ControlsTest
         public ExperimentPage()
         {
             this.InitializeComponent();
-            OnNumberStepperValueChanged(flexLayout, numberStepper.Value);
+            OnNumberStepperValueChanged(flexPanel, numberStepper.Value);
 
         }
 
@@ -49,18 +49,18 @@ namespace ControlsTest
 
         void OnNumberStepperValueChanged(object sender, double newValue)
         {
-            if (flexLayout == null)
+            if (flexPanel == null)
                 return;
 
             int count = (int)newValue;
 
-            while (flexLayout.Children.Count > count)
+            while (flexPanel.Children.Count > count)
             {
-                flexLayout.Children.RemoveAt(flexLayout.Children.Count - 1);
+                flexPanel.Children.RemoveAt(flexPanel.Children.Count - 1);
             }
-            while (flexLayout.Children.Count < count)
+            while (flexPanel.Children.Count < count)
             {
-                int number = flexLayout.Children.Count + 1;
+                int number = flexPanel.Children.Count + 1;
                 string text = "";
 
                 if (number < 20)
@@ -96,17 +96,17 @@ namespace ControlsTest
                     
                 };
 
-                flexLayout.Children.Add(border);
+                flexPanel.Children.Add(border);
             }
         }
 
         void OnFlexDirectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //flexLayout.Direction = 
+            //flexPanel.Direction = 
             if (sender is EnumPicker picker)
             {
                 var direction = (FlexDirection)picker.SelectedItem;
-                flexLayout.Direction = direction;
+                flexPanel.Direction = direction;
             }
         }
     }
