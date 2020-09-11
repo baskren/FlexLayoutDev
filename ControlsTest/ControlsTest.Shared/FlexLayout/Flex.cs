@@ -190,6 +190,7 @@ namespace Bc3.Flex
 	}
     #endregion
 
+
     #region structs
     /// <summary>
     /// Value for <see cref="P:Bc3.Flex.Item.Basis" />.
@@ -257,7 +258,7 @@ namespace Bc3.Flex
     #endregion
 
 
-
+    #region Item
     /// <summary>
     /// An item with flexbox properties. Items can also contain other items and be enumerated.
     /// </summary>
@@ -407,6 +408,12 @@ namespace Bc3.Flex
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Wrap" /> enumeration.</value>
 		/// <remarks>The default value for this property is NoWrap.</remarks>
 		public Wrap Wrap { get; set; } = Wrap.NoWrap;
+		#endregion
+
+
+		#region Fields
+		public static int _instances;
+		public int _instance;
         #endregion
 
 
@@ -416,6 +423,7 @@ namespace Bc3.Flex
         /// </summary>
         public Item()
 		{
+			_instance = _instances++;
 		}
 
         /// <summary>
@@ -423,7 +431,7 @@ namespace Bc3.Flex
         /// </summary>
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>
-        public Item(double width, double height)
+        public Item(double width, double height) : this()
 		{
 			Width = width;
 			Height = height;
@@ -519,7 +527,7 @@ namespace Bc3.Flex
 			if (item.Children == null || item.Children.Count == 0)
 				return;
 
-			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + "Flex.layoutItem(item, " + width + ", " + height + ") item.Count=["+item.Count+"] ENTER");
+			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + $"Flex[{item._instance}].layoutItem(item, " + width + ", " + height + ") item.Count=["+item.Count+"] ENTER");
 
 			var layout = new flex_layout();
 			layout.init(item, width, height);
@@ -528,13 +536,18 @@ namespace Bc3.Flex
 			int last_layout_child = 0;
 			int relative_children_count = 0;
 
-			System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + "pos_i:" + layout.frame_pos_i + "  pos2_i:" + layout.frame_pos2_i + "  size_i:" + layout.frame_size_i + "  size2_i:" + layout.frame_size2_i);
+			System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}] pos_i:" + layout.frame_pos_i + "  pos2_i:" + layout.frame_pos2_i + "  size_i:" + layout.frame_size_i + "  size2_i:" + layout.frame_size2_i);
+			System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}] grow=[{item.Grow}]   shrink=[{item.Shrink}]   basis=[{item.Basis}]   order=[{item.Order}]   align-self=[{item.AlignSelf}]");
+
+			if (item.Count > 0)
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}] JustifyContent=[{item.JustifyContent}]   AlignContent=[{item.AlignContent}]   AlignItems=[{item.AlignItems}]   Position=[{item.Position}]   Wrap=[{item.Wrap}]");
 
 			for (int i = 0; i < item.Count; i++)
 			{
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + "=============================== i=[" + i + "] ENTER");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}] =============================== child=[" + i + "] ENTER");
 				var child = layout.child_at(item, i);
 				if (!child.IsVisible) continue;
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}] CHILD: grow=[{child.Grow}]   shrink=[{child.Shrink}]   basis=[{child.Basis}]   order=[{child.Order}]   align-self=[{child.AlignSelf}]");
 
 				// Items with an absolute position have their frames determined
 				// directly and are skipped during layout.
@@ -546,10 +559,10 @@ namespace Bc3.Flex
 					child.Frame[1] = absolute_pos(child.Top, child.Bottom, child.Frame[3], height);
 
 
-                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + $"Flex.layoutItem layout_item(child) ENTER - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + $"Flex[{item._instance}].layoutItem layout_item(child) ENTER - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 					// Now that the item has a frame, we can layout its children.
 					layout_item(child, child.Frame[2], child.Frame[3]);
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + "Flex.layoutItem layout_item(child) EXIT");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + $"Flex[{item._instance}].layoutItem layout_item(child) EXIT");
 					continue;
 				}
 
@@ -558,13 +571,13 @@ namespace Bc3.Flex
 				child.Frame[1] = 0;
 				child.Frame[2] = child.Width + child.MarginThickness(false);
 				child.Frame[3] = child.Height + child.MarginThickness(true);
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    A - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    A - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 
 				// Main axis size defaults to 0.
 				if (double.IsNaN(child.Frame[layout.frame_size_i]))
 				{
 					child.Frame[layout.frame_size_i] = 0;
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    B - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    B - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 				}
 
 				// Cross axis size defaults to the parent's size (or line size in wrap
@@ -576,7 +589,7 @@ namespace Bc3.Flex
 					else
 					{
 						child.Frame[layout.frame_size2_i] = (layout.vertical ? width : height) - child.MarginThickness(!layout.vertical);
-						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    C - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    C - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 					}
 				}
 
@@ -587,14 +600,14 @@ namespace Bc3.Flex
 				{
 					double[] size = { child.Frame[2], child.Frame[3] };
 
-                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + $"Flex.LayoutItem child.SelfSizing ENTER FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}] index: " + i);
+                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + $"Flex[{item._instance}].LayoutItem child.SelfSizing ENTER FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}] index: " + i);
 					child.SelfSizing(child, ref size[0], ref size[1]);
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + $"Flex.LayoutItem child.SelfSizing EXIT FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}] size[{size[0]}, {size[1]}] index: " + i);
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + $"Flex[{item._instance}].LayoutItem child.SelfSizing EXIT FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}] size[{size[0]}, {size[1]}] index: " + i);
 
 					for (int j = 0; j < 2; j++)
 					{
 						int size_off = j + 2;
-						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + "Flex.LayoutItem size_off[" + size_off + "] layout.frame_size2_i[" + layout.frame_size2_i + "]     PARENT[" + item.AlignItems + "]     CHILD[" + child.AlignSelf + "]   child_align:["+ child_align(child, item) + "]");
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].LayoutItem size_off[" + size_off + "] layout.frame_size2_i[" + layout.frame_size2_i + "]     PARENT[" + item.AlignItems + "]     CHILD[" + child.AlignSelf + "]   child_align:["+ child_align(child, item) + "]");
 						if (size_off == layout.frame_size2_i && child_align(child, item) == AlignItems.Stretch)
 						{
 							//child.Frame[size_off] = double.NaN;
@@ -604,7 +617,7 @@ namespace Bc3.Flex
 						if (!double.IsNaN(val))
 						{
 							child.Frame[size_off] = val;
-							System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    D - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+							System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    D - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 						}
 					}
 				}
@@ -618,17 +631,17 @@ namespace Bc3.Flex
 					if (child.Basis.IsRelative)
 						basis *= (layout.vertical ? height : width);
 					child.Frame[layout.frame_size_i] = basis - child.MarginThickness(layout.vertical);
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    E - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    E - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 				}
 
 				double child_size = child.Frame[layout.frame_size_i];
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem child_size:{child_size}  layout.flex_dim:{layout.flex_dim}");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem child_size:{child_size}  layout.flex_dim:{layout.flex_dim}");
 				if (layout.wrap)
 				{
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem layout.wrap");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem layout.wrap");
 					if (layout.flex_dim < child_size)
 					{
-						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem layout.flex_dim < child_size");
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem layout.flex_dim < child_size");
 						// Not enough space for this child on this line, layout the
 						// remaining items and move it to a new line.
 						layout_items(item, last_layout_child, i, relative_children_count, ref layout);
@@ -639,19 +652,20 @@ namespace Bc3.Flex
 					}
 
 					double child_size2 = child.Frame[layout.frame_size2_i];
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem child_size2: {child_size2}");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem child_size2: {child_size2}");
 					if (!double.IsNaN(child_size2) && child_size2 + child.MarginThickness(!layout.vertical) > layout.line_dim)
 					{
 						layout.line_dim = child_size2 + child.MarginThickness(!layout.vertical);
-						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem layout.line_dim: {layout.line_dim}");
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem layout.line_dim: {layout.line_dim}");
 					}
 				}
 
-				if (child.Grow < 0
-					|| child.Shrink < 0)
+				if (child.Grow < 0 || child.Shrink < 0)
 					throw new Exception("shrink and grow should be >= 0");
 
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem child._instance[{child._instance}]   child.Grow=[{child.Grow}]   flex_grows: {layout.flex_grows}");
 				layout.flex_grows += child.Grow;
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem flex_grows: {layout.flex_grows}");
 				layout.flex_shrinks += child.Shrink;
 
 				layout.flex_dim -= child_size + child.MarginThickness(layout.vertical);
@@ -660,7 +674,9 @@ namespace Bc3.Flex
 
 				if (child_size > 0 && child.Grow > 0)
 				{
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem extra_flex_dim: {layout.extra_flex_dim}");
 					layout.extra_flex_dim += child_size;
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem extra_flex_dim: {layout.extra_flex_dim}");
 				}
 			}
 
@@ -679,7 +695,7 @@ namespace Bc3.Flex
 				if (flex_dim > 0)
 				{
 					layout_align(item.AlignContent, flex_dim, (uint)(layout.lines?.Length ?? 0), ref pos, ref spacing);
-					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem pos:{pos}    spacing:{spacing}");
+					System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem pos:{pos}    spacing:{spacing}");
 				}
 
 				double old_pos = 0;
@@ -718,10 +734,10 @@ namespace Bc3.Flex
 							child.Frame[layout.frame_size2_i] = line.size
 								+ (item.AlignContent == AlignContent.Stretch
 								   ? spacing : 0);
-							System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem  spacing:{spacing}   F - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+							System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem  spacing:{spacing}   F - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 						}
 						child.Frame[layout.frame_pos2_i] = pos + (child.Frame[layout.frame_pos2_i] - old_pos);
-						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItem    G - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem    G - FRAME[{child.Frame[0]}, {child.Frame[1]}, {child.Frame[2]},{child.Frame[3]}]");
 					}
 
 					if (!layout.reverse2)
@@ -735,7 +751,7 @@ namespace Bc3.Flex
 
 			layout.cleanup();
 
-			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + "Flex.layoutItem(item, " + width + ", " + height + ") item.Count=[" + item.Count + "] EXIT");
+			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + $"Flex[{item._instance}].layoutItem(item, " + width + ", " + height + ") item.Count=[" + item.Count + "] EXIT");
 
 		}
 
@@ -833,7 +849,7 @@ namespace Bc3.Flex
 			if (children_count <= 0)
 				return;
 
-			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + "Flex.layout_items(item, " + child_begin + ", " + child_end + ", "+children_count+") item.Count=[" + item.Count + "] ENTER");
+			System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + $"Flex[{item._instance}].layout_items(item, " + child_begin + ", " + child_end + ", "+children_count+") item.Count=[" + item.Count + "] ENTER");
 
 
 			if (layout.flex_dim > 0 && layout.extra_flex_dim > 0)
@@ -870,7 +886,7 @@ namespace Bc3.Flex
 
 			for (int i = child_begin; i < child_end; i++)
 			{
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + "Flex.layout_items i=["+i+"]");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layout_items i=[" +i+"]");
 
 				Item child = layout.child_at(item, i);
 				if (!child.IsVisible) continue;
@@ -882,12 +898,14 @@ namespace Bc3.Flex
 
 				// Grow or shrink the main axis item size if needed.
 				double flex_size = 0;
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem flex_dim: {layout.flex_dim} i={i} child.Grow={child.Grow} ");
 				if (layout.flex_dim > 0)
 				{
 					if (child.Grow != 0)
 					{
 						child.Frame[layout.frame_size_i] = 0; // Ignore previous size when growing.
 						flex_size = (layout.flex_dim / layout.flex_grows) * child.Grow;
+						System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItem flex_dim: {layout.flex_dim}    flex_dim: {layout.flex_grows}   child.Grow: {child.Grow}");
 					}
 				}
 				else if (layout.flex_dim < 0)
@@ -898,13 +916,13 @@ namespace Bc3.Flex
 					}
 				}
 				child.Frame[layout.frame_size_i] += flex_size;
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + "Flex.layout_items  **1**   i=["+i+"] child.Frame=[" + string.Join(",", child.Frame) + "]");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layout_items  **1**   i=[" +i+"] child.Frame=[" + string.Join(",", child.Frame) + "]");
 
 				// Set the cross axis position (and stretch the cross axis size if
 				// needed).
 				double align_size = child.Frame[layout.frame_size2_i];
 				double align_pos = layout.pos2 + 0;
-				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex.layoutItems  **2**   align_size:{align_size}  align_pos:{align_pos}");
+				System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $"Flex[{item._instance}].layoutItems  **2**   align_size:{align_size}  align_pos:{align_pos}");
 				switch (child_align(child, item))
 				{
 					case AlignItems.End:
@@ -1139,4 +1157,5 @@ namespace Bc3.Flex
 
         #endregion
     }
+    #endregion
 }

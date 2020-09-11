@@ -28,16 +28,6 @@ namespace ControlsTest
             this.InitializeComponent();
         }
 
-        private void X_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void X_Toggled(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         void OnLabel2AutoSwitchToggled(object sender, RoutedEventArgs args)
         {
             if (autoSwitch2 is null || relativeSwitch2 is null)

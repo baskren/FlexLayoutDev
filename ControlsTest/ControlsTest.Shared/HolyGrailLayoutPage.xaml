@@ -10,36 +10,45 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        
         <bc3:FlexLayout Direction="Column">
 
-            <!-- Header -->
             <Border Background="Aqua">
                 <TextBlock
                 Text="HEADER"
                 FontSize="40"
                 HorizontalTextAlignment="Center" />
             </Border>
-                
+
 
             <!-- Body -->
-            <bc3:FlexLayout bc3:FlexLayout.Grow="1.0">
-
-                <!-- Content -->
-                <Border 
-                    Background="Gray"
-                    >
-                    <TextBlock Text="CONTENT"
-                   FontSize="40"
-                   HorizontalTextAlignment="Center"
-                   VerticalAlignment="Center"
-                   bc3:FlexLayout.Grow="1.0" />
-                </Border>
+            <bc3:FlexLayout 
+            Grid.Row="0"
+            Direction="Row"
+            Background="AliceBlue"
+            bc3:FlexLayout.Grow="1.0"
+            >
 
                 <!-- Navigation items-->
                 <Rectangle 
                     bc3:FlexLayout.Order="-1"
                     bc3:FlexLayout.Basis="50"
                      Fill="Blue" />
+
+                <!-- Content -->
+                <Border 
+                    Background="Gray"
+                    bc3:FlexLayout.Grow="1" 
+                    >
+                    <TextBlock 
+                        Text="CONTENT"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        />
+                </Border>
+
 
                 <!-- Aside items -->
                 <Rectangle 
@@ -48,8 +57,6 @@
                     />
 
             </bc3:FlexLayout>
-
-            <!-- Footer -->
             <Border Background="Pink" >
                 <TextBlock Text="FOOTER"
                FontSize="40"
@@ -57,6 +64,9 @@
             </Border>
 
         </bc3:FlexLayout>
+
+
+
 
     </Grid>
 </Page>

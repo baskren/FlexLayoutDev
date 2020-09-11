@@ -205,6 +205,8 @@ namespace Bc3.Forms
         {
             if (element is null)
                 return null;
+            if (element is FlexLayout flexLayout)
+                return flexLayout._root;
             var item = (Flex.Item)element.GetValue(FlexItemProperty);
             if (item is null)
             {
@@ -214,7 +216,10 @@ namespace Bc3.Forms
             return item;
         }
         static void SetFlexItem(UIElement element, Flex.Item value)
-            => element.SetNewValue(FlexItemProperty, value);
+        {
+            element.SetNewValue(FlexItemProperty, value);
+            UpdateItemProperties(element, value);
+        }
         #endregion FlexItem Property
 
 
@@ -227,14 +232,10 @@ namespace Bc3.Forms
         );
         static void OnOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is FrameworkElement element)
+            if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
             {
-                if (element.ReadLocalValue(FlexItemProperty) != DependencyProperty.UnsetValue)
-                {
-                    GetFlexItem(element).Order = (int) e.NewValue;
-                    if (element.Parent is FlexLayout flexLayout)
-                        flexLayout.InvalidateArrange();
-                }
+                item.Order = (int) e.NewValue;
+                InternalInvalidateArrange(element);
             }
         }
         public static int GetOrder(UIElement element)
@@ -253,11 +254,11 @@ namespace Bc3.Forms
         );
         static void OnGrowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is FrameworkElement element)
+            if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
             {
-                GetFlexItem(element).Grow = (double)e.NewValue;
-                if (element.Parent is FlexLayout flexLayout)
-                    flexLayout.InvalidateArrange();
+                item.Grow = (double)e.NewValue;
+                System.Diagnostics.Debug.WriteLine( $"FlexLayout.OnGrowChanged element.GetType=[{element.GetType()}]   item._instance[{item._instance}] value=[{item.Grow}]");
+                InternalInvalidateArrange(element);
             }
         }
         public static double GetGrow(UIElement element)
@@ -276,11 +277,10 @@ namespace Bc3.Forms
         );
         static void OnShrinkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is FrameworkElement element)
+            if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
             {
-                GetFlexItem(element).Shrink = (double)e.NewValue;
-                if (element.Parent is FlexLayout flexLayout)
-                    flexLayout.InvalidateArrange();
+                item.Shrink = (double)e.NewValue;
+                InternalInvalidateArrange(element);
             }
         }
         public static double GetShrink(UIElement element)
@@ -299,11 +299,10 @@ namespace Bc3.Forms
         );
         static void OnAlignSelfChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is FrameworkElement element)
+            if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
             {
-                GetFlexItem(element).AlignSelf = (Flex.AlignSelf)(FlexAlignSelf)e.NewValue;
-                if (element.Parent is FlexLayout flexLayout)
-                    flexLayout.InvalidateArrange();
+                item.AlignSelf = (Flex.AlignSelf)(FlexAlignSelf)e.NewValue;
+                InternalInvalidateArrange(element);
             }
         }
         public static FlexAlignSelf GetAlignSelf(UIElement element)
@@ -322,8 +321,15 @@ namespace Bc3.Forms
         );
         static void OnBasisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is FrameworkElement element && e.NewValue is string value)
-                SetBasis(element, value);
+            if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
+            {
+                if (e.NewValue is string value)
+                    item.Basis = Flex.Basis.Parse(value);
+                else
+                    item.Basis = Flex.Basis.Auto;
+                System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $" SetBasis=[{item.Basis}]");
+                InternalInvalidateArrange(element);
+            }
         }
         public static string GetBasis(UIElement element)
         {
@@ -332,14 +338,8 @@ namespace Bc3.Forms
              return "auto";
         }
         public static void SetBasis(UIElement element, string value)
-        {
-            if (GetFlexItem(element) is Flex.Item item)
-            {
-                item.Basis = Flex.Basis.Parse(value);
-                if (element is FrameworkElement frameworkElement && frameworkElement.Parent is FlexLayout flexLayout)
-                    flexLayout.InvalidateArrange();
-            }
-        }
+            =>element?.SetNewValue(BasisProperty, value);
+        
 
         static Flex.Basis InternalGetFlexBasis(UIElement element)
         {
@@ -348,24 +348,67 @@ namespace Bc3.Forms
             return Flex.Basis.Auto;
         }
         public static void SetBasis(UIElement element, FlexBasis value)
-        {
-            SetBasis(element, value.ToString());
-        }
+            =>SetBasis(element, value.ToString());
         #endregion Basis Property
 
+        static void InternalInvalidateArrange(UIElement element)
+        {
+            if (element is FlexLayout)
+                element.InvalidateArrange();
+            else if (element is FrameworkElement frameworkElement && frameworkElement.Parent is FlexLayout flexLayout)
+                flexLayout.InvalidateArrange();
+        }
 
+        static void UpdateItemProperties(UIElement view, Flex.Item item)
+        {
+
+            item.IsVisible = view.Visibility == Visibility.Visible;
+
+            if (view is FrameworkElement element)
+            {
+                item.MarginLeft = (double)element.Margin.Left;
+                item.MarginTop = (double)element.Margin.Top;
+                item.MarginRight = (double)element.Margin.Right;
+                item.MarginBottom = (double)element.Margin.Bottom;
+            }
+
+            if (view is Control control)
+                item.SetPadding(control.Padding);
+            else if (view is Border border)
+                item.SetPadding(border.Padding);
+            else if (view is TextBlock textBlock)
+                item.SetPadding(textBlock.Padding);
+            else if (view is RichTextBlock richTextBlock)
+                item.SetPadding(richTextBlock.Padding);
+
+            item.Order = GetOrder(view);
+            item.Grow = GetGrow(view);
+            item.Shrink = GetShrink(view);
+            item.AlignSelf = (Flex.AlignSelf)GetAlignSelf(view);
+            item.Basis = InternalGetFlexBasis(view);
+
+            System.Diagnostics.Debug.WriteLine($"FlexLayout.UpdateItemProperties : view.Type=[{view.GetType()}]   item._instance=[{item._instance}]    item.Grow=" + item.Grow);
+        }
         #endregion
+
 
         #region Fields
         Flex.Item _root; // = new Flex.Item();
+        static int _instances;
+        int _instance;
         #endregion
 
 
+        #region Construction
         public FlexLayout()
         {
+            _instance = _instances++;
             InitLayoutProperties(_root = new Flex.Item());
         }
+        #endregion
 
+
+        #region Children Handlers
         void InitLayoutProperties(Flex.Item item)
         {
             item.AlignContent = (Flex.AlignContent)(FlexAlignContent)GetValue(AlignContentProperty);
@@ -375,14 +418,13 @@ namespace Bc3.Forms
             item.Wrap = (Flex.Wrap)(FlexWrap)GetValue(WrapProperty);
         }
 
-
         Flex.Item AddChild(FrameworkElement view)
         {
             if (_root == null)
                 return null;
 
             System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".AddChild ENTER view: " + (view is TextBlock ? "\""+((TextBlock)view).Text + "\"" : view.GetType().ToString()));
-
+            view.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var item = (view as FlexLayout)?._root ?? new Flex.Item();
             InitItemProperties(view, item);
             if (!(view is FlexLayout))
@@ -390,25 +432,7 @@ namespace Bc3.Forms
                 //inner layouts don't get measured
                 item.SelfSizing = (Flex.Item it, ref double w, ref double h) => {
 
-                    item.IsVisible = view.Visibility == Visibility.Visible;
-                    
-                    if (view is FrameworkElement element)
-                    {
-                        item.MarginLeft = (double)element.Margin.Left;
-                        item.MarginTop = (double)element.Margin.Top;
-                        item.MarginRight = (double)element.Margin.Right;
-                        item.MarginBottom = (double)element.Margin.Bottom;
-                    }
-
-                    if ( view is Control control)
-                        item.SetPadding(control.Padding);
-                    else if (view is Border border)
-                        item.SetPadding(border.Padding);
-                    else if (view  is TextBlock textBlock)
-                        item.SetPadding(textBlock.Padding);
-                    else if (view is RichTextBlock richTextBlock)
-                        item.SetPadding(richTextBlock.Padding);
-                    
+                    UpdateItemProperties(view, item);                    
                     /*
                     if (view.ActualSize.X > 0 && view.ActualSize.Y > 0)
                     {
@@ -478,8 +502,10 @@ namespace Bc3.Forms
             }
 
         }
+        #endregion
 
 
+        #region Layout Handlers
         protected override Size ArrangeOverride(Size finalSize)
         {
             //System.Diagnostics.Debug.WriteLine(Global.DebugIndent(1) + GetType() + $".ArrangeOverride ENTER [{finalSize}]");
@@ -598,6 +624,7 @@ namespace Bc3.Forms
             _root.Layout();
             System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".Layout EXIT [{width}, {height}]");
         }
+        #endregion
     }
 
     static class FlexExtensions

@@ -20,10 +20,10 @@
                 <muxc:NavigationViewItem Tag="photoWrapping" Icon="Page" Content="Photo Wrapping Page"/>
                 <muxc:NavigationViewItem Tag="holyGrail" Icon="Page" Content="Holy Grail Page"/>
                 <muxc:NavigationViewItem Tag="catalogItems" Icon="Page"  Content="Catalog Items Page" />
-                <muxc:NavigationViewItem Tag="experiment" Icon="Page" Content="Experiement Page"/>
-                <muxc:NavigationViewItem Tag="basisExperiment" Icon="Page" Content="Basis Experiement Page"/>
-                <muxc:NavigationViewItem Tag="growExperiment" Icon="Page" Content="Grow Experiement Page"/>
-                <muxc:NavigationViewItem Tag="shrinkExperiment" Icon="Page" Content="Shrink Experiement Page"/>
+                <muxc:NavigationViewItem Tag="experiment" Icon="Page" Content="Experiment Page"/>
+                <muxc:NavigationViewItem Tag="basisExperiment" Icon="Page" Content="Basis Experiment Page"/>
+                <muxc:NavigationViewItem Tag="growExperiment" Icon="Page" Content="Grow Experiment Page"/>
+                <muxc:NavigationViewItem Tag="shrinkExperiment" Icon="Page" Content="Shrink Experiment Page"/>
                 <muxc:NavigationViewItem Tag="cssCatalogItems" Icon="Page"  Content="CSS Catalog Items Page" />
 
             </muxc:NavigationView.MenuItems>

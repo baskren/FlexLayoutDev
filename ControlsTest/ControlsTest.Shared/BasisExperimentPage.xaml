@@ -29,6 +29,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -51,8 +52,7 @@
             </Grid.Resources>
 
             <!-- Controls for TextBlock 2 -->
-            <TextBlock Text="TextBlock 2:"
-                   Grid.Row="0" Grid.Column="0" />
+            <TextBlock Text="TextBlock 2:" Grid.Row="0" Grid.Column="0" />
 
             <StackPanel Grid.Row="0" Grid.Column="1">
 
@@ -70,7 +70,7 @@
                 <ToggleSwitch x:Name="relativeSwitch2"
                         IsOn="True"
                         Toggled="OnLabel2IsRelativeSwitchToggled"
-                        IsEnabled="{x:Bind autoSwitch2.IsOn, Converter={StaticResource booleanInverse}, Mode=OneWay}" />
+                        IsEnabled="{x:Bind autoSwitch2.IsOn, Converter={StaticResource booleanInverse}, Mode=TwoWay}" />
             </StackPanel>
 
             <Slider x:Name="slider2"
@@ -79,7 +79,7 @@
                     Minimum="0"
                     Maximum="1"
                     StepFrequency="0.01"
-                    IsEnabled="{x:Bind autoSwitch2.IsOn, Converter={StaticResource booleanInverse}, Mode=OneWay}" />
+                    IsEnabled="{x:Bind autoSwitch2.IsOn, Converter={StaticResource booleanInverse}, Mode=TwoWay}" />
 
             <TextBlock 
                 Text="{x:Bind slider2.Value, Converter={StaticResource StringFormatConverter }, ConverterParameter='Value = {0:F2}', Mode=OneWay}"
@@ -106,7 +106,7 @@
                 <ToggleSwitch x:Name="relativeSwitch4"
                         IsOn="True"
                         Toggled="OnLabel4IsRelativeSwitchToggled"
-                        IsEnabled="{x:Bind autoSwitch4.IsOn, Converter={StaticResource booleanInverse}, Mode=OneWay}" />
+                        IsEnabled="{x:Bind autoSwitch4.IsOn, Converter={StaticResource booleanInverse}, Mode=TwoWay}" />
             </StackPanel>
 
             <Slider x:Name="slider4"
@@ -115,19 +115,31 @@
                     Minimum="0"
                     Maximum="1"
                     StepFrequency="0.01"
-                    IsEnabled="{x:Bind autoSwitch4.IsOn, Converter={StaticResource booleanInverse}, Mode=OneWay}" />
+                    IsEnabled="{x:Bind autoSwitch4.IsOn, Converter={StaticResource booleanInverse}, Mode=TwoWay}" />
 
             <TextBlock 
                 Text="{x:Bind slider4.Value, Converter={StaticResource StringFormatConverter }, ConverterParameter='Value = {0:F2}', Mode=OneWay}"
                    Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" />
+
+
+            <TextBlock Grid.Row="6" Text="Orientation" />
+            <local:EnumPicker EnumType="bc3:FlexDirection"
+                              SelectedItem="{x:Bind _flexLayout.Direction, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Grid.Row="6" Grid.Column="1"
+                              />
+
         </Grid>
 
         <!-- FlexLayout -->
-        <bc3:FlexLayout Grid.Row="1"
-                    Direction="Column"
-                    Wrap="Wrap"
-                    Background="AliceBlue">
+        <bc3:FlexLayout 
+            x:Name="_flexLayout"
+            Grid.Row="1"
+            Direction="Row"
+            Wrap="Wrap"
+            Background="AliceBlue">
 
             <Border
                 Background="Pink">
@@ -136,10 +148,11 @@
             </Border>
 
             <Border x:Name="label2"
+                     bc3:FlexLayout.Basis="50"
                 Background="Cyan">
-                <TextBlock 
+                <!--TextBlock 
                    Text="TextBlock 2"
-                   Foreground="Red"/>
+                   Foreground="Red"/-->
             </Border>
 
             <Border
@@ -149,10 +162,11 @@
             </Border>
 
             <Border  x:Name="label4"
+                     bc3:FlexLayout.Basis="50"
                 Background="Cyan">
-                <TextBlock
+                <!--TextBlock
                    Text="TextBlock 4"
-                   Foreground="Red"/>
+                   Foreground="Red"/-->
             </Border>
 
             <Border

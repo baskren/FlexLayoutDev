@@ -58,6 +58,7 @@
                    Grid.Row="2" Grid.Column="0" />
 
             <Slider x:Name="grow4Slider"
+                    Value="1.0"
                     Grid.Row="2" Grid.Column="1"
                     StepFrequency="0.01"
                     Maximum="5" />
@@ -71,18 +72,20 @@
         <!-- bc3.FlexLayout -->
         <bc3:FlexLayout 
             Grid.Row="1"
-            Direction="Column"
+            Direction="Row"
             Background="AliceBlue">
 
             <bc3:FlexLayout.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="Large" />
+                    <Setter Property="FontSize" Value="30" />
                 </Style>
             </bc3:FlexLayout.Resources>
 
-            <Border Background="Pink" >
-                <TextBlock Text="TextBlock 1"
-                   Foreground="Blue"/>
+            <Border Background="Pink" 
+                    bc3:FlexLayout.Basis="50"
+                    >
+                <!--TextBlock Text="TextBlock 1"
+                   Foreground="Blue"/-->
             </Border>
 
 
@@ -97,10 +100,11 @@
 
             <Border 
                    Background="Pink" 
+                    bc3:FlexLayout.Basis="50"
                 >
-                <TextBlock Text="TextBlock 3"
+                <!--TextBlock Text="TextBlock 3"
                    Foreground="Blue"
-                           />
+                           /-->
             </Border>
 
             <Border
@@ -114,10 +118,11 @@
 
             <Border
                    Background="Pink" 
+                    bc3:FlexLayout.Basis="50"
                 >
-                <TextBlock Text="TextBlock 5"
+                <!--TextBlock Text="TextBlock 5"
                    Foreground="Blue"
-                           />
+                           /-->
             </Border>            
         </bc3:FlexLayout>
     </Grid>
