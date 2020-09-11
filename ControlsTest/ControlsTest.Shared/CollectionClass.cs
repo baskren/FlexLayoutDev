@@ -8,18 +8,18 @@ namespace ControlsTest
     public class Item : List<Item>, IList
     {
         /*
-		public IEnumerator<Item> GetEnumerator()
+		public IEnumerator<FlexItem> GetEnumerator()
         {
-            return System.Linq.Enumerable.Empty<Item>().GetEnumerator();
+            return System.Linq.Enumerable.Empty<FlexItem>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return System.Linq.Enumerable.Empty<Item>().GetEnumerator();
+            return System.Linq.Enumerable.Empty<FlexItem>().GetEnumerator();
         }
 
 	
-		public void Add(Item child)
+		public void Add(FlexItem child)
 		{
 		}
       */

@@ -9,15 +9,40 @@ using Windows.UI.Xaml.Data;
 
 namespace Bc3.Forms
 {
-	[TypeConverter(typeof(FlexJustifyTypeConverter))]
+    #region Enums
+
+
+    #region FlexJustify
+    [TypeConverter(typeof(FlexJustifyTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:Bc3.Flex.FlexItem.Justify" />.
+	/// </summary>
 	public enum FlexJustify
 	{
-		Start = Flex.Justify.Start,
-		Center = Flex.Justify.Center,
-		End = Flex.Justify.End,
-		SpaceBetween = Flex.Justify.SpaceBetween,
-		SpaceAround = Flex.Justify.SpaceAround,
-		SpaceEvenly = Flex.Justify.SpaceEvenly,
+		/// <summary>
+		/// Whether an item should be packed around the center.
+		/// </summary>
+		Center = 2,
+		/// <summary>
+		/// Whether an item should be packed at the start.
+		/// </summary>
+		Start = 3,
+		/// <summary>
+		/// Whether an item should be packed at the end.
+		/// </summary>
+		End = 4,
+		/// <summary>
+		/// Whether items should be distributed evenly, the first item being at the start and the last item being at the end.
+		/// </summary>
+		SpaceBetween = 5,
+		/// <summary>
+		/// Whether items should be distributed evenly, the first and last items having a half-size space.
+		/// </summary>
+		SpaceAround = 6,
+		/// <summary>
+		/// Whether items should be distributed evenly, all items having equal space around them.
+		/// </summary>
+		SpaceEvenly = 7,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexJustify))]
@@ -48,20 +73,47 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexJustify)));
 		}
 	}
+    #endregion
 
-	public enum FlexPosition
+
+    #region FlexPosition
+    /// <summary>
+    /// Values for <see cref="P:Bc3.Flex.FlexItem.Position" />.
+    /// </summary>
+    public enum FlexPosition
 	{
-		Relative = Flex.Position.Relative,
-		Absolute = Flex.Position.Absolute,
+		/// <summary>
+		/// Whether the item's frame will be determined by the flex rules of the layout system.
+		/// </summary>
+		Relative = 0,
+		/// <summary>
+		/// Whether the item's frame will be determined by fixed position values (<see cref="P:Bc3.Flex.FlexItem.Left" />, <see cref="P:Bc3.Flex.FlexItem.Right" />, <see cref="P:Bc3.Flex.FlexItem.Top" /> and <see cref="P:Bc3.Flex.FlexItem.Bottom" />).
+		/// </summary>
+		Absolute = 1,
 	}
 
 	[TypeConverter(typeof(FlexDirectionTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:Bc3.Flex.FlexItem.Direction" />.
+	/// </summary>
 	public enum FlexDirection
 	{
-		Column = Flex.Direction.Column,
-		ColumnReverse = Flex.Direction.ColumnReverse,
-		Row = Flex.Direction.Row,
-		RowReverse = Flex.Direction.RowReverse,
+		/// <summary>
+		/// Whether items should be stacked horizontally.
+		/// </summary>
+		Row = 0,
+		/// <summary>
+		/// Like Row but in reverse order.
+		/// </summary>
+		RowReverse = 1,
+		/// <summary>
+		/// Whether items should be stacked vertically.
+		/// </summary>
+		Column = 2,
+		/// <summary>
+		/// Like Column but in reverse order.
+		/// </summary>
+		ColumnReverse = 3,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexDirection))]
@@ -88,17 +140,44 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexDirection)));
 		}
 	}
+    #endregion
 
-	[TypeConverter(typeof(FlexAlignContentTypeConverter))]
+
+    #region FlexAlignContent
+    [TypeConverter(typeof(FlexAlignContentTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignContent" />.
+	/// </summary>
 	public enum FlexAlignContent
 	{
-		Stretch = Flex.AlignContent.Stretch,
-		Center = Flex.AlignContent.Center,
-		Start = Flex.AlignContent.Start,
-		End = Flex.AlignContent.End,
-		SpaceBetween = Flex.AlignContent.SpaceBetween,
-		SpaceAround = Flex.AlignContent.SpaceAround,
-		SpaceEvenly = Flex.AlignContent.SpaceEvenly,
+		/// <summary>
+		/// Whether an item's should be stretched out.
+		/// </summary>
+		Stretch = 1,
+		/// <summary>
+		/// Whether an item should be packed around the center.
+		/// </summary>
+		Center = 2,
+		/// <summary>
+		/// Whether an item should be packed at the start.
+		/// </summary>
+		Start = 3,
+		/// <summary>
+		/// Whether an item should be packed at the end.
+		/// </summary>
+		End = 4,
+		/// <summary>
+		/// Whether items should be distributed evenly, the first item being at the start and the last item being at the end.
+		/// </summary>
+		SpaceBetween = 5,
+		/// <summary>
+		/// Whether items should be distributed evenly, the first and last items having a half-size space.
+		/// </summary>
+		SpaceAround = 6,
+		/// <summary>
+		/// Whether items should be distributed evenly, all items having equal space around them.
+		/// </summary>
+		SpaceEvenly = 7,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexAlignContent))]
@@ -129,15 +208,33 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignContent)));
 		}
 	}
+    #endregion
 
-	[TypeConverter(typeof(FlexAlignItemsTypeConverter))]
+
+    #region FlexAlignItems
+    [TypeConverter(typeof(FlexAlignItemsTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignItems" />.
+	/// </summary>
 	public enum FlexAlignItems
 	{
-		Stretch = Flex.AlignItems.Stretch,
-		Center = Flex.AlignItems.Center,
-		Start = Flex.AlignItems.Start,
-		End = Flex.AlignItems.End,
-		//Baseline = Flex.AlignItems.Baseline,
+		/// <summary>
+		/// Whether an item's should be stretched out.
+		/// </summary>
+		Stretch = 1,
+		/// <summary>
+		/// Whether an item should be packed around the center.
+		/// </summary>
+		Center = 2,
+		/// <summary>
+		/// Whether an item should be packed at the start.
+		/// </summary>
+		Start = 3,
+		/// <summary>
+		/// Whether an item should be packed at the end.
+		/// </summary>
+		End = 4,
+		//Baseline = 8,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexAlignItems))]
@@ -164,16 +261,36 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignItems)));
 		}
 	}
+    #endregion
 
-	[TypeConverter(typeof(FlexAlignSelfTypeConverter))]
+
+    #region FlexAlignSelf
+    [TypeConverter(typeof(FlexAlignSelfTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignSelf" />.
+	/// </summary>
 	public enum FlexAlignSelf
 	{
-		Auto = Flex.AlignSelf.Auto,
-		Stretch = Flex.AlignSelf.Stretch,
-		Center = Flex.AlignSelf.Center,
-		Start = Flex.AlignSelf.Start,
-		End = Flex.AlignSelf.End,
-		//Baseline = Flex.AlignSelf.Baseline,
+		/// <summary>
+		/// Whether an item should be packed according to the alignment value of its parent.
+		/// </summary>
+		Auto = 0,
+		/// <summary>
+		/// Whether an item's should be stretched out.
+		/// </summary>
+		Stretch = 1,
+		/// <summary>
+		/// Whether an item should be packed around the center.
+		/// </summary>
+		Center = 2,
+		/// <summary>
+		/// Whether an item should be packed at the start.
+		/// </summary>
+		Start = 3,
+		/// <summary>
+		/// Whether an item should be packed at the end.
+		/// </summary>
+		End = 4,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexAlignSelf))]
@@ -200,13 +317,28 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignSelf)));
 		}
 	}
+    #endregion
 
-	[TypeConverter(typeof(FlexWrapTypeConverter))]
+
+    #region FlexWrap
+    [TypeConverter(typeof(FlexWrapTypeConverter))]
+	/// <summary>
+	/// Values for <see cref="P:XamBc3arin.Flex.FlexItem.Wrap" />.
+	/// </summary>
 	public enum FlexWrap
 	{
-		NoWrap = Flex.Wrap.NoWrap,
-		Wrap = Flex.Wrap.Wrap,
-		Reverse = Flex.Wrap.WrapReverse,
+		/// <summary>
+		/// Whether items are laid out in a single line.
+		/// </summary>
+		NoWrap = 0,
+		/// <summary>
+		/// Whether items are laid out in multiple lines if needed.
+		/// </summary>
+		Wrap = 1,
+		/// <summary>
+		/// Like Wrap but in reverse order.
+		/// </summary>
+		Reverse = 2,
 	}
 
 	//[Xaml.TypeConversion(typeof(FlexWrap))]
@@ -231,8 +363,12 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexWrap)));
 		}
 	}
+	#endregion
 
-	//[TypeConverter(typeof(FlexBasisTypeConverter))]
+
+	#endregion
+
+
 	public struct FlexBasis
 	{
 		bool _isLength;
@@ -253,13 +389,10 @@ namespace Bc3.Forms
 		}
 
 		public static implicit operator FlexBasis(double length)
-		{
-			return new FlexBasis(length);
-		}
-
+			=> new FlexBasis(length);
+		
 		public static implicit operator FlexBasis(string value)
 			=> Parse(value);
-        //[Xaml.TypeConversion(typeof(FlexBasis))]
 
         public override string ToString()
         {
@@ -285,6 +418,7 @@ namespace Bc3.Forms
 			}
 			return Auto;
 		}
+
 
 	}
 

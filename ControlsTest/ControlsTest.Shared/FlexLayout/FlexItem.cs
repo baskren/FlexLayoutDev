@@ -5,264 +5,18 @@
 // Author(s):
 //  - Laurent Sansonetti (native Xamarin flex https://github.com/xamarin/flex)
 //  - Stephane Delcroix (.NET port)
+//  - Ben Askren (UWP port)
 //
-using Bc3.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Windows.UI.Xaml;
 
-namespace Bc3.Flex
+namespace Bc3.Forms
 {
-    #region Enums
-    /// <summary>
-    /// Values for <see cref="P:Bc3.Flex.Item.AlignContent" />.
-    /// </summary>
-    enum AlignContent
-	{
-		/// <summary>
-		/// Whether an item's should be stretched out.
-		/// </summary>
-		Stretch = 1,
-		/// <summary>
-		/// Whether an item should be packed around the center.
-		/// </summary>
-		Center = 2,
-		/// <summary>
-		/// Whether an item should be packed at the start.
-		/// </summary>
-		Start = 3,
-		/// <summary>
-		/// Whether an item should be packed at the end.
-		/// </summary>
-		End = 4,
-		/// <summary>
-		/// Whether items should be distributed evenly, the first item being at the start and the last item being at the end.
-		/// </summary>
-		SpaceBetween = 5,
-		/// <summary>
-		/// Whether items should be distributed evenly, the first and last items having a half-size space.
-		/// </summary>
-		SpaceAround = 6,
-		/// <summary>
-		/// Whether items should be distributed evenly, all items having equal space around them.
-		/// </summary>
-		SpaceEvenly = 7,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.Item.AlignItems" />.
-	/// </summary>
-	enum AlignItems
-	{
-		/// <summary>
-		/// Whether an item's should be stretched out.
-		/// </summary>
-		Stretch = 1,
-		/// <summary>
-		/// Whether an item should be packed around the center.
-		/// </summary>
-		Center = 2,
-		/// <summary>
-		/// Whether an item should be packed at the start.
-		/// </summary>
-		Start = 3,
-		/// <summary>
-		/// Whether an item should be packed at the end.
-		/// </summary>
-		End = 4,
-		//Baseline = 8,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.Item.AlignSelf" />.
-	/// </summary>
-	enum AlignSelf
-	{
-		/// <summary>
-		/// Whether an item should be packed according to the alignment value of its parent.
-		/// </summary>
-		Auto = 0,
-		/// <summary>
-		/// Whether an item's should be stretched out.
-		/// </summary>
-		Stretch = 1,
-		/// <summary>
-		/// Whether an item should be packed around the center.
-		/// </summary>
-		Center = 2,
-		/// <summary>
-		/// Whether an item should be packed at the start.
-		/// </summary>
-		Start = 3,
-		/// <summary>
-		/// Whether an item should be packed at the end.
-		/// </summary>
-		End = 4,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.Item.Direction" />.
-	/// </summary>
-	enum Direction
-	{
-		/// <summary>
-		/// Whether items should be stacked horizontally.
-		/// </summary>
-		Row = 0,
-		/// <summary>
-		/// Like Row but in reverse order.
-		/// </summary>
-		RowReverse = 1,
-		/// <summary>
-		/// Whether items should be stacked vertically.
-		/// </summary>
-		Column = 2,
-		/// <summary>
-		/// Like Column but in reverse order.
-		/// </summary>
-		ColumnReverse = 3,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.Item.Justify" />.
-	/// </summary>
-	enum Justify
-	{
-		/// <summary>
-		/// Whether an item should be packed around the center.
-		/// </summary>
-		Center = 2,
-		/// <summary>
-		/// Whether an item should be packed at the start.
-		/// </summary>
-		Start = 3,
-		/// <summary>
-		/// Whether an item should be packed at the end.
-		/// </summary>
-		End = 4,
-		/// <summary>
-		/// Whether items should be distributed evenly, the first item being at the start and the last item being at the end.
-		/// </summary>
-		SpaceBetween = 5,
-		/// <summary>
-		/// Whether items should be distributed evenly, the first and last items having a half-size space.
-		/// </summary>
-		SpaceAround = 6,
-		/// <summary>
-		/// Whether items should be distributed evenly, all items having equal space around them.
-		/// </summary>
-		SpaceEvenly = 7,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.Item.Position" />.
-	/// </summary>
-	enum Position
-	{
-		/// <summary>
-		/// Whether the item's frame will be determined by the flex rules of the layout system.
-		/// </summary>
-		Relative = 0,
-		/// <summary>
-		/// Whether the item's frame will be determined by fixed position values (<see cref="P:Bc3.Flex.Item.Left" />, <see cref="P:Bc3.Flex.Item.Right" />, <see cref="P:Bc3.Flex.Item.Top" /> and <see cref="P:Bc3.Flex.Item.Bottom" />).
-		/// </summary>
-		Absolute = 1,
-	}
-
-	/// <summary>
-	/// Values for <see cref="P:XamBc3arin.Flex.Item.Wrap" />.
-	/// </summary>
-	enum Wrap
-	{
-		/// <summary>
-		/// Whether items are laid out in a single line.
-		/// </summary>
-		NoWrap = 0,
-		/// <summary>
-		/// Whether items are laid out in multiple lines if needed.
-		/// </summary>
-		Wrap = 1,
-		/// <summary>
-		/// Like Wrap but in reverse order.
-		/// </summary>
-		WrapReverse = 2,
-	}
-    #endregion
-
-
-    #region structs
-    /// <summary>
-    /// Value for <see cref="P:Bc3.Flex.Item.Basis" />.
-    /// </summary>
-    struct Basis
-	{
-		readonly bool _isRelative;
-		readonly bool _isLength;
-		readonly double _length;
-		/// <summary>
-		/// Auto basis.
-		/// </summary>
-		public static Basis Auto = new Basis();
-		/// <summary>
-		/// Whether the basis length is relative to parent's size.
-		/// </summary>
-		public bool IsRelative => _isRelative;
-		/// <summary>
-		/// Whether the basis is auto.
-		/// </summary>
-		public bool IsAuto => !_isLength && !_isRelative;
-		/// <summary>
-		/// Gets the length.
-		/// </summary>
-		/// <value>The length.</value>
-		public double Length => _length;
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Bc3.Flex.Basis"/> struct.
-		/// </summary>
-		/// <param name="length">Length.</param>
-		/// <param name="isRelative">If set to <c>true</c> if relative.</param>
-		public Basis(double length, bool isRelative = false)
-		{
-			_length = length;
-			_isLength = !isRelative;
-			_isRelative = isRelative;
-		}
-
-        public override string ToString()
-        {
-			if (IsAuto)
-				return "auto";
-			var result = Length.ToString();
-			if (IsRelative)
-				result += "," + "relative";
-			return result;
-        }
-
-		public static Basis Parse(string value)
-        {
-			var flexBasis = FlexBasis.Parse(value);
-			return flexBasis;
-		}
-
-        public static implicit operator Basis(FlexBasis v)
-        {
-			if (v.IsAuto)
-				return Auto;
-			return new Basis(v.Length, v.IsRelative);
-        }
-
-		public static implicit operator Basis(string v)
-			=> Parse(v);
-    }
-    #endregion
-
-
-    #region Item
     /// <summary>
     /// An item with flexbox properties. Items can also contain other items and be enumerated.
     /// </summary>
-    class Item : IEnumerable<Item>
+    class FlexItem : IEnumerable<FlexItem>
 	{
         #region Properties
         /// <summary>
@@ -273,30 +27,30 @@ namespace Bc3.Flex
 
 		/// <summary>The parent item.</summary>
 		/// <value>The parent item, or null if the item is a root item.</value>
-		public Item Parent { get; private set; }
-		IList<Item> Children { get; set; }
+		public FlexItem Parent { get; private set; }
+		IList<FlexItem> Children { get; set; }
 		bool ShouldOrderChildren { get; set; }
 
-		///<summary>This property defines how the layout engine will distribute space between and around child items that have been laid out on multiple lines. This property is ignored if the root item does not have its <see cref="P:Bc3.Flex.Item.Wrap" /> property set to Wrap or WrapReverse.</summary>
+		///<summary>This property defines how the layout engine will distribute space between and around child items that have been laid out on multiple lines. This property is ignored if the root item does not have its <see cref="P:Bc3.Flex.FlexItem.Wrap" /> property set to Wrap or WrapReverse.</summary>
 		///<remarks>The default value for this property is Stretch.</remarks>
 		/// <value>The content of the align.</value>
-		public AlignContent AlignContent { get; set; } = AlignContent.Stretch;
+		public FlexAlignContent AlignContent { get; set; } = FlexAlignContent.Stretch;
 
 		/// <summary>This property defines how the layout engine will distribute space between and around child items along the cross-axis.</summary>
 		/// <value>The align items.</value>
 		/// <remarks>The default value for this property is Stretch.</remarks>
-		public AlignItems AlignItems { get; set; } = AlignItems.Stretch;
+		public FlexAlignItems AlignItems { get; set; } = FlexAlignItems.Stretch;
 
-		/// <summary>This property defines how the layout engine will distribute space between and around child items for a specific child along the cross-axis. If this property is set to Auto on a child item, the parent's value for <see cref="P:Bc3.Flex.Item.AlignItems" /> will be used instead.</summary>
+		/// <summary>This property defines how the layout engine will distribute space between and around child items for a specific child along the cross-axis. If this property is set to Auto on a child item, the parent's value for <see cref="P:Bc3.Flex.FlexItem.AlignItems" /> will be used instead.</summary>
 		/// <value>The align self.</value>
-		public AlignSelf AlignSelf { get; set; } = AlignSelf.Auto;
+		public FlexAlignSelf AlignSelf { get; set; } = FlexAlignSelf.Auto;
 
-		/// <summary>This property defines the initial main-axis dimension of the item. If <see cref="P:Bc3.Flex.Item.Direction" /> is row-based (horizontal), it will be used instead of <see cref="P:Bc3.Flex.Item.Width" />, and if it's column-based (vertical), it will be used instead of <see cref="P:Bc3.Flex.Item.Height" />.</summary>
+		/// <summary>This property defines the initial main-axis dimension of the item. If <see cref="P:Bc3.Flex.FlexItem.Direction" /> is row-based (horizontal), it will be used instead of <see cref="P:Bc3.Flex.FlexItem.Width" />, and if it's column-based (vertical), it will be used instead of <see cref="P:Bc3.Flex.FlexItem.Height" />.</summary>
 		/// <value>The basis.</value>
 		/// <remarks>The default value for this property is Auto.</remarks>
-		public Basis Basis { get; set; } = Basis.Auto;
+		public FlexBasis Basis { get; set; } = FlexBasis.Auto;
 
-		/// <summary>This property defines the bottom edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.Item.Top" /> is also set and if <see cref="P:Bc3.Flex.Item.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.Item.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the bottom edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.FlexItem.Top" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Bottom { get; set; } = double.NaN;
@@ -304,7 +58,7 @@ namespace Bc3.Flex
 		/// <summary>This property defines the direction and main-axis of child items. If set to Column (or ColumnReverse), the main-axis will be the y-axis and items will be stacked vertically. If set to Row (or RowReverse), the main-axis will be the x-axis and items will be stacked horizontally.</summary>
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Direction" /> enumeration.</value>
 		/// <remarks>The default value for this property is Column.</remarks>
-		public Direction Direction { get; set; } = Direction.Column;
+		public FlexDirection Direction { get; set; } = FlexDirection.Column;
 
 		/// <summary>This property defines the grow factor of the item; the amount of available space it should use on the main-axis. If this property is set to 0, the item will not grow.</summary>
 		/// <value>The item grow factor.</value>
@@ -321,9 +75,9 @@ namespace Bc3.Flex
 		/// <summary>This property defines how the layout engine will distribute space between and around child items along the main-axis.</summary>
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Align" /> enumeration, with the exception of Stretch and Auto.</value>
 		/// <remarks>The default value for this property is Start.</remarks>
-		public Justify JustifyContent { get; set; } = Justify.Start;
+		public FlexJustify JustifyContent { get; set; } = FlexJustify.Start;
 
-		/// <summary>This property defines the left edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.Item.Right" /> is also set and if <see cref="P:Bc3.Flex.Item.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.Item.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the left edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.FlexItem.Right" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Left { get; set; } = double.NaN;
@@ -379,12 +133,12 @@ namespace Bc3.Flex
 		/// <value>The bottom edge padding space.Negative values are not allowed.</value>
 		public double PaddingTop { get; set; } = 0f;
 
-		/// <summary>This property defines whether the item should be positioned by the flexbox rules of the layout engine(Relative) or have an absolute fixed position (Absolute). If this property is set to Absolute, the<see cref="P:Bc3.Flex.Item.Left" />, <see cref = "P:Bc3.Flex.Item.Right" />, <see cref = "P:Bc3.Flex.Item.Top" /> and <see cref= "P:Bc3.Flex.Item.Bottom" /> properties will then be used to determine the item's fixed position in its container.</summary>
+		/// <summary>This property defines whether the item should be positioned by the flexbox rules of the layout engine(Relative) or have an absolute fixed position (Absolute). If this property is set to Absolute, the<see cref="P:Bc3.Flex.FlexItem.Left" />, <see cref = "P:Bc3.Flex.FlexItem.Right" />, <see cref = "P:Bc3.Flex.FlexItem.Top" /> and <see cref= "P:Bc3.Flex.FlexItem.Bottom" /> properties will then be used to determine the item's fixed position in its container.</summary>
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Position" /> enumeration.</value>
 		/// <remarks>The default value for this property is Relative</remarks>
-		public Position Position { get; set; } = Position.Relative;
+		public FlexPosition Position { get; set; } = FlexPosition.Relative;
 
-		/// <summary>This property defines the right edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.Item.Left" /> is also set and if <see cref="P:Bc3.Flex.Item.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.Item.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the right edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.FlexItem.Left" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Right { get; set; } = double.NaN;
@@ -394,7 +148,7 @@ namespace Bc3.Flex
 		/// <remarks>The default value for this property is 1 (all items will shrink equally).</remarks>
 		public double Shrink { get; set; } = 1f;
 
-		/// <summary>This property defines the top edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.Item.Bottom" /> is also set and if <see cref="P:Bc3.Flex.Item.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.Item.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the top edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.FlexItem.Bottom" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Top { get; set; } = double.NaN;
@@ -404,25 +158,25 @@ namespace Bc3.Flex
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Width { get; set; } = double.NaN;
 
-		/// <summary>This property defines whether child items should be laid out in a single line(NoWrap) or multiple lines(Wrap or WrapReverse). If this property is set to Wrap or WrapReverse, <see cref = "P:Bc3.Flex.Item.AlignContent" /> can then be used to specify how the lines should be distributed.</summary>
+		/// <summary>This property defines whether child items should be laid out in a single line(NoWrap) or multiple lines(Wrap or WrapReverse). If this property is set to Wrap or WrapReverse, <see cref = "P:Bc3.Flex.FlexItem.AlignContent" /> can then be used to specify how the lines should be distributed.</summary>
 		/// <value>Any value part of the<see cref="T:Bc3.Flex.Wrap" /> enumeration.</value>
 		/// <remarks>The default value for this property is NoWrap.</remarks>
-		public Wrap Wrap { get; set; } = Wrap.NoWrap;
+		public FlexWrap Wrap { get; set; } = FlexWrap.NoWrap;
 		#endregion
 
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
+        /// Initializes a new instance of the <see cref="T:Bc3.Flex.FlexItem"/> class.
         /// </summary>
-        public Item() { }
+        public FlexItem() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
+        /// Initializes a new instance of the <see cref="T:Bc3.Flex.FlexItem"/> class.
         /// </summary>
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>
-        public Item(double width, double height)
+        public FlexItem(double width, double height)
 		{
 			Width = width;
 			Height = height;
@@ -431,23 +185,23 @@ namespace Bc3.Flex
 
 
         #region IList
-        public void Add(Item child)
+        public void Add(FlexItem child)
 		{
 			ValidateChild(child);
-			(Children ?? (Children = new List<Item>())).Add(child);
+			(Children ?? (Children = new List<FlexItem>())).Add(child);
 			child.Parent = this;
 			ShouldOrderChildren |= child.Order != 0;
 		}
 
-		public void InsertAt(int index, Item child)
+		public void InsertAt(int index, FlexItem child)
 		{
 			ValidateChild(child);
-			(Children ?? (Children = new List<Item>())).Insert(index, child);
+			(Children ?? (Children = new List<FlexItem>())).Insert(index, child);
 			child.Parent = this;
 			ShouldOrderChildren |= child.Order != 0;
 		}
 
-		public Item RemoveAt(uint index)
+		public FlexItem RemoveAt(uint index)
 		{
 			var child = Children[(int)index];
 			child.Parent = null;
@@ -458,10 +212,10 @@ namespace Bc3.Flex
 		public int Count =>
 			(Children?.Count ?? 0);
 
-		public Item ItemAt(int index) =>
+		public FlexItem ItemAt(int index) =>
 			Children?[index];
 
-		public Item this[int index]
+		public FlexItem this[int index]
 		{
 			get => ItemAt(index);
 		}
@@ -470,7 +224,7 @@ namespace Bc3.Flex
 
         #region Layout
 
-        public Item Root
+        public FlexItem Root
 		{
 			get
 			{
@@ -492,17 +246,17 @@ namespace Bc3.Flex
 			layout_item(this, Width, Height);
 		}
 
-		public delegate void SelfSizingDelegate(Item item, ref double width, ref double height);
+		public delegate void SelfSizingDelegate(FlexItem item, ref double width, ref double height);
 
 		public SelfSizingDelegate SelfSizing { get; set; }
 
 		IEnumerator IEnumerable.GetEnumerator() =>
-			((IEnumerable<Item>)this).GetEnumerator();
+			((IEnumerable<FlexItem>)this).GetEnumerator();
 
-		IEnumerator<Item> IEnumerable<Item>.GetEnumerator() =>
-			(Children ?? System.Linq.Enumerable.Empty<Item>()).GetEnumerator();
+		IEnumerator<FlexItem> IEnumerable<FlexItem>.GetEnumerator() =>
+			(Children ?? System.Linq.Enumerable.Empty<FlexItem>()).GetEnumerator();
 
-		void ValidateChild(Item child)
+		void ValidateChild(FlexItem child)
 		{
 			if (this == child)
 				throw new ArgumentException("cannot add item into self");
@@ -510,7 +264,7 @@ namespace Bc3.Flex
 				throw new ArgumentException("child already has a parent");
 		}
 
-		static void layout_item(Item item, double width, double height)
+		static void layout_item(FlexItem item, double width, double height)
 		{
 
 			if (item.Children == null || item.Children.Count == 0)
@@ -530,7 +284,7 @@ namespace Bc3.Flex
 
 				// Items with an absolute position have their frames determined
 				// directly and are skipped during layout.
-				if (child.Position == Position.Absolute)
+				if (child.Position == FlexPosition.Absolute)
 				{
 					child.Frame[2] = absolute_size(child.Width, child.Left, child.Right, width);
 					child.Frame[3] = absolute_size(child.Height, child.Top, child.Bottom, height);
@@ -573,7 +327,7 @@ namespace Bc3.Flex
 					for (int j = 0; j < 2; j++)
 					{
 						int size_off = j + 2;
-						if (size_off == layout.frame_size2_i && child_align(child, item) == AlignItems.Stretch)
+						if (size_off == layout.frame_size2_i && child_align(child, item) == FlexAlignItems.Stretch)
 							continue;
 						double val = size[j];
 						if (!double.IsNaN(val))
@@ -671,8 +425,8 @@ namespace Bc3.Flex
 					// alignment previously set within the line.
 					for (int j = line.child_begin; j < line.child_end; j++)
 					{
-						Item child = layout.child_at(item, j);
-						if (child.Position == Position.Absolute)
+						FlexItem child = layout.child_at(item, j);
+						if (child.Position == FlexPosition.Absolute)
 						{
 							// Should not be re-positioned.
 							continue;
@@ -682,7 +436,7 @@ namespace Bc3.Flex
 							// If the child's cross axis size hasn't been set it, it
 							// defaults to the line size.
 							child.Frame[layout.frame_size2_i] = line.size
-								+ (item.AlignContent == AlignContent.Stretch
+								+ (item.AlignContent == FlexAlignContent.Stretch
 								   ? spacing : 0);
 						}
 						child.Frame[layout.frame_pos2_i] = pos + (child.Frame[layout.frame_pos2_i] - old_pos);
@@ -703,7 +457,7 @@ namespace Bc3.Flex
 		double MarginThickness(bool vertical) =>
 			vertical ? MarginTop + MarginBottom : MarginLeft + MarginRight;
 
-		static void layout_align(Justify align, double flex_dim, int children_count, ref double pos_p, ref double spacing_p)
+		static void layout_align(FlexJustify align, double flex_dim, int children_count, ref double pos_p, ref double spacing_p)
 		{
 			if (flex_dim < 0)
 				throw new ArgumentException();
@@ -712,26 +466,26 @@ namespace Bc3.Flex
 
 			switch (align)
 			{
-				case Justify.Start:
+				case FlexJustify.Start:
 					return;
-				case Justify.End:
+				case FlexJustify.End:
 					pos_p = flex_dim;
 					return;
-				case Justify.Center:
+				case FlexJustify.Center:
 					pos_p = flex_dim / 2;
 					return;
-				case Justify.SpaceBetween:
+				case FlexJustify.SpaceBetween:
 					if (children_count > 0)
 						spacing_p = flex_dim / (children_count - 1);
 					return;
-				case Justify.SpaceAround:
+				case FlexJustify.SpaceAround:
 					if (children_count > 0)
 					{
 						spacing_p = flex_dim / children_count;
 						pos_p = spacing_p / 2;
 					}
 					return;
-				case Justify.SpaceEvenly:
+				case FlexJustify.SpaceEvenly:
 					if (children_count > 0)
 					{
 						spacing_p = flex_dim / (children_count + 1);
@@ -743,7 +497,7 @@ namespace Bc3.Flex
 			}
 		}
 
-		static void layout_align(AlignContent align, double flex_dim, uint children_count, ref double pos_p, ref double spacing_p)
+		static void layout_align(FlexAlignContent align, double flex_dim, uint children_count, ref double pos_p, ref double spacing_p)
 		{
 			if (flex_dim < 0)
 				throw new ArgumentException();
@@ -752,33 +506,33 @@ namespace Bc3.Flex
 
 			switch (align)
 			{
-				case AlignContent.Start:
+				case FlexAlignContent.Start:
 					return;
-				case AlignContent.End:
+				case FlexAlignContent.End:
 					pos_p = flex_dim;
 					return;
-				case AlignContent.Center:
+				case FlexAlignContent.Center:
 					pos_p = flex_dim / 2;
 					return;
-				case AlignContent.SpaceBetween:
+				case FlexAlignContent.SpaceBetween:
 					if (children_count > 0)
 						spacing_p = flex_dim / (children_count - 1);
 					return;
-				case AlignContent.SpaceAround:
+				case FlexAlignContent.SpaceAround:
 					if (children_count > 0)
 					{
 						spacing_p = flex_dim / children_count;
 						pos_p = spacing_p / 2;
 					}
 					return;
-				case AlignContent.SpaceEvenly:
+				case FlexAlignContent.SpaceEvenly:
 					if (children_count > 0)
 					{
 						spacing_p = flex_dim / (children_count + 1);
 						pos_p = spacing_p;
 					}
 					return;
-				case AlignContent.Stretch:
+				case FlexAlignContent.Stretch:
 					spacing_p = flex_dim / children_count;
 					return;
 				default:
@@ -786,7 +540,7 @@ namespace Bc3.Flex
 			}
 		}
 
-		static void layout_items(Item item, int child_begin, int child_end, int children_count, ref flex_layout layout)
+		static void layout_items(FlexItem item, int child_begin, int child_end, int children_count, ref flex_layout layout)
 		{
 
 			if (children_count > (child_end - child_begin))
@@ -828,9 +582,9 @@ namespace Bc3.Flex
 
 			for (int i = child_begin; i < child_end; i++)
 			{
-				Item child = layout.child_at(item, i);
+				FlexItem child = layout.child_at(item, i);
 				if (!child.IsVisible) continue;
-				if (child.Position == Position.Absolute)
+				if (child.Position == FlexPosition.Absolute)
 				{
 					// Already positioned.
 					continue;
@@ -861,17 +615,17 @@ namespace Bc3.Flex
 				double align_pos = layout.pos2 + 0;
 				switch (child_align(child, item))
 				{
-					case AlignItems.End:
+					case FlexAlignItems.End:
 						align_pos += layout.line_dim - align_size - (layout.vertical ? child.MarginRight : child.MarginBottom);
 						break;
 
-					case AlignItems.Center:
+					case FlexAlignItems.Center:
 						align_pos += (layout.line_dim / 2) - (align_size / 2)
 							+ ((layout.vertical ? child.MarginLeft : child.MarginTop)
 							   - (layout.vertical ? child.MarginRight : child.MarginBottom));
 						break;
 
-					case AlignItems.Stretch:
+					case FlexAlignItems.Stretch:
 						if (align_size == 0)
 						{
 							child.Frame[layout.frame_size2_i] = layout.line_dim
@@ -880,7 +634,7 @@ namespace Bc3.Flex
 						}
 						align_pos += (layout.vertical ? child.MarginLeft : child.MarginTop);
 						break;
-					case AlignItems.Start:
+					case FlexAlignItems.Start:
 						align_pos += (layout.vertical ? child.MarginLeft : child.MarginTop);
 						break;
 
@@ -936,8 +690,8 @@ namespace Bc3.Flex
 		static double absolute_pos(double pos1, double pos2, double size, double dim) =>
 			!double.IsNaN(pos1) ? pos1 : (!double.IsNaN(pos2) ? dim - size - pos2 : 0);
 
-		static AlignItems child_align(Item child, Item parent) =>
-			child.AlignSelf == AlignSelf.Auto ? parent.AlignItems : (AlignItems)child.AlignSelf;
+		static FlexAlignItems child_align(FlexItem child, FlexItem parent) =>
+			child.AlignSelf == FlexAlignSelf.Auto ? parent.AlignItems : (FlexAlignItems)child.AlignSelf;
 
 		struct flex_layout
 		{
@@ -987,7 +741,7 @@ namespace Bc3.Flex
 			}
 
 			//layout_init
-			public void init(Item item, double width, double height)
+			public void init(FlexItem item, double width, double height)
 			{
 				if (item.PaddingLeft < 0
 					|| item.PaddingRight < 0
@@ -998,12 +752,12 @@ namespace Bc3.Flex
 				width = Math.Max(0, width - item.PaddingLeft + item.PaddingRight);
 				height = Math.Max(0, height - item.PaddingTop + item.PaddingBottom);
 
-				reverse = item.Direction == Direction.RowReverse || item.Direction == Direction.ColumnReverse;
+				reverse = item.Direction == FlexDirection.RowReverse || item.Direction == FlexDirection.ColumnReverse;
 				vertical = true;
 				switch (item.Direction)
 				{
-					case Direction.Row:
-					case Direction.RowReverse:
+					case FlexDirection.Row:
+					case FlexDirection.RowReverse:
 						vertical = false;
 						size_dim = width;
 						align_dim = height;
@@ -1012,8 +766,8 @@ namespace Bc3.Flex
 						frame_size_i = 2;
 						frame_size2_i = 3;
 						break;
-					case Direction.Column:
-					case Direction.ColumnReverse:
+					case FlexDirection.Column:
+					case FlexDirection.ColumnReverse:
 						size_dim = height;
 						align_dim = width;
 						frame_pos_i = 1;
@@ -1055,10 +809,10 @@ namespace Bc3.Flex
 				flex_shrinks = 0;
 
 				reverse2 = false;
-				wrap = item.Wrap != Wrap.NoWrap;
+				wrap = item.Wrap != FlexWrap.NoWrap;
 				if (wrap)
 				{
-					if (item.Wrap == Wrap.WrapReverse)
+					if (item.Wrap == FlexWrap.Reverse)
 					{
 						reverse2 = true;
 						pos2 = align_dim;
@@ -1069,12 +823,12 @@ namespace Bc3.Flex
 					pos2 = vertical ? item.PaddingLeft : item.PaddingTop;
 				}
 
-				need_lines = wrap && item.AlignContent != AlignContent.Start;
+				need_lines = wrap && item.AlignContent != FlexAlignContent.Start;
 				lines = null;
 				lines_sizes = 0;
 			}
 
-			public Item child_at(Item item, int i) =>
+			public FlexItem child_at(FlexItem item, int i) =>
 				item.Children[(ordered_indices?[i] ?? i)];
 
 			public void cleanup()
@@ -1086,5 +840,4 @@ namespace Bc3.Flex
 
         #endregion
     }
-    #endregion
 }

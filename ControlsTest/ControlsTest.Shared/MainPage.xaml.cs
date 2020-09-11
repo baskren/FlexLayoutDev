@@ -85,7 +85,6 @@ namespace ControlsTest
 
         void OnAddClicked(object sender, RoutedEventArgs args)
         {
-            //System.Diagnostics.Debug.WriteLine(GetType() + ". CLICKED  TYPE: " + ppup.GetType());
 
 
             /*
@@ -115,7 +114,6 @@ namespace ControlsTest
             var device = CanvasDevice.GetSharedDevice();
             var layout = new CanvasTextLayout(device, text, textFormat, 40f, float.MaxValue);
 
-            System.Diagnostics.Debug.WriteLine(GetType() + ". DrawBounds: " + layout.LayoutBounds.Width + ", " + layout.LayoutBounds.Height);
             var width = layout.DrawBounds.Width;
             var height = layout.DrawBounds.Height;
             */
@@ -147,7 +145,6 @@ namespace ControlsTest
             var colorsType = typeof(Colors);
             foreach (var property in colorsType.GetProperties())
             {
-                //System.Diagnostics.Debug.WriteLine(GetType() + ". Property: " + property.Name + "   Type: " + property.PropertyType);
                 if (property.PropertyType == typeof(Color))
                 {
                     var colorObj = property.GetValue(null);
