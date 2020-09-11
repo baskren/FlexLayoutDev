@@ -411,27 +411,18 @@ namespace Bc3.Flex
 		#endregion
 
 
-		#region Fields
-		public static int _instances;
-		public int _instance;
-        #endregion
-
-
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
         /// </summary>
-        public Item()
-		{
-			_instance = _instances++;
-		}
+        public Item() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Bc3.Flex.Item"/> class.
         /// </summary>
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>
-        public Item(double width, double height) : this()
+        public Item(double width, double height)
 		{
 			Width = width;
 			Height = height;

@@ -15,7 +15,6 @@ namespace Bc3.Forms
     {
         #region Properties
 
-
         #region Padding Property
         public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register(
             nameof(Padding),
@@ -363,16 +362,13 @@ namespace Bc3.Forms
 
 
         #region Fields
-        Flex.Item _root; // = new Flex.Item();
-        static int _instances;
-        int _instance;
+        Flex.Item _root; 
         #endregion
 
 
         #region Construction
         public FlexLayout()
         {
-            _instance = _instances++;
             InitLayoutProperties(_root = new Flex.Item());
         }
         #endregion
