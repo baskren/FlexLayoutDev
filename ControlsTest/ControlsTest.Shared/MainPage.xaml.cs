@@ -134,17 +134,12 @@ namespace ControlsTest
             var actualWidth = tb.ActualWidth;
             var actualHeight = tb.ActualHeight;
 
-            System.Diagnostics.Debug.WriteLine(GetType() + ". Desired: " + desiredSize + "   Actual: " + $"[{actualWidth}, {actualHeight}]");
-
             var newTextBlock = new TextBlock { Text = "PIZZA", Foreground = new SolidColorBrush(Colors.Pink), Margin=new Thickness(5) };
             _customPanel.Children.Add(newTextBlock);
 
             var xTextBlock = CustomPanel.GetTextBlock(newTextBlock);
             var flexItem = CustomPanel.GetFlexItem(newTextBlock);
 
-            System.Diagnostics.Debug.WriteLine(GetType() + ".");
-
-            //_customPanelChild0.Text = "NEW TEXT HERE";
         }
 
         void OnGenerateContentClick(object sender, RoutedEventArgs e)

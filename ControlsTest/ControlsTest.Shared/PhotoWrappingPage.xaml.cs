@@ -65,11 +65,9 @@ namespace ControlsTest
                         //var filepath = imageList.Photos[0];
                         {
                             var imageUri = new Uri(filepath, UriKind.Absolute);
-                            System.Diagnostics.Debug.WriteLine(GetType() + ".LoadBitmapCollection: " + imageUri);
 
                             byte[] imageBytes = await webClient.DownloadDataTaskAsync(imageUri);
                             var bitmapImage = await BitmapImageFromBytes(imageBytes);
-                            System.Diagnostics.Debug.WriteLine(GetType() + ".LoadBitmapCollection: " + imageUri + " Size: [" + bitmapImage.PixelWidth + ", " + bitmapImage.PixelHeight + "]");
                             var image = new Image { Stretch=Stretch.None, Source = bitmapImage };
                             flexLayout.Children.Add(image);
                         }

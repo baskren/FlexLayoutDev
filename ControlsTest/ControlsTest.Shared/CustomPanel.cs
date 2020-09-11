@@ -51,31 +51,23 @@ namespace ControlsTest
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            System.Diagnostics.Debug.WriteLine(GetType() + ".MeasureOverride");
-
             foreach (var child in Children)
             {
-                System.Diagnostics.Debug.WriteLine(GetType() + $".MeasureOverride A [{child.GetType()}] Child.Desired[{child.DesiredSize}] ");
                 if (child.Visibility != Visibility.Collapsed && ( child.DesiredSize.Width < 1 || child.DesiredSize.Height < 1))
                     child.Measure(availableSize);
-                System.Diagnostics.Debug.WriteLine(GetType() + $".MeasureOverride B [{child.GetType()}] Child.Desired[{child.DesiredSize}] ");
             }
             return base.MeasureOverride(availableSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            System.Diagnostics.Debug.WriteLine(GetType() + ".ArrangeOverride");
-
             double x = 0;
             double y = 0;
 
             foreach (var child in Children)
             {
-                System.Diagnostics.Debug.WriteLine(GetType() + $".ArrangeOverride A [{child.GetType()}]");
                 child.Arrange(new Rect(new Point(x, y), child.DesiredSize));
                 x += child.DesiredSize.Width;
-                System.Diagnostics.Debug.WriteLine(GetType() + $".ArrangeOverride B [{child.GetType()}]");
             }
             return base.ArrangeOverride(finalSize);
         }

@@ -33,15 +33,9 @@ namespace ControlsTest
             if (autoSwitch2 is null || relativeSwitch2 is null)
                 return;
             if (autoSwitch2.IsOn)
-            {
-                System.Diagnostics.Debug.WriteLine("Switch 2 On");
                 FlexLayout.SetBasis(label2, FlexBasis.Auto.ToString());
-            }
             else
-            {
-                System.Diagnostics.Debug.WriteLine("Switch 2 Off");
                 FlexLayout.SetBasis(label2, new FlexBasis((float)slider2.Value, relativeSwitch2.IsOn));
-            }
         }
 
         void OnLabel2IsRelativeSwitchToggled(object sender, RoutedEventArgs args)
@@ -77,15 +71,9 @@ namespace ControlsTest
             if (slider4 is null || autoSwitch4 is null)
                 return;
             if (autoSwitch4.IsOn)
-            {
-                System.Diagnostics.Debug.WriteLine("Switch 4 On");
                 FlexLayout.SetBasis(label4, FlexBasis.Auto.ToString());
-            }
             else
-            {
-                System.Diagnostics.Debug.WriteLine("Switch 4 Off");
                 FlexLayout.SetBasis(label4, new FlexBasis((float)slider4.Value, relativeSwitch4.IsOn));
-            }
         }
 
         void OnLabel4IsRelativeSwitchToggled(object sender, RoutedEventArgs args)

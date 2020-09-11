@@ -257,7 +257,6 @@ namespace Bc3.Forms
             if (d is FrameworkElement element && GetFlexItem(element) is Flex.Item item)
             {
                 item.Grow = (double)e.NewValue;
-                System.Diagnostics.Debug.WriteLine( $"FlexLayout.OnGrowChanged element.GetType=[{element.GetType()}]   item._instance[{item._instance}] value=[{item.Grow}]");
                 InternalInvalidateArrange(element);
             }
         }
@@ -327,7 +326,6 @@ namespace Bc3.Forms
                     item.Basis = Flex.Basis.Parse(value);
                 else
                     item.Basis = Flex.Basis.Auto;
-                System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + $" SetBasis=[{item.Basis}]");
                 InternalInvalidateArrange(element);
             }
         }
@@ -381,13 +379,6 @@ namespace Bc3.Forms
             else if (view is RichTextBlock richTextBlock)
                 item.SetPadding(richTextBlock.Padding);
 
-            item.Order = GetOrder(view);
-            item.Grow = GetGrow(view);
-            item.Shrink = GetShrink(view);
-            item.AlignSelf = (Flex.AlignSelf)GetAlignSelf(view);
-            item.Basis = InternalGetFlexBasis(view);
-
-            System.Diagnostics.Debug.WriteLine($"FlexLayout.UpdateItemProperties : view.Type=[{view.GetType()}]   item._instance=[{item._instance}]    item.Grow=" + item.Grow);
         }
         #endregion
 
@@ -423,7 +414,6 @@ namespace Bc3.Forms
             if (_root == null)
                 return null;
 
-            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + ".AddChild ENTER view: " + (view is TextBlock ? "\""+((TextBlock)view).Text + "\"" : view.GetType().ToString()));
             view.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var item = (view as FlexLayout)?._root ?? new Flex.Item();
             InitItemProperties(view, item);
@@ -459,14 +449,12 @@ namespace Bc3.Forms
                     w = (double)view.DesiredSize.Width;
                     h = (double)view.DesiredSize.Height;
 
-                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + GetType() + ". item.SelfSizing NEW sizeConstraints: ["+sizeConstraints+"] " + (view is TextBlock ? "Text: " + "\""+((TextBlock)view).Text + "\"" : view.GetType().ToString()) + "   DESIRED[" + view.DesiredSize + "]  ACTUAL[" + view.ActualSize + "]");
                 };
             }
 
             _root.InsertAt(Children.IndexOf(view), item);
             SetFlexItem(view, item);
 
-            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + ".AddChild EXIT view: " + (view is TextBlock ? "\"" + ((TextBlock)view).Text + "\"" : view.GetType().ToString()));
             return item;
         }
 
@@ -529,7 +517,6 @@ namespace Bc3.Forms
                         || double.IsNaN(frame.Height))
                         throw new Exception("something is deeply wrong");
                     //frame = frame.Offset(x, y); //flex doesn't support offset on _root
-                    System.Diagnostics.Debug.WriteLine(Global.DebugIndent() + GetType() + $".ArrangeOverride.Arrange [{(child is TextBlock ? ((TextBlock)child).Text : child.GetType().ToString())}] [{frame.X}, {frame.Y}, {frame.Width}, {frame.Height}]");
                     child.Arrange(frame);
                 }
                 else
@@ -616,13 +603,11 @@ namespace Bc3.Forms
 
         void Layout(double width, double height)
         {
-            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(+1) + GetType() + $".Layout ENTER [{width}, {height}]");
             if (_root.Parent != null)   //Layout is only computed at root level
                 return;
             _root.Width = !double.IsPositiveInfinity((width)) ? (double)width : 0;
             _root.Height = !double.IsPositiveInfinity((height)) ? (double)height : 0;
             _root.Layout();
-            System.Diagnostics.Debug.WriteLine(Global.DebugIndent(-1) + GetType() + $".Layout EXIT [{width}, {height}]");
         }
         #endregion
     }
