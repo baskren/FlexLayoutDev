@@ -5,75 +5,9 @@
     xmlns:local="using:ControlsTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:flex="using:Bc3.Forms"
     mc:Ignorable="d">
-
-    <Grid x:Name="myGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel 
-            Background="Red"
-            Spacing="20"
-             VerticalAlignment="Top"
-            >
-            <TextBlock  x:Name="pText1" Text="Hello, world!" Margin="20" FontSize="30" VerticalAlignment="Bottom" />
-            <TextBlock  x:Name="pText2" Text="Hello, world!" Margin="20" FontSize="30" VerticalAlignment="Top" />
-            <TextBlock  x:Name="pText3" Text="Hello, world!" Margin="20" FontSize="30" VerticalAlignment="Top" />
-        </StackPanel>
-        <StackPanel
-            Spacing="5"
-            Orientation="Horizontal"
-            Grid.Row="1"
-            >
-            <Button x:Name="_generateContent" Content="Generate Content" Click="OnGenerateContentClick" />
-            <Button x:Name="_addButton" Content="Add to Panel" Click="OnAddClicked"   />
-            <Button x:Name="_delButton" Content="Remove from Panel" Click="OnDelClicked"  />
-            <ComboBox x:Name="_dirCombo" Header="Direction" SelectionChanged="OnDirectionChanged"   />
-
-            <ComboBox x:Name="_justifyContentCombo" Header="JustifyContent" SelectionChanged="OnJustifyContentChanged"  />
-
-            <ComboBox x:Name="_alignContentCombo" Header="AlignContent" SelectionChanged="OnAlignContentChanged"  />
-
-            <ComboBox x:Name="_alignItemsCombo" Header="AlignItems" SelectionChanged="OnAlignItemsChanged"  />
-
-            <ComboBox x:Name="_positionCombo" Header="Position" SelectionChanged="OnPositionChanged"  />
-
-            <ComboBox x:Name="_wrapCombo" Header="Wrap"  SelectionChanged="OnWrapChanged" />
-
-
-        </StackPanel>
-        <!--
-        <ColorPicker x:Name="myColorPicker" ColorChanged="OnColorChanged"/>
-        -->
-        <Popup  x:Name="ppup" IsOpen="False" Grid.RowSpan="3" >
-                <Border BorderThickness="1" BorderBrush="Black" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gray" CornerRadius="5">
-                    <StackPanel Background="Pink" >
-                        <TextBlock Text="This is Pop up control of Xaml" FontSize="20" FontWeight="Bold">
-                        </TextBlock>
-                    </StackPanel>
-                </Border>
-        </Popup>
-        <flex:FlexPanel
-            x:Name="_customPanel"
-            Grid.Row="2"
-            
-            >
-            <Rectangle
-                Fill="Red"
-                Width="101.3333"
-                Height="18.66667"
-                />
-            <TextBlock 
-                x:Name="_customPanelChild0"
-                Text="TEXT0"
-                Foreground="White"/>
-
-        </flex:FlexPanel>
-
-
-    </Grid>
+    <Page.Content>
+        <Grid >
+        </Grid>
+    </Page.Content>
 </Page>

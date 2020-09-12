@@ -1,5 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,10 +10,12 @@ using Windows.UI.Xaml.Controls;
 
 namespace Bc3.Forms
 {
-    public class FlexPanel : Panel
+    public partial class FlexPanel : Panel
     {
         #region Properties
 
+#if __ANDROID__ || __WASM__
+#else
         #region Padding Property
         public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register(
             nameof(Padding),
@@ -32,6 +33,7 @@ namespace Bc3.Forms
             set => this.SetNewValue(PaddingProperty, value);
         }
         #endregion Padding Property
+#endif
 
 
         #region Direction Property
@@ -54,10 +56,10 @@ namespace Bc3.Forms
             get => (FlexDirection)GetValue(DirectionProperty);
             set => this.SetNewValue(DirectionProperty, value);
         }
-        #endregion Direction Property
+#endregion Direction Property
 
 
-        #region JustifyContent Property
+#region JustifyContent Property
         public static readonly DependencyProperty JustifyContentProperty = DependencyProperty.Register(
             nameof(JustifyContent),
             typeof(FlexJustify),
@@ -77,10 +79,10 @@ namespace Bc3.Forms
             get => (FlexJustify)GetValue(JustifyContentProperty);
             set => this.SetNewValue(JustifyContentProperty, value);
         }
-        #endregion JustifyContent Property
+#endregion JustifyContent Property
 
 
-        #region AlignContent Property
+#region AlignContent Property
         public static readonly DependencyProperty AlignContentProperty = DependencyProperty.Register(
             nameof(AlignContent),
             typeof(FlexAlignContent),
@@ -100,10 +102,10 @@ namespace Bc3.Forms
             get => (FlexAlignContent)GetValue(AlignContentProperty);
             set => this.SetNewValue(AlignContentProperty, value);
         }
-        #endregion AlignContent Property
+#endregion AlignContent Property
 
 
-        #region AlignItems Property
+#region AlignItems Property
         public static readonly DependencyProperty AlignItemsProperty = DependencyProperty.Register(
             nameof(AlignItems),
             typeof(FlexAlignItems),
@@ -123,10 +125,10 @@ namespace Bc3.Forms
             get => (FlexAlignItems)GetValue(AlignItemsProperty);
             set => this.SetNewValue(AlignItemsProperty, value);
         }
-        #endregion AlignItems Property
+#endregion AlignItems Property
 
 
-        #region Position Property
+#region Position Property
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
             nameof(Position),
             typeof(FlexPosition),
@@ -146,10 +148,10 @@ namespace Bc3.Forms
             get => (FlexPosition)GetValue(PositionProperty);
             set => this.SetNewValue(PositionProperty, value);
         }
-        #endregion Position Property
+#endregion Position Property
 
 
-        #region Wrap Property
+#region Wrap Property
         public static readonly DependencyProperty WrapProperty = DependencyProperty.Register(
             nameof(Wrap),
             typeof(FlexWrap),
@@ -169,10 +171,10 @@ namespace Bc3.Forms
             get => (FlexWrap)GetValue(WrapProperty);
             set => this.SetNewValue(WrapProperty, value);
         }
-        #endregion Wrap Property
+#endregion Wrap Property
 
 
-        #region FlexItem Property
+#region FlexItem Property
         static readonly DependencyProperty FlexItemProperty = DependencyProperty.Register(
             "FlexItem",
             typeof(object),
@@ -185,23 +187,30 @@ namespace Bc3.Forms
                 return null;
             if (element is FlexPanel flexPanel)
                 return flexPanel._root;
-            var item = (FlexItem)element.GetValue(FlexItemProperty);
-            if (item is null)
+            FlexItem item = null;
+            try
             {
-                item = new FlexItem();
-                element.SetValue(FlexItemProperty, item);
+                item = (FlexItem)element.GetValue(FlexItemProperty);
             }
-            return item;
+            catch (Exception) { }
+
+                if (item is null)
+                {
+                    item = new FlexItem();
+                    element.SetValue(FlexItemProperty, item);
+                }
+                return item;
+            
         }
         static void SetFlexItem(UIElement element, FlexItem value)
         {
             element.SetNewValue(FlexItemProperty, value);
             UpdateItemProperties(element, value);
         }
-        #endregion FlexItem Property
+#endregion FlexItem Property
 
 
-        #region Order Property
+#region Order Property
         public static readonly DependencyProperty OrderProperty = DependencyProperty.RegisterAttached(
             "Order",
             typeof(int),
@@ -220,10 +229,10 @@ namespace Bc3.Forms
             => (int)element.GetValue(OrderProperty);
         public static void SetOrder(UIElement element, int value)
             => element.SetNewValue(OrderProperty, value);
-        #endregion Order Property
+#endregion Order Property
 
 
-        #region Grow Property
+#region Grow Property
         public static readonly DependencyProperty GrowProperty = DependencyProperty.RegisterAttached(
             "Grow",
             typeof(double),
@@ -242,10 +251,10 @@ namespace Bc3.Forms
             => (double)element.GetValue(GrowProperty);
         public static void SetGrow(UIElement element, double value)
             => element.SetNewValue(GrowProperty, value);
-        #endregion Grow Property
+#endregion Grow Property
 
 
-        #region Shrink Property
+#region Shrink Property
         public static readonly DependencyProperty ShrinkProperty = DependencyProperty.RegisterAttached(
             "Shrink",
             typeof(double),
@@ -264,10 +273,10 @@ namespace Bc3.Forms
             => (double)element.GetValue(ShrinkProperty);
         public static void SetShrink(UIElement element, double value)
             => element.SetNewValue(ShrinkProperty, value);
-        #endregion Shrink Property
+#endregion Shrink Property
 
 
-        #region AlignSelf Property
+#region AlignSelf Property
         public static readonly DependencyProperty AlignSelfProperty = DependencyProperty.RegisterAttached(
             "AlignSelf",
             typeof(FlexAlignSelf),
@@ -286,10 +295,10 @@ namespace Bc3.Forms
             => (FlexAlignSelf)element.GetValue(AlignSelfProperty);
         public static void SetAlignSelf(UIElement element, FlexAlignSelf value)
             => element.SetNewValue(AlignSelfProperty, value);
-        #endregion AlignSelf Property
+#endregion AlignSelf Property
 
 
-        #region Basis Property
+#region Basis Property
         public static readonly DependencyProperty BasisProperty = DependencyProperty.RegisterAttached(
             "Basis",
             typeof(string),
@@ -325,14 +334,18 @@ namespace Bc3.Forms
         }
         public static void SetBasis(UIElement element, FlexBasis value)
             =>SetBasis(element, value.ToString());
-        #endregion Basis Property
+#endregion Basis Property
 
         static void InternalInvalidateArrange(UIElement element)
         {
+//            #if __ANDROID__
+//#else
+
             if (element is FlexPanel)
                 element.InvalidateArrange();
             else if (element is FrameworkElement frameworkElement && frameworkElement.Parent is FlexPanel flexPanel)
                 flexPanel.InvalidateArrange();
+//#endif
         }
 
         static void UpdateItemProperties(UIElement view, FlexItem item)
@@ -354,27 +367,29 @@ namespace Bc3.Forms
                 item.SetPadding(border.Padding);
             else if (view is TextBlock textBlock)
                 item.SetPadding(textBlock.Padding);
+#if __ANDROID__ || __WASM__
+#else
             else if (view is RichTextBlock richTextBlock)
                 item.SetPadding(richTextBlock.Padding);
-
+#endif
         }
         #endregion
 
 
         #region Fields
         FlexItem _root; 
-        #endregion
+#endregion
 
 
-        #region Construction
+#region Construction
         public FlexPanel()
         {
             InitLayoutProperties(_root = new FlexItem());
         }
-        #endregion
+#endregion
 
 
-        #region Children Handlers
+#region Children Handlers
         void InitLayoutProperties(FlexItem item)
         {
             item.AlignContent = (FlexAlignContent)GetValue(AlignContentProperty);
@@ -453,10 +468,10 @@ namespace Bc3.Forms
             }
 
         }
-        #endregion
+#endregion
 
 
-        #region Layout Handlers
+#region Layout Handlers
         protected override Size ArrangeOverride(Size finalSize)
         {
             var width = finalSize.Width;
@@ -556,7 +571,7 @@ namespace Bc3.Forms
             _root.Height = !double.IsPositiveInfinity((height)) ? (double)height : 0;
             _root.Layout();
         }
-        #endregion
+#endregion
 
 
     }

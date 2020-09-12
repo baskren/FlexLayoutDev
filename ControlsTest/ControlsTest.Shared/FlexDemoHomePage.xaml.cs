@@ -10,9 +10,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
+
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ControlsTest
@@ -25,13 +26,13 @@ namespace ControlsTest
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
             ("simpleStack", typeof(SimpleStackPage)),
-            ("photoWrapping", typeof(PhotoWrappingPage)),
-            ("holyGrail", typeof(HolyGrailLayoutPage)),
-            ("catalogItems", typeof(CatalogItemsPage)),
-            ("experiment", typeof(ExperimentPage)),
-            ("basisExperiment", typeof(BasisExperimentPage)),
-            ("growExperiment",typeof(GrowExperimentPage)),
-            ("shrinkExperiment", typeof(ShrinkExperimentPage)),
+            //("photoWrapping", typeof(PhotoWrappingPage)),
+            //("holyGrail", typeof(HolyGrailLayoutPage)),
+            //("catalogItems", typeof(CatalogItemsPage)),
+            //("experiment", typeof(ExperimentPage)),
+            //("basisExperiment", typeof(BasisExperimentPage)),
+            //("growExperiment",typeof(GrowExperimentPage)),
+            //("shrinkExperiment", typeof(ShrinkExperimentPage)),
             //("cssCatalogItems", typeof(CssCatalogItemsPage)),
         };
 
@@ -62,7 +63,10 @@ namespace ControlsTest
 
             // Add keyboard accelerators for backwards navigation.
             var goBack = new KeyboardAccelerator { Key = Windows.System.VirtualKey.GoBack };
+#if __ANDROID__ || __WASM__
+#else
             goBack.Invoked += BackInvoked;
+#endif
             this.KeyboardAccelerators.Add(goBack);
 
             // ALT routes here
@@ -71,13 +75,16 @@ namespace ControlsTest
                 Key = Windows.System.VirtualKey.Left,
                 Modifiers = Windows.System.VirtualKeyModifiers.Menu
             };
+#if __ANDROID__ || __WASM__
+#else
             altLeft.Invoked += BackInvoked;
+#endif
             this.KeyboardAccelerators.Add(altLeft);
         }
 
         /*
-        private void NavView_ItemInvoked(muxc.NavigationView sender,
-                                         muxc.NavigationViewItemInvokedEventArgs args)
+        private void NavView_ItemInvoked(NavigationView sender,
+                                         NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked == true)
             {
@@ -94,8 +101,8 @@ namespace ControlsTest
         // NavView_SelectionChanged is not used in this example, but is shown for completeness.
         // You will typically handle either ItemInvoked or SelectionChanged to perform navigation,
         // but not both.
-        private void NavView_SelectionChanged(muxc.NavigationView sender,
-                                              muxc.NavigationViewSelectionChangedEventArgs args)
+        private void NavView_SelectionChanged(NavigationView sender,
+                                              NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected == true)
             {
@@ -110,7 +117,7 @@ namespace ControlsTest
 
         private void NavView_Navigate(
             string navItemTag,
-            Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo)
+            NavigationTransitionInfo transitionInfo)
         {
             Type _page = _pages.FirstOrDefault(p => p.Tag == navItemTag).Page;
             // Get the page type before navigation so you can prevent duplicate
@@ -124,8 +131,8 @@ namespace ControlsTest
             }
         }
 
-        private void NavView_BackRequested(muxc.NavigationView sender,
-                                           muxc.NavigationViewBackRequestedEventArgs args)
+        private void NavView_BackRequested(NavigationView sender,
+                                           NavigationViewBackRequestedEventArgs args)
         {
             On_BackRequested();
         }
@@ -134,7 +141,10 @@ namespace ControlsTest
                                  KeyboardAcceleratorInvokedEventArgs args)
         {
             On_BackRequested();
+#if __ANDROID__ || __WASM__
+#else
             args.Handled = true;
+#endif
         }
 
         private bool On_BackRequested()
@@ -144,8 +154,8 @@ namespace ControlsTest
 
             // Don't go back if the nav pane is overlayed.
             if (NavView.IsPaneOpen &&
-                (NavView.DisplayMode == muxc.NavigationViewDisplayMode.Compact ||
-                 NavView.DisplayMode == muxc.NavigationViewDisplayMode.Minimal))
+                (NavView.DisplayMode == NavigationViewDisplayMode.Compact ||
+                 NavView.DisplayMode == NavigationViewDisplayMode.Minimal))
                 return false;
 
             ContentFrame.GoBack();
@@ -160,7 +170,7 @@ namespace ControlsTest
             if (ContentFrame.SourcePageType == typeof(SettingsPage))
             {
                 // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
-                NavView.SelectedItem = (muxc.NavigationViewItem)NavView.SettingsItem;
+                NavView.SelectedItem = (NavigationViewItem)NavView.SettingsItem;
                 NavView.Header = "Settings";
             }
             else
@@ -170,11 +180,11 @@ namespace ControlsTest
                 var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
 
                 NavView.SelectedItem = NavView.MenuItems
-                    .OfType<muxc.NavigationViewItem>()
+                    .OfType<NavigationViewItem>()
                     .First(n => n.Tag.Equals(item.Tag));
 
                 NavView.Header =
-                    ((muxc.NavigationViewItem)NavView.SelectedItem)?.Content?.ToString();
+                    ((NavigationViewItem)NavView.SelectedItem)?.Content?.ToString();
             }
         }
 

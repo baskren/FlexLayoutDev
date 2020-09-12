@@ -5,38 +5,43 @@
     xmlns:local="using:ControlsTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="clr-namespace:Microsoft.UI.Xaml.Controls;assembly=Uno.UI.FluentTheme"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-        <muxc:NavigationView x:Name="NavView"
+    <Page.Content>
+        <Grid>
+            <Grid.Children>
+                <NavigationView x:Name="NavView"
                          Loaded="NavView_Loaded"
                          SelectionChanged="NavView_SelectionChanged"
                          BackRequested="NavView_BackRequested">
-            <muxc:NavigationView.MenuItems>
+                    <NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem Tag="simpleStack" Icon="Page" Content="Simple Stack Page"/>
-                <muxc:NavigationViewItem Tag="photoWrapping" Icon="Page" Content="Photo Wrapping Page"/>
-                <muxc:NavigationViewItem Tag="holyGrail" Icon="Page" Content="Holy Grail Page"/>
-                <muxc:NavigationViewItem Tag="catalogItems" Icon="Page"  Content="Catalog Items Page" />
-                <muxc:NavigationViewItem Tag="experiment" Icon="Page" Content="Experiment Page"/>
-                <muxc:NavigationViewItem Tag="basisExperiment" Icon="Page" Content="Basis Experiment Page"/>
-                <muxc:NavigationViewItem Tag="growExperiment" Icon="Page" Content="Grow Experiment Page"/>
-                <muxc:NavigationViewItem Tag="shrinkExperiment" Icon="Page" Content="Shrink Experiment Page"/>
-                <muxc:NavigationViewItem Tag="cssCatalogItems" Icon="Page"  Content="CSS Catalog Items Page" />
+                        <NavigationViewItem Tag="simpleStack" Icon="Page" Content="Simple Stack Page"/>
+                        <NavigationViewItem Tag="photoWrapping" Icon="Page" Content="Photo Wrapping Page"/>
+                        <NavigationViewItem Tag="holyGrail" Icon="Page" Content="Holy Grail Page"/>
+                        <NavigationViewItem Tag="catalogItems" Icon="Page"  Content="Catalog Items Page" />
+                        <NavigationViewItem Tag="experiment" Icon="Page" Content="Experiment Page"/>
+                        <NavigationViewItem Tag="basisExperiment" Icon="Page" Content="Basis Experiment Page"/>
+                        <NavigationViewItem Tag="growExperiment" Icon="Page" Content="Grow Experiment Page"/>
+                        <NavigationViewItem Tag="shrinkExperiment" Icon="Page" Content="Shrink Experiment Page"/>
+                        <NavigationViewItem Tag="cssCatalogItems" Icon="Page"  Content="CSS Catalog Items Page" />
 
-            </muxc:NavigationView.MenuItems>
+                    </NavigationView.MenuItems>
+                    <NavigationView.Content>
+                        <ScrollViewer
+                            VerticalScrollBarVisibility="Auto"
+                            VerticalScrollMode="Auto"
+                            >
+                            <ScrollViewer.Content>
+                                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"
+                                   NavigationFailed="ContentFrame_NavigationFailed"/>
+                            </ScrollViewer.Content>
+                        </ScrollViewer>
+                    </NavigationView.Content>
 
-            <ScrollViewer
-                VerticalScrollBarVisibility="Auto"
-                VerticalScrollMode="Auto"
-                
-                >
-                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"
-                   NavigationFailed="ContentFrame_NavigationFailed"/>
-            </ScrollViewer>
-
-        </muxc:NavigationView>
-    </Grid>
+                </NavigationView>
+            </Grid.Children>
+        </Grid>
+    </Page.Content>
 </Page>

@@ -18,19 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BasisExperimentPage.xaml.cs">
-      <DependentUpon>BasisExperimentPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BooleanInverseConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CatalogItemsPage.xaml.cs">
-      <DependentUpon>CatalogItemsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)CollectionClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CustomPanel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EnumPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExperimentPage.xaml.cs">
-      <DependentUpon>ExperimentPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)FlexDemoHomePage.xaml.cs">
       <DependentUpon>FlexDemoHomePage.xaml</DependentUpon>
     </Compile>
@@ -38,22 +25,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GrowExperimentPage.xaml.cs">
-      <DependentUpon>GrowExperimentPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)HolyGrailLayoutPage.xaml.cs">
-      <DependentUpon>HolyGrailLayoutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions\Type.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PhotoWrappingPage.xaml.cs">
-      <DependentUpon>PhotoWrappingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ShrinkExperimentPage.xaml.cs">
-      <DependentUpon>ShrinkExperimentPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SimpleStackPage.xaml.cs">
       <DependentUpon>SimpleStackPage.xaml</DependentUpon>
     </Compile>
@@ -63,39 +38,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)UIElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)BasisExperimentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)CatalogItemsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)ExperimentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)FlexDemoHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GrowExperimentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)HolyGrailLayoutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)PhotoWrappingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)ShrinkExperimentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

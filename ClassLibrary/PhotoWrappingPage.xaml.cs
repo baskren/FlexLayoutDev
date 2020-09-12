@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,11 +29,10 @@ namespace ControlsTest
     /// </summary>
     public partial class PhotoWrappingPage : Page
     {
-        [DataContract]
         class ImageList
         {
-            [DataMember(Name = "photos")]
-            public List<string> Photos = null;
+            [JsonProperty("photos")]
+            public List<string> Photos { get; set; }
         }
 
 
@@ -57,8 +57,15 @@ namespace ControlsTest
                     using (Stream listStream = new MemoryStream(listData))
                     {
                         // Deserialize the JSON into an ImageList object
-                        var jsonSerializer = new DataContractJsonSerializer(typeof(ImageList));
-                        ImageList imageList = (ImageList)jsonSerializer.ReadObject(listStream);
+                        //var jsonSerializer = new DataContractJsonSerializer(typeof(ImageList));
+                        //ImageList imageList = (ImageList)jsonSerializer.ReadObject(listStream);
+                        ImageList imageList = null;
+                        using (var reader = new StreamReader(listStream)) 
+                        using (var jsonReader = new JsonTextReader(reader))
+                        {
+                            var jsonSerializer = new JsonSerializer();
+                            imageList = jsonSerializer.Deserialize<ImageList>(jsonReader);
+                        }
 
                         // Create an Image object for each bitmap
                         foreach (string filepath in imageList.Photos)
