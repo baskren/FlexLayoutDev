@@ -50,7 +50,7 @@ namespace ControlsTest
             _dirCombo.SelectedItem = FlexDirection.Row.ToString();
             */
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(FlexDemoHomePage));
         }
         

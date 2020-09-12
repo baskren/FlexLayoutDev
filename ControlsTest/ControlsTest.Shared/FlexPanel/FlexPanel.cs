@@ -14,7 +14,7 @@ namespace Bc3.Forms
     {
         #region Properties
 
-#if __ANDROID__ || __WASM__
+#if __ANDROID__ || __WASM__ || __IOS__
 #else
         #region Padding Property
         public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register(
@@ -175,7 +175,7 @@ namespace Bc3.Forms
 
 
 #region FlexItem Property
-        static readonly DependencyProperty FlexItemProperty = DependencyProperty.Register(
+        static readonly DependencyProperty FlexItemProperty = DependencyProperty.RegisterAttached(
             "FlexItem",
             typeof(object),
             typeof(FlexPanel),

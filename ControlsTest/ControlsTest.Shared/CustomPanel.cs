@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ControlsTest
 {
-    class CustomPanel : Panel
+    partial class CustomPanel : Panel
     {
         #region TextBlock Property
         public static readonly DependencyProperty TextBlockProperty = DependencyProperty.RegisterAttached(

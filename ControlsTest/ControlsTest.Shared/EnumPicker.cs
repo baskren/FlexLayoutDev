@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ControlsTest
 {
-    class EnumPicker : ComboBox
+    partial class EnumPicker : ComboBox
     {
         public static readonly DependencyProperty EnumTypeProperty =
             DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumPicker), new PropertyMetadata(null, OnEnumTypeChanged));
