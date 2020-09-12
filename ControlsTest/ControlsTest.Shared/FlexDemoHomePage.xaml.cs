@@ -26,13 +26,13 @@ namespace ControlsTest
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
             ("simpleStack", typeof(SimpleStackPage)),
-            //("photoWrapping", typeof(PhotoWrappingPage)),
-            //("holyGrail", typeof(HolyGrailLayoutPage)),
-            //("catalogItems", typeof(CatalogItemsPage)),
-            //("experiment", typeof(ExperimentPage)),
-            //("basisExperiment", typeof(BasisExperimentPage)),
-            //("growExperiment",typeof(GrowExperimentPage)),
-            //("shrinkExperiment", typeof(ShrinkExperimentPage)),
+            ("photoWrapping", typeof(PhotoWrappingPage)),
+            ("holyGrail", typeof(HolyGrailLayoutPage)),
+            ("catalogItems", typeof(CatalogItemsPage)),
+            ("experiment", typeof(ExperimentPage)),
+            ("basisExperiment", typeof(BasisExperimentPage)),
+            ("growExperiment",typeof(GrowExperimentPage)),
+            ("shrinkExperiment", typeof(ShrinkExperimentPage)),
             //("cssCatalogItems", typeof(CssCatalogItemsPage)),
         };
 

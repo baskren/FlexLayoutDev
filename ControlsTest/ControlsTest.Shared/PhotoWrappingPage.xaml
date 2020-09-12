@@ -8,17 +8,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-        <ScrollViewer>
-            <bc3:FlexPanel x:Name="flexPanel"
+    <Page.Content>
+        <Grid>
+            <Grid.Children>
+                <ScrollViewer>
+                    <bc3:FlexPanel x:Name="flexPanel"
                         Wrap="Wrap"
                         JustifyContent="SpaceAround" />
-        </ScrollViewer>
+                </ScrollViewer>
 
-        <ProgressRing x:Name="activityIndicator"
+                <ProgressRing x:Name="activityIndicator"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       />
-    </Grid>
+            </Grid.Children>
+        </Grid>
+    </Page.Content>
 </Page>

@@ -12,118 +12,123 @@
     <Page.Resources>
         <converters:StringFormatConverter x:Key="StringFormatConverter" />
     </Page.Resources>
-    
-    <Grid Margin="10, 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <!-- Control Panel -->
-        <Grid Grid.Row="0">
+    <Page.Content>
+        <Grid Margin="10, 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Grid.Children>
+                <!-- Control Panel -->
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                </Style>
-            </Grid.Resources>
-
-            <!-- Controls for TextBlock 2 -->
-            <TextBlock Text="TextBlock 2:"
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Style.Setters>
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.Children>
+                        <!-- Controls for TextBlock 2 -->
+                        <TextBlock Text="TextBlock 2:"
                    Grid.Row="0" Grid.Column="0" />
 
-            <Slider x:Name="grow2Slider"
+                        <Slider x:Name="grow2Slider"
                     Grid.Row="0" Grid.Column="1"
                     StepFrequency="0.01"
                     Maximum="5" />
 
-            <TextBlock 
+                        <TextBlock 
                 Text="{x:Bind grow2Slider.Value, Converter={StaticResource StringFormatConverter}, ConverterParameter='Grow = {0:F2}', Mode=OneWay}"
                 Grid.Row="1" Grid.Column="1" 
                 HorizontalAlignment="Center" />
 
-            <!-- Controls for TextBlock 4 -->
-            <TextBlock Text="TextBlock 4:"
+                        <!-- Controls for TextBlock 4 -->
+                        <TextBlock Text="TextBlock 4:"
                    Grid.Row="2" Grid.Column="0" />
 
-            <Slider x:Name="grow4Slider"
+                        <Slider x:Name="grow4Slider"
                     Value="1.0"
                     Grid.Row="2" Grid.Column="1"
                     StepFrequency="0.01"
                     Maximum="5" />
 
-            <TextBlock 
+                        <TextBlock 
                 Text="{x:Bind grow4Slider.Value, Converter={StaticResource StringFormatConverter}, ConverterParameter='Grow = {0:F2}', Mode=OneWay}"
                 Grid.Row="3" Grid.Column="1" 
                 HorizontalAlignment="Center" />
-        </Grid>
+                    </Grid.Children>
+                </Grid>
 
-        <!-- bc3.FlexPanel -->
-        <bc3:FlexPanel 
+                <!-- bc3.FlexPanel -->
+                <bc3:FlexPanel 
             Grid.Row="1"
             Direction="Row"
             Background="AliceBlue">
 
-            <bc3:FlexPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="30" />
-                </Style>
-            </bc3:FlexPanel.Resources>
+                    <bc3:FlexPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="30" />
+                        </Style>
+                    </bc3:FlexPanel.Resources>
 
-            <Border Background="Pink" 
+                    <Border Background="Pink" 
                     bc3:FlexPanel.Basis="50"
                     >
-                <!--TextBlock Text="TextBlock 1"
+                        <!--TextBlock Text="TextBlock 1"
                    Foreground="Blue"/-->
-            </Border>
+                    </Border>
 
 
-            <Border
+                    <Border
                    Background="Cyan"
                    bc3:FlexPanel.Grow="{Binding Value, ElementName=grow2Slider, Mode=TwoWay}" 
                 >
-                <TextBlock Text="TextBlock 2"
+                        <TextBlock Text="TextBlock 2"
                    Foreground="Red"
                            />
-            </Border>
+                    </Border>
 
-            <Border 
+                    <Border 
                    Background="Pink" 
                     bc3:FlexPanel.Basis="50"
                 >
-                <!--TextBlock Text="TextBlock 3"
+                        <!--TextBlock Text="TextBlock 3"
                    Foreground="Blue"
                            /-->
-            </Border>
+                    </Border>
 
-            <Border
+                    <Border
                    Background="Cyan"
                    bc3:FlexPanel.Grow="{Binding Value, ElementName=grow4Slider, Mode=TwoWay}" 
                 >
-                <TextBlock Text="TextBlock 4"
+                        <TextBlock Text="TextBlock 4"
                    Foreground="Red"
                            />
-            </Border>
+                    </Border>
 
-            <Border
+                    <Border
                    Background="Pink" 
                     bc3:FlexPanel.Basis="50"
                 >
-                <!--TextBlock Text="TextBlock 5"
+                        <!--TextBlock Text="TextBlock 5"
                    Foreground="Blue"
                            /-->
-            </Border>            
-        </bc3:FlexPanel>
-    </Grid>
+                    </Border>
+                </bc3:FlexPanel>
+            </Grid.Children>
+        </Grid>
+    </Page.Content>
 </Page>

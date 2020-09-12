@@ -8,65 +8,66 @@
     xmlns:bc3="using:Bc3.Forms"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Content>
+        <Grid>
 
-    <Grid>
-        
-        <bc3:FlexPanel Direction="Column">
+            <bc3:FlexPanel Direction="Column">
 
-            <Border Background="Aqua">
-                <TextBlock
+                <Border Background="Aqua">
+                    <TextBlock
                 Text="HEADER"
                 FontSize="40"
                 HorizontalTextAlignment="Center" />
-            </Border>
+                </Border>
 
 
-            <!-- Body -->
-            <bc3:FlexPanel 
+                <!-- Body -->
+                <bc3:FlexPanel 
             Grid.Row="0"
             Direction="Row"
             Background="AliceBlue"
             bc3:FlexPanel.Grow="1.0"
             >
 
-                <!-- Navigation items-->
-                <Rectangle 
+                    <!-- Navigation items-->
+                    <Rectangle 
                     bc3:FlexPanel.Order="-1"
                     bc3:FlexPanel.Basis="50"
                      Fill="Blue" />
 
-                <!-- Content -->
-                <Border 
+                    <!-- Content -->
+                    <Border 
                     Background="Gray"
                     bc3:FlexPanel.Grow="1" 
                     >
-                    <TextBlock 
+                        <TextBlock 
                         Text="CONTENT"
                         FontSize="40"
                         HorizontalTextAlignment="Center"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         />
-                </Border>
+                    </Border>
 
 
-                <!-- Aside items -->
-                <Rectangle 
+                    <!-- Aside items -->
+                    <Rectangle 
                     Fill="Green" 
                     bc3:FlexPanel.Basis="50"
                     />
 
-            </bc3:FlexPanel>
-            <Border Background="Pink" >
-                <TextBlock Text="FOOTER"
+                </bc3:FlexPanel>
+                <Border Background="Pink" >
+                    <TextBlock Text="FOOTER"
                FontSize="40"
                HorizontalTextAlignment="Center" />
-            </Border>
+                </Border>
 
-        </bc3:FlexPanel>
-
-
+            </bc3:FlexPanel>
 
 
-    </Grid>
+
+
+        </Grid>
+    </Page.Content>
 </Page>
