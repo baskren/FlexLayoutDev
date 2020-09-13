@@ -1,0 +1,11 @@
+﻿<Application
+    x:Class="FlexPanelTest.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlexPanelTest">
+    <!--
+    <Application.Resources>
+        <XamlControlsResources xmlns="using:Windows.UI.Xaml.Controls" />
+    </Application.Resources>
+-->
+</Application>
