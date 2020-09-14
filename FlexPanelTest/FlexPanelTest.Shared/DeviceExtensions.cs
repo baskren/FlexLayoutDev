@@ -27,7 +27,7 @@ namespace FlexPanelTest
             return new Thickness(sai.Left, sai.Top, sai.Right, sai.Bottom);
 
 #else
-            return Thickness.Empty;
+            return new Thickness();
 #endif
         }
 

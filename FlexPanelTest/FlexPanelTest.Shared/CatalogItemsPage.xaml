@@ -12,22 +12,20 @@
     Background="LightGray">
     <Page.Resources>
         <Style TargetType="Border">
-            <Style.Setters>
                 <Setter Property="Background" Value="LightYellow" />
                 <Setter Property="BorderBrush" Value="Blue" />
                 <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="20" />
                 <Setter Property="CornerRadius" Value="20" />
                 <Setter Property="Width" Value="350"/>
                 <Setter Property="Height" Value="500" />
-            </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock">
-            <Style.Setters>
                 <Setter Property="Margin" Value="0, 2" />
                 <Setter Property="TextWrapping" Value="WrapWholeWords"/>
                 <Setter Property="Foreground" Value="Black"/>
-            </Style.Setters>
         </Style>
 
         <Style x:Key="headerTextBlock" TargetType="TextBlock">
@@ -58,7 +56,7 @@
     </Page.Resources>
 
     <Page.Content>
-        <Grid
+        <!--Grid
             Background="Orange"
             Margin="0"
             Padding="0"
@@ -75,18 +73,18 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.Children>
+            <Grid.Children-->
                 <ScrollViewer
 
                     Background="Pink"
 
                     HorizontalScrollMode="Enabled"  
                     HorizontalScrollBarVisibility="Visible"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Stretch"
                     
                     VerticalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Visible"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Stretch"
 
                     Margin="0"
                     Padding="0"
@@ -96,56 +94,46 @@
                             Background="Cyan"
                             Padding="0"
                             >
-                            <Border
-                                Padding="20"
-                                Margin="5"
-                                >
+                            <Border>
                                 <bc3:FlexPanel Direction="Column">
-                                    <TextBlock Text="Seated Monkey" 
-                               Style="{StaticResource headerTextBlock}" />
+                                    <TextBlock Text="Seated Monkey" Style="{StaticResource headerTextBlock}" />
                                     <TextBlock Text="This monkey is laid back and relaxed, and likes to watch the world go by." />
                                     <TextBlock Text="  &#x2022; Doesn't make a lot of noise" />
                                     <TextBlock Text="  &#x2022; Often smiles mysteriously" />
                                     <TextBlock Text="  &#x2022; Sleeps sitting up" />
                                     <Image Source="/Assets/SeatedMonkey.jpg"
-                               Width="180"
-                               Height="180"
+                                        Width="180"
+                                        Height="180"
                                    />
                                     <TextBlock bc3:FlexPanel.Grow="1" />
                                     <Button />
                                 </bc3:FlexPanel>
                             </Border>
 
-                            <Border
-                                Margin="5"
-                                Padding="20">
+                            <Border>
                                 <bc3:FlexPanel Direction="Column">
-                                    <TextBlock Text="Banana Monkey"
-                               Style="{StaticResource headerTextBlock}" />
+                                    <TextBlock Text="Banana Monkey" Style="{StaticResource headerTextBlock}" />
                                     <TextBlock Text="Watch this monkey eat a giant banana." />
                                     <TextBlock Text="  &#x2022; More fun than a barrel of monkeys" />
                                     <TextBlock Text="  &#x2022; Banana not included" />
                                     <Image Source="/Assets/Banana.jpg"
-                               Width="240"
-                               Height="180" />
+                                        Width="240"
+                                        Height="180" />
                                     <TextBlock bc3:FlexPanel.Grow="1" />
                                     <Button />
                                 </bc3:FlexPanel>
                             </Border >
 
-                            <Border
-                                Margin="5"
-                                Padding="20">
+                            <Border>
                                 <bc3:FlexPanel Direction="Column">
-                                    <TextBlock Text="Face-Palm Monkey"
-                               Style="{StaticResource headerTextBlock}" />
+                                    <TextBlock Text="Face-Palm Monkey" Style="{StaticResource headerTextBlock}" />
                                     <TextBlock Text="This monkey reacts appropriately to ridiculous assertions and actions." />
                                     <TextBlock Text="  &#x2022; Cynical but not unfriendly" />
                                     <TextBlock Text="  &#x2022; Seven varieties of grimaces" />
                                     <TextBlock Text="  &#x2022; Doesn't laugh at your jokes" />
                                     <Image Source="/Assets/FacePalm.jpg"
-                               Width="180"
-                               Height="180" />
+                                        Width="180"
+                                        Height="180" />
                                     <TextBlock bc3:FlexPanel.Grow="1" />
                                     <Button />
                                 </bc3:FlexPanel>
@@ -153,8 +141,8 @@
                         </bc3:FlexPanel>
                     </ScrollViewer.Content>
                 </ScrollViewer>
-            </Grid.Children>
+            <!--/Grid.Children>
 
-        </Grid>
+        </-->
     </Page.Content>
 </Page>

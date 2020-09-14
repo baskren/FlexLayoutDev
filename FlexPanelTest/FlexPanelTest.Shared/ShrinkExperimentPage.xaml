@@ -117,14 +117,9 @@
                                 <Setter
                                     win:Property="FontSize"
                                     Value="48" />
-                                <!--
-                        <Setter.Value>
-                            <OnPlatform x:TypeArguments="x:Double">
-                                <On Platform="iOS, Android" Value="32" />
-                                <On Platform="UWP" Value="48" />
-                            </OnPlatform>
-                        </Setter.Value>
-                        -->
+                                <Setter
+                                    Property="FontSize"
+                                    Value="32"/>
                             </Style.Setters>
                         </Style>
                     </bc3:FlexPanel.Resources>
