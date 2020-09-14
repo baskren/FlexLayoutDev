@@ -5,25 +5,38 @@
 // Author(s):
 //  - Laurent Sansonetti (native Xamarin flex https://github.com/xamarin/flex)
 //  - Stephane Delcroix (.NET port)
-//  - Ben Askren (UWP port)
+//  - Ben Askren (UWP/Uno port)
 //
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Bc3.Forms
+namespace Microsoft.Toolkit.Uwp.UI.Controls
 {
     /// <summary>
     /// An item with flexbox properties. Items can also contain other items and be enumerated.
     /// </summary>
     class FlexItem : IEnumerable<FlexItem>
 	{
-        #region Properties
-        /// <summary>
-        /// Gets the frame (x, y, w, h).
-        /// </summary>
-        /// <value>The frame.</value>
-        public double[] Frame { get; } = new double[4];
+		internal const FlexAlignContent AlignContentDefault = FlexAlignContent.Stretch;
+		internal const FlexAlignItems AlignItemsDefault = FlexAlignItems.Stretch;
+		internal const FlexAlignSelf AlignSelfDefault = FlexAlignSelf.Auto;
+		internal static readonly FlexBasis BasisDefault = FlexBasis.Auto;
+		internal const FlexDirection DirectionDefault = FlexDirection.Row;
+		internal const FlexJustify JustifyContentDefault = FlexJustify.Start;
+		internal const FlexPosition PositionDefault = FlexPosition.Relative;
+		internal const FlexWrap WrapDefault = FlexWrap.NoWrap;
+
+		internal const int OrderDefault = 0;
+		internal const double GrowDefault = 0;
+		internal const double ShrinkDefault = 1;
+
+		#region Properties
+		/// <summary>
+		/// Gets the frame (x, y, w, h).
+		/// </summary>
+		/// <value>The frame.</value>
+		public double[] Frame { get; } = new double[4];
 
 		/// <summary>The parent item.</summary>
 		/// <value>The parent item, or null if the item is a root item.</value>
@@ -31,39 +44,39 @@ namespace Bc3.Forms
 		IList<FlexItem> Children { get; set; }
 		bool ShouldOrderChildren { get; set; }
 
-		///<summary>This property defines how the layout engine will distribute space between and around child items that have been laid out on multiple lines. This property is ignored if the root item does not have its <see cref="P:Bc3.Flex.FlexItem.Wrap" /> property set to Wrap or WrapReverse.</summary>
+		///<summary>This property defines how the layout engine will distribute space between and around child items that have been laid out on multiple lines. This property is ignored if the root item does not have its <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Wrap" /> property set to Wrap or WrapReverse.</summary>
 		///<remarks>The default value for this property is Stretch.</remarks>
 		/// <value>The content of the align.</value>
-		public FlexAlignContent AlignContent { get; set; } = FlexAlignContent.Stretch;
+		public FlexAlignContent AlignContent { get; set; } = AlignContentDefault;
 
 		/// <summary>This property defines how the layout engine will distribute space between and around child items along the cross-axis.</summary>
 		/// <value>The align items.</value>
 		/// <remarks>The default value for this property is Stretch.</remarks>
-		public FlexAlignItems AlignItems { get; set; } = FlexAlignItems.Stretch;
+		public FlexAlignItems AlignItems { get; set; } = AlignItemsDefault;
 
-		/// <summary>This property defines how the layout engine will distribute space between and around child items for a specific child along the cross-axis. If this property is set to Auto on a child item, the parent's value for <see cref="P:Bc3.Flex.FlexItem.AlignItems" /> will be used instead.</summary>
+		/// <summary>This property defines how the layout engine will distribute space between and around child items for a specific child along the cross-axis. If this property is set to Auto on a child item, the parent's value for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignItems" /> will be used instead.</summary>
 		/// <value>The align self.</value>
-		public FlexAlignSelf AlignSelf { get; set; } = FlexAlignSelf.Auto;
+		public FlexAlignSelf AlignSelf { get; set; } = AlignSelfDefault;
 
-		/// <summary>This property defines the initial main-axis dimension of the item. If <see cref="P:Bc3.Flex.FlexItem.Direction" /> is row-based (horizontal), it will be used instead of <see cref="P:Bc3.Flex.FlexItem.Width" />, and if it's column-based (vertical), it will be used instead of <see cref="P:Bc3.Flex.FlexItem.Height" />.</summary>
+		/// <summary>This property defines the initial main-axis dimension of the item. If <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Direction" /> is row-based (horizontal), it will be used instead of <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Width" />, and if it's column-based (vertical), it will be used instead of <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Height" />.</summary>
 		/// <value>The basis.</value>
 		/// <remarks>The default value for this property is Auto.</remarks>
-		public FlexBasis Basis { get; set; } = FlexBasis.Auto;
+		public FlexBasis Basis { get; set; } = BasisDefault;
 
-		/// <summary>This property defines the bottom edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.FlexItem.Top" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the bottom edge absolute position of the item. It also defines the item's height if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Top" /> is also set and if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Bottom { get; set; } = double.NaN;
 
 		/// <summary>This property defines the direction and main-axis of child items. If set to Column (or ColumnReverse), the main-axis will be the y-axis and items will be stacked vertically. If set to Row (or RowReverse), the main-axis will be the x-axis and items will be stacked horizontally.</summary>
-		/// <value>Any value part of the<see cref="T:Bc3.Flex.Direction" /> enumeration.</value>
+		/// <value>Any value part of the<see cref="T:Microsoft.Toolkit.Uwp.UI.ControlsDirection" /> enumeration.</value>
 		/// <remarks>The default value for this property is Column.</remarks>
-		public FlexDirection Direction { get; set; } = FlexDirection.Column;
+		public FlexDirection Direction { get; set; } = DirectionDefault;
 
 		/// <summary>This property defines the grow factor of the item; the amount of available space it should use on the main-axis. If this property is set to 0, the item will not grow.</summary>
 		/// <value>The item grow factor.</value>
 		/// <remarks>The default value for this property is 0 (does not take any available space).</remarks>
-		public double Grow { get; set; } = 0f;
+		public double Grow { get; set; } = GrowDefault;
 
 		/// <summary>This property defines the height size dimension of the item.</summary>
 		/// <value>The height size dimension.</value>
@@ -73,11 +86,11 @@ namespace Bc3.Forms
 		public bool IsVisible { get; set; } = true;
 
 		/// <summary>This property defines how the layout engine will distribute space between and around child items along the main-axis.</summary>
-		/// <value>Any value part of the<see cref="T:Bc3.Flex.Align" /> enumeration, with the exception of Stretch and Auto.</value>
+		/// <value>Any value part of the<see cref="T:Microsoft.Toolkit.Uwp.UI.ControlsAlign" /> enumeration, with the exception of Stretch and Auto.</value>
 		/// <remarks>The default value for this property is Start.</remarks>
-		public FlexJustify JustifyContent { get; set; } = FlexJustify.Start;
+		public FlexJustify JustifyContent { get; set; } = JustifyContentDefault;
 
-		/// <summary>This property defines the left edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.FlexItem.Right" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the left edge absolute position of the item.It also defines the item's width if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Right" /> is also set and if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Left { get; set; } = double.NaN;
@@ -102,7 +115,7 @@ namespace Bc3.Forms
 		/// <remarks>The default value for this property is 0.</remarks>
 		public double MarginTop { get; set; } = 0f;
 
-		int order;
+		int order = OrderDefault;
 
 		/// <summary>This property specifies whether this item should be laid out before or after other items in the container.Items are laid out based on the ascending value of this property.Items that have the same value for this property will be laid out in the order they were inserted.</summary>
 		/// <value>The item order (can be a negative, 0, or positive value).</value>
@@ -133,12 +146,12 @@ namespace Bc3.Forms
 		/// <value>The bottom edge padding space.Negative values are not allowed.</value>
 		public double PaddingTop { get; set; } = 0f;
 
-		/// <summary>This property defines whether the item should be positioned by the flexbox rules of the layout engine(Relative) or have an absolute fixed position (Absolute). If this property is set to Absolute, the<see cref="P:Bc3.Flex.FlexItem.Left" />, <see cref = "P:Bc3.Flex.FlexItem.Right" />, <see cref = "P:Bc3.Flex.FlexItem.Top" /> and <see cref= "P:Bc3.Flex.FlexItem.Bottom" /> properties will then be used to determine the item's fixed position in its container.</summary>
-		/// <value>Any value part of the<see cref="T:Bc3.Flex.Position" /> enumeration.</value>
+		/// <summary>This property defines whether the item should be positioned by the flexbox rules of the layout engine(Relative) or have an absolute fixed position (Absolute). If this property is set to Absolute, the<see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Left" />, <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Right" />, <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Top" /> and <see cref= "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Bottom" /> properties will then be used to determine the item's fixed position in its container.</summary>
+		/// <value>Any value part of the<see cref="T:Microsoft.Toolkit.Uwp.UI.ControlsPosition" /> enumeration.</value>
 		/// <remarks>The default value for this property is Relative</remarks>
-		public FlexPosition Position { get; set; } = FlexPosition.Relative;
+		public FlexPosition Position { get; set; } = PositionDefault;
 
-		/// <summary>This property defines the right edge absolute position of the item.It also defines the item's width if <see cref="P:Bc3.Flex.FlexItem.Left" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the right edge absolute position of the item.It also defines the item's width if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Left" /> is also set and if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Width" /> isn't set.It is ignored if <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Right { get; set; } = double.NaN;
@@ -146,9 +159,9 @@ namespace Bc3.Forms
 		/// <summary>This property defines the shrink factor of the item.In case the child items overflow the main-axis of the container, this factor will be used to determine how individual items should shrink so that all items can fill inside the container.If this property is set to 0, the item will not shrink.</summary>
 		/// <value>The item shrink factor.</value>
 		/// <remarks>The default value for this property is 1 (all items will shrink equally).</remarks>
-		public double Shrink { get; set; } = 1f;
+		public double Shrink { get; set; } = ShrinkDefault;
 
-		/// <summary>This property defines the top edge absolute position of the item. It also defines the item's height if <see cref="P:Bc3.Flex.FlexItem.Bottom" /> is also set and if <see cref="P:Bc3.Flex.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Bc3.Flex.FlexItem.Position" /> isn't set to Absolute.</summary>
+		/// <summary>This property defines the top edge absolute position of the item. It also defines the item's height if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Bottom" /> is also set and if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Height" /> isn't set. It is ignored if <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Position" /> isn't set to Absolute.</summary>
 		/// <value>The value for the property.</value>
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Top { get; set; } = double.NaN;
@@ -158,21 +171,21 @@ namespace Bc3.Forms
 		/// <remarks>The default value for this property is NaN.</remarks>
 		public double Width { get; set; } = double.NaN;
 
-		/// <summary>This property defines whether child items should be laid out in a single line(NoWrap) or multiple lines(Wrap or WrapReverse). If this property is set to Wrap or WrapReverse, <see cref = "P:Bc3.Flex.FlexItem.AlignContent" /> can then be used to specify how the lines should be distributed.</summary>
-		/// <value>Any value part of the<see cref="T:Bc3.Flex.Wrap" /> enumeration.</value>
+		/// <summary>This property defines whether child items should be laid out in a single line(NoWrap) or multiple lines(Wrap or WrapReverse). If this property is set to Wrap or WrapReverse, <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignContent" /> can then be used to specify how the lines should be distributed.</summary>
+		/// <value>Any value part of the<see cref="T:Microsoft.Toolkit.Uwp.UI.ControlsWrap" /> enumeration.</value>
 		/// <remarks>The default value for this property is NoWrap.</remarks>
-		public FlexWrap Wrap { get; set; } = FlexWrap.NoWrap;
+		public FlexWrap Wrap { get; set; } = WrapDefault;
 		#endregion
 
 
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Bc3.Flex.FlexItem"/> class.
+        /// Initializes a new instance of the <see cref="T:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem"/> class.
         /// </summary>
         public FlexItem() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Bc3.Flex.FlexItem"/> class.
+        /// Initializes a new instance of the <see cref="T:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem"/> class.
         /// </summary>
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>

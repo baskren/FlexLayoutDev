@@ -5,7 +5,7 @@
     xmlns:local="using:FlexPanelTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:bc3="using:Bc3.Forms"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -73,19 +73,19 @@
                 </Grid>
 
                 <!-- bc3.FlexPanel -->
-                <bc3:FlexPanel 
+                <controls:FlexPanel 
             Grid.Row="1"
             Direction="Row"
             Background="AliceBlue">
 
-                    <bc3:FlexPanel.Resources>
+                    <controls:FlexPanel.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="FontSize" Value="30" />
                         </Style>
-                    </bc3:FlexPanel.Resources>
+                    </controls:FlexPanel.Resources>
 
                     <Border Background="Pink" 
-                    bc3:FlexPanel.Basis="50"
+                    controls:FlexPanel.Basis="50"
                     >
                         <!--TextBlock Text="TextBlock 1"
                    Foreground="Blue"/-->
@@ -94,7 +94,7 @@
 
                     <Border
                    Background="Cyan"
-                   bc3:FlexPanel.Grow="{Binding Value, ElementName=grow2Slider, Mode=TwoWay}" 
+                   controls:FlexPanel.Grow="{Binding Value, ElementName=grow2Slider, Mode=TwoWay}" 
                 >
                         <TextBlock Text="TextBlock 2"
                    Foreground="Red"
@@ -103,7 +103,7 @@
 
                     <Border 
                    Background="Pink" 
-                    bc3:FlexPanel.Basis="50"
+                    controls:FlexPanel.Basis="50"
                 >
                         <!--TextBlock Text="TextBlock 3"
                    Foreground="Blue"
@@ -112,7 +112,7 @@
 
                     <Border
                    Background="Cyan"
-                   bc3:FlexPanel.Grow="{Binding Value, ElementName=grow4Slider, Mode=TwoWay}" 
+                   controls:FlexPanel.Grow="{Binding Value, ElementName=grow4Slider, Mode=TwoWay}" 
                 >
                         <TextBlock Text="TextBlock 4"
                    Foreground="Red"
@@ -121,13 +121,13 @@
 
                     <Border
                    Background="Pink" 
-                    bc3:FlexPanel.Basis="50"
+                    controls:FlexPanel.Basis="50"
                 >
                         <!--TextBlock Text="TextBlock 5"
                    Foreground="Blue"
                            /-->
                     </Border>
-                </bc3:FlexPanel>
+                </controls:FlexPanel>
             </Grid.Children>
         </Grid>
     </Page.Content>

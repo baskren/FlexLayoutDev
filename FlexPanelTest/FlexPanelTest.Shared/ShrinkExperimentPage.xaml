@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:bc3="using:Bc3.Forms"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:android="http://uno.ui/android"
     xmlns:ios="http://uno.ui/ios"
@@ -106,11 +106,11 @@
                 </Grid>
 
                 <!-- FlexPanel -->
-                <bc3:FlexPanel
+                <controls:FlexPanel
                     Grid.Row="1"
                     Background="AliceBlue">
 
-                    <bc3:FlexPanel.Resources>
+                    <controls:FlexPanel.Resources>
                         <Style
                             TargetType="TextBlock">
                             <Style.Setters>
@@ -122,7 +122,7 @@
                                     Value="32"/>
                             </Style.Setters>
                         </Style>
-                    </bc3:FlexPanel.Resources>
+                    </controls:FlexPanel.Resources>
 
                     <Border
                         Background="Pink">
@@ -133,7 +133,7 @@
 
                     <Border
                         Background="Cyan"
-                        bc3:FlexPanel.Shrink="{x:Bind shrink2Slider.Value, Mode=TwoWay}">
+                        controls:FlexPanel.Shrink="{x:Bind shrink2Slider.Value, Mode=TwoWay}">
                         <TextBlock
                             Text="TextBlock 2"
                             Foreground="Red" />
@@ -148,7 +148,7 @@
 
                     <Border
                         Background="Cyan"
-                        bc3:FlexPanel.Shrink="{x:Bind shrink4Slider.Value, Mode=TwoWay}">
+                        controls:FlexPanel.Shrink="{x:Bind shrink4Slider.Value, Mode=TwoWay}">
                         <TextBlock
                             Text="TextBlock 4"
                             Foreground="Red" />
@@ -160,7 +160,7 @@
                             Text="TextBlock 5"
                             Foreground="Blue" />
                     </Border>
-                </bc3:FlexPanel>
+                </controls:FlexPanel>
             </Grid.Children>
         </Grid>
     </Page.Content>

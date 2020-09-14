@@ -69,7 +69,6 @@ namespace FlexPanelTest
 
                         // Create an Image object for each bitmap
                         foreach (string filepath in imageList.Photos)
-                        //var filepath = imageList.Photos[0];
                         {
                             var imageUri = new Uri(filepath, UriKind.Absolute);
 
@@ -89,24 +88,28 @@ namespace FlexPanelTest
                 }
             }
 
-            //activityIndicator.IsRunning = false;
             activityIndicator.Visibility = Visibility.Collapsed;
         }
 
-        public async static Task<BitmapImage> BitmapImageFromBytes(Byte[] bytes)
+        async static Task<BitmapImage> BitmapImageFromBytes(Byte[] bytes)
         {
             var image = new BitmapImage();
 
 #if WINDOWS_UWP || NETFX_CORE
             using (var stream = new InMemoryRandomAccessStream())
             {
-              image.SetSource(stream);
-              var s = stream.AsStreamForWrite();
-              s.Write(bytes, 0, bytes.Length);
+                /*
+                image.SetSource(stream);
+                var s = stream.AsStreamForWrite();
+                s.Write(bytes, 0, bytes.Length);
+                */
+                await stream.WriteAsync(bytes.AsBuffer());
+                stream.Seek(0);
+                await image.SetSourceAsync(stream);
             }
 #else
             Stream stream = new MemoryStream(bytes);
-            image.SetSource(stream);
+            await image.SetSourceAsync(stream);
 #endif
             return image;
         }

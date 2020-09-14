@@ -1,4 +1,13 @@
-﻿using System;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See the LICENSE file in the project root
+// for the license information.
+// 
+// Author(s):
+//  - Laurent Sansonetti (native Xamarin flex https://github.com/xamarin/flex)
+//  - Stephane Delcroix (.NET port)
+//  - Ben Askren (UWP/Uno port)
+//
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,88 +17,29 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Bc3.Forms
+namespace Microsoft.Toolkit.Uwp.UI.Controls
 {
+    /// <summary>
+    /// FlexPanel is a panel based on the CSS Flexible Box Layout Module, commonly known as flex layout or flex-box, 
+    /// so called because it includes many flexible options to arrange children within the layout.  It can arrange 
+    /// its children horizontally and vertically in a stack, with options to reverse the order of items as well as 
+    /// align and justify content and individual items. More importantly, FlexPanel is capable of wrapping its children 
+    /// if there are too many to fit in a single row or column, and also has many options for orientation, alignment, 
+    /// and adapting to various screen sizes.
+    /// </summary>
     public partial class FlexPanel : Panel
     {
-        #region Properties
-
-#if __ANDROID__ || __WASM__ || __IOS__
-#else
-        #region Padding Property
-        public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register(
-            nameof(Padding),
-            typeof(Thickness),
-            typeof(FlexPanel),
-            new PropertyMetadata(new Thickness(0), new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnPaddingChanged(e)))
-        );
-        protected virtual void OnPaddingChanged(DependencyPropertyChangedEventArgs e)
-        {
-            InvalidateMeasure();
-        }
-        public Thickness Padding
-        {
-            get => (Thickness)GetValue(PaddingProperty);
-            set => this.SetNewValue(PaddingProperty, value);
-        }
-        #endregion Padding Property
-#endif
-
-
-        #region Direction Property
-        public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register(
-            nameof(Direction),
-            typeof(FlexDirection),
-            typeof(FlexPanel),
-            new PropertyMetadata(FlexDirection.Row, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnDirectionChanged(e)))
-        );
-        protected virtual void OnDirectionChanged(DependencyPropertyChangedEventArgs e)
-        {
-            if (_root != null)
-            {
-                _root.Direction = (FlexDirection)e.NewValue;
-                InvalidateMeasure();
-            }
-        }
-        public FlexDirection Direction
-        {
-            get => (FlexDirection)GetValue(DirectionProperty);
-            set => this.SetNewValue(DirectionProperty, value);
-        }
-#endregion Direction Property
-
-
-#region JustifyContent Property
-        public static readonly DependencyProperty JustifyContentProperty = DependencyProperty.Register(
-            nameof(JustifyContent),
-            typeof(FlexJustify),
-            typeof(FlexPanel),
-            new PropertyMetadata(FlexJustify.Start, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnJustifyContentChanged(e)))
-        );
-        protected virtual void OnJustifyContentChanged(DependencyPropertyChangedEventArgs e)
-        {
-            if (_root != null)
-            {
-                _root.JustifyContent = (FlexJustify)e.NewValue;
-                InvalidateMeasure();
-            }
-        }
-        public FlexJustify JustifyContent
-        {
-            get => (FlexJustify)GetValue(JustifyContentProperty);
-            set => this.SetNewValue(JustifyContentProperty, value);
-        }
-#endregion JustifyContent Property
-
-
-#region AlignContent Property
+        /// <summary>
+        /// Dependency Property for the FlexPanel.AlignContent property
+        /// </summary>
         public static readonly DependencyProperty AlignContentProperty = DependencyProperty.Register(
             nameof(AlignContent),
             typeof(FlexAlignContent),
             typeof(FlexPanel),
-            new PropertyMetadata(FlexAlignContent.Stretch, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnAlignContentChanged(e)))
+            new PropertyMetadata(FlexItem.AlignContentDefault, new PropertyChangedCallback((d, e) => ((FlexPanel)d).OnAlignContentChanged(e)))
         );
-        protected virtual void OnAlignContentChanged(DependencyPropertyChangedEventArgs e)
+
+        void OnAlignContentChanged(DependencyPropertyChangedEventArgs e)
         {
             if (_root != null)
             {
@@ -97,22 +47,31 @@ namespace Bc3.Forms
                 InvalidateMeasure();
             }
         }
+
+        ///<summary>
+        ///This property defines how the FlexPanel will distribute space between and around child elements that have been 
+        ///laid out on multiple lines. This property is ignored if the root item does not have its 
+        ///<see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Wrap" /> property set to Wrap or WrapReverse.
+        ///</summary>
+        ///<remarks>The default value for this property is Stretch.</remarks>
         public FlexAlignContent AlignContent
         {
             get => (FlexAlignContent)GetValue(AlignContentProperty);
             set => this.SetNewValue(AlignContentProperty, value);
         }
-#endregion AlignContent Property
 
 
-#region AlignItems Property
+        /// <summary>
+        /// Dependency Property for the FlexPanel.AlignItems property
+        /// </summary>
         public static readonly DependencyProperty AlignItemsProperty = DependencyProperty.Register(
             nameof(AlignItems),
             typeof(FlexAlignItems),
             typeof(FlexPanel),
-            new PropertyMetadata(FlexAlignItems.Stretch, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnAlignItemsChanged(e)))
+            new PropertyMetadata(FlexItem.AlignItemsDefault, new PropertyChangedCallback((d, e) => ((FlexPanel)d).OnAlignItemsChanged(e)))
         );
-        protected virtual void OnAlignItemsChanged(DependencyPropertyChangedEventArgs e)
+
+        void OnAlignItemsChanged(DependencyPropertyChangedEventArgs e)
         {
             if (_root != null)
             {
@@ -120,45 +79,93 @@ namespace Bc3.Forms
                 InvalidateMeasure();
             }
         }
+
+        /// <summary>
+        /// This property defines how the FlexPanel will distribute space between and around child elements along the 
+        /// cross-axis.
+        /// </summary>
+        /// <remarks>The default value for this property is Stretch.</remarks>
         public FlexAlignItems AlignItems
         {
             get => (FlexAlignItems)GetValue(AlignItemsProperty);
             set => this.SetNewValue(AlignItemsProperty, value);
         }
-#endregion AlignItems Property
 
 
-#region Position Property
-        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
-            nameof(Position),
-            typeof(FlexPosition),
+        /// <summary>
+        /// DependencyProperty for the FlexPanel.Direction property
+        /// </summary>
+        public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register(
+            nameof(Direction),
+            typeof(FlexDirection),
             typeof(FlexPanel),
-            new PropertyMetadata(FlexPosition.Relative, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnPositionChanged(e)))
+            new PropertyMetadata(FlexItem.DirectionDefault, new PropertyChangedCallback((d, e) => ((FlexPanel)d).OnDirectionChanged(e)))
         );
-        protected virtual void OnPositionChanged(DependencyPropertyChangedEventArgs e)
+
+        void OnDirectionChanged(DependencyPropertyChangedEventArgs e)
         {
             if (_root != null)
             {
-                _root.Position = (FlexPosition)e.NewValue;
+                _root.Direction = (FlexDirection)e.NewValue;
                 InvalidateMeasure();
             }
         }
-        public FlexPosition Position
+
+        /// <summary>
+        /// This property defines the direction and main-axis of child elements. If set to Column (or ColumnReverse), 
+        /// the main-axis will be the y-axis and items will be stacked vertically. If set to Row (or RowReverse), 
+        /// the main-axis will be the x-axis and items will be stacked horizontally.
+        /// </summary>
+        /// <remarks>The default value for this property is Column.</remarks>
+        public FlexDirection Direction
         {
-            get => (FlexPosition)GetValue(PositionProperty);
-            set => this.SetNewValue(PositionProperty, value);
+            get => (FlexDirection)GetValue(DirectionProperty);
+            set => this.SetNewValue(DirectionProperty, value);
         }
-#endregion Position Property
 
 
-#region Wrap Property
+        /// <summary>
+        /// Dependency Property for the FlexPanel.JustifyContent property
+        /// </summary>
+        public static readonly DependencyProperty JustifyContentProperty = DependencyProperty.Register(
+            nameof(JustifyContent),
+            typeof(FlexJustify),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.JustifyContentDefault, new PropertyChangedCallback((d, e) => ((FlexPanel)d).OnJustifyContentChanged(e)))
+        );
+
+        void OnJustifyContentChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (_root != null)
+            {
+                _root.JustifyContent = (FlexJustify)e.NewValue;
+                InvalidateMeasure();
+            }
+        }
+
+        /// <summary>
+        /// This property defines how the FlexPanel will distribute space between and around child items 
+        /// along the main-axis.
+        /// </summary>
+        /// <remarks>The default value for this property is Start.</remarks>
+        public FlexJustify JustifyContent
+        {
+            get => (FlexJustify)GetValue(JustifyContentProperty);
+            set => this.SetNewValue(JustifyContentProperty, value);
+        }
+
+
+        /// <summary>
+        /// The Dependency Property for the FlexPanel.Wrap property
+        /// </summary>
         public static readonly DependencyProperty WrapProperty = DependencyProperty.Register(
             nameof(Wrap),
             typeof(FlexWrap),
             typeof(FlexPanel),
-            new PropertyMetadata(FlexWrap.NoWrap, new PropertyChangedCallback((d,e) => ((FlexPanel)d).OnWrapChanged(e)))
+            new PropertyMetadata(FlexItem.WrapDefault, new PropertyChangedCallback((d, e) => ((FlexPanel)d).OnWrapChanged(e)))
         );
-        protected virtual void OnWrapChanged(DependencyPropertyChangedEventArgs e)
+
+        void OnWrapChanged(DependencyPropertyChangedEventArgs e)
         {
             if (_root != null)
             {
@@ -166,21 +173,254 @@ namespace Bc3.Forms
                 InvalidateMeasure();
             }
         }
+
+        /// <summary>
+        /// This property defines whether child elements should be laid out in a single line(NoWrap) 
+        /// or multiple lines(Wrap or WrapReverse). If this property is set to Wrap or WrapReverse, 
+        /// <see cref = "P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignContent" /> can then be 
+        /// used to specify how the lines should be distributed.
+        /// </summary>
+        /// <remarks>The default value for this property is NoWrap.</remarks>
         public FlexWrap Wrap
         {
             get => (FlexWrap)GetValue(WrapProperty);
             set => this.SetNewValue(WrapProperty, value);
         }
-#endregion Wrap Property
 
 
-#region FlexItem Property
+        /// <summary>
+        /// The Attached Dependency Property for the FlexLayout.Order attached property
+        /// </summary>
+        public static readonly DependencyProperty OrderProperty = DependencyProperty.RegisterAttached(
+            "Order",
+            typeof(int),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.OrderDefault, OnOrderChanged)
+        );
+
+        static void OnOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
+            {
+                item.Order = (int) e.NewValue;
+                InternalInvalidateArrange(element);
+            }
+        }
+
+        /// <summary>
+        /// This attached property specifies whether this UIElement should be laid out before or after other items 
+        /// in the FlexPanel.  Items are laid out based on the ascending value of this property. Items that 
+        /// have the same value for this property will be laid out in the order they were inserted.
+        /// </summary>
+        /// <value>The item order (can be a negative, 0, or positive value).</value>
+        /// <remarks>The default value for this property is 0.</remarks>
+        public static int GetOrder(UIElement element)
+            => (int)element.GetValue(OrderProperty);
+
+        /// <summary>
+        /// This attached property specifies whether this UIElement should be laid out before or after other items 
+        /// in the FlexPanel.  Items are laid out based on the ascending value of this property. Items that 
+        /// have the same value for this property will be laid out in the order they were inserted.
+        /// </summary>
+        /// <value>The item order (can be a negative, 0, or positive value).</value>
+        /// <remarks>The default value for this property is 0.</remarks>
+        public static void SetOrder(UIElement element, int value)
+            => element.SetNewValue(OrderProperty, value);
+
+
+        /// <summary>
+        /// The Attached Dependency Property for the FlexLayout.Grow attached property
+        /// </summary>
+        public static readonly DependencyProperty GrowProperty = DependencyProperty.RegisterAttached(
+            "Grow",
+            typeof(double),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.GrowDefault, OnGrowChanged)
+        );
+
+        static void OnGrowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
+            {
+                item.Grow = (double)e.NewValue;
+                InternalInvalidateArrange(element);
+            }
+        }
+
+        /// <summary>
+        /// This attached property defines the grow factor of the UIElement; the amount of available space it 
+        /// should use on the main-axis. If this property is set to 0, the item will not grow.
+        /// </summary>
+        /// <value>The item grow factor.</value>
+        /// <remarks>The default value for this property is 0 (does not take any available space).</remarks>
+        public static double GetGrow(UIElement element)
+            => (double)element.GetValue(GrowProperty);
+
+        /// <summary>
+        /// This attached property defines the grow factor of the UIElement; the amount of available space it 
+        /// should use on the main-axis. If this property is set to 0, the item will not grow.
+        /// </summary>
+        /// <value>The item grow factor.</value>
+        /// <remarks>The default value for this property is 0 (does not take any available space).</remarks>
+        public static void SetGrow(UIElement element, double value)
+            => element.SetNewValue(GrowProperty, value);
+
+
+        /// <summary>
+        /// The Attached Dependency Property for the FlexLayout.Shrink attached property;
+        /// </summary>
+        public static readonly DependencyProperty ShrinkProperty = DependencyProperty.RegisterAttached(
+            "Shrink",
+            typeof(double),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.ShrinkDefault, OnShrinkChanged)
+        );
+
+        static void OnShrinkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
+            {
+                item.Shrink = (double)e.NewValue;
+                InternalInvalidateArrange(element);
+            }
+        }
+
+        /// <summary>
+        /// This attached property defines the shrink factor of the UIElement.  In case the child items overflow 
+        /// the main-axis of the container, this factor will be used to determine how individual items 
+        /// should shrink so that all items can fill inside the container.If this property is set to 0, 
+        /// the item will not shrink.
+        /// </summary>
+        /// <value>The item shrink factor.</value>
+        /// <remarks>The default value for this property is 1 (all items will shrink equally).</remarks>
+        public static double GetShrink(UIElement element)
+            => (double)element.GetValue(ShrinkProperty);
+
+        /// <summary>
+        /// This attached property defines the shrink factor of the UIElement.  In case the child items overflow 
+        /// the main-axis of the container, this factor will be used to determine how individual items 
+        /// should shrink so that all items can fill inside the container.If this property is set to 0, 
+        /// the item will not shrink.
+        /// </summary>
+        /// <value>The item shrink factor.</value>
+        /// <remarks>The default value for this property is 1 (all items will shrink equally).</remarks>
+        public static void SetShrink(UIElement element, double value)
+            => element.SetNewValue(ShrinkProperty, value);
+
+
+        /// <summary>
+        /// The Attached Dependency Property for the FlexPanel.AlignSelf attached property
+        /// </summary>
+        public static readonly DependencyProperty AlignSelfProperty = DependencyProperty.RegisterAttached(
+            "AlignSelf",
+            typeof(FlexAlignSelf),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.AlignSelfDefault, OnAlignSelfChanged)
+        );
+
+        static void OnAlignSelfChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
+            {
+                item.AlignSelf = (FlexAlignSelf)e.NewValue;
+                InternalInvalidateArrange(element);
+            }
+        }
+
+        /// <summary>
+        /// This attached property defines how the FlexPanel will distribute space between and around child 
+        /// element for a specific element along the cross-axis. If this property is set to FlexAlignSelf.Auto 
+        /// on a child element, the parent's value for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignItems" /> 
+        /// will be used instead.
+        /// </summary>
+        /// <remarks>The default value for this property FlexAlignSelf.Auto.</remarks>
+        public static FlexAlignSelf GetAlignSelf(UIElement element)
+            => (FlexAlignSelf)element.GetValue(AlignSelfProperty);
+
+        /// <summary>
+        /// This attached property defines how the FlexPanel will distribute space between and around child 
+        /// element for a specific element along the cross-axis. If this property is set to FlexAlignSelf.Auto 
+        /// on a child element, the parent's value for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignItems" /> 
+        /// will be used instead.
+        /// </summary>
+        /// <remarks>The default value for this property FlexAlignSelf.Auto.</remarks>
+        public static void SetAlignSelf(UIElement element, FlexAlignSelf value)
+            => element.SetNewValue(AlignSelfProperty, value);
+
+
+        /// <summary>
+        /// The Attached Dependency Property for the FlexLayout.Basis attached property
+        /// </summary>
+        public static readonly DependencyProperty BasisProperty = DependencyProperty.RegisterAttached(
+            "Basis",
+            typeof(string),
+            typeof(FlexPanel),
+            new PropertyMetadata(FlexItem.BasisDefault.ToString(), OnBasisChanged)
+        );
+
+        static void OnBasisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
+            {
+                if (e.NewValue is string value)
+                    item.Basis = FlexBasis.Parse(value);
+                else
+                    item.Basis = FlexBasis.Auto;
+                InternalInvalidateArrange(element);
+            }
+        }
+
+        /// <summary>
+        /// This property defines the initial main-axis dimension of the UIElement in the FlexLayout or if that value
+        /// calculated by FlexPanel (FlexBasis.Auto).  If FlexBasis.IsRelative is false, then this child element's 
+        /// main-axis dimension will the FlexBasis.Length, in pixels.  Any remaining space will be portioned among all the child 
+        /// elements with a FlexBasis.IsRelstive set to true.
+        /// </summary>
+        /// <remarks>The default value for this property is Auto.</remarks>
+        public static string GetBasis(UIElement element)
+        {
+            if (element?.GetValue(BasisProperty) is string value)
+                return value;
+             return "auto";
+        }
+
+        /// <summary>
+        /// This property defines the initial main-axis dimension of the UIElement in the FlexLayout or if that value
+        /// calculated by FlexPanel (FlexBasis.Auto).  If FlexBasis.IsRelative is false, then this child element's 
+        /// main-axis dimension will the FlexBasis.Length, in pixels.  Any remaining space will be portioned among all the child 
+        /// elements with a FlexBasis.IsRelstive set to true.
+        /// </summary>
+        /// <remarks>The default value for this property is Auto.</remarks>
+        public static void SetBasis(UIElement element, string value)
+            =>element?.SetNewValue(BasisProperty, value);
+        
+
+        static FlexBasis InternalGetFlexBasis(UIElement element)
+        {
+            if (element.GetValue(BasisProperty) is string value)
+                return FlexBasis.Parse(value);
+            return FlexBasis.Auto;
+        }
+
+        /// <summary>
+        /// This property defines the initial main-axis dimension of the UIElement in the FlexLayout or if that value
+        /// calculated by FlexPanel (FlexBasis.Auto).  If FlexBasis.IsRelative is false, then this child element will be 
+        /// main-axis dimension will the FlexBasis.Length.  Any remaining space will be portioned among all the child 
+        /// elements with a FlexBasis.IsRelstive set to true.
+        /// </summary>
+        /// <remarks>The default value for this property is Auto.</remarks>
+        public static void SetBasis(UIElement element, FlexBasis value)
+            =>SetBasis(element, value.ToString());
+
+
+
         static readonly DependencyProperty FlexItemProperty = DependencyProperty.RegisterAttached(
             "FlexItem",
             typeof(object),
             typeof(FlexPanel),
             new PropertyMetadata(null)
         );
+
         static FlexItem GetFlexItem(UIElement element)
         {
             if (element is null)
@@ -194,147 +434,19 @@ namespace Bc3.Forms
             }
             catch (Exception) { }
 
-                if (item is null)
-                {
-                    item = new FlexItem();
-                    element.SetValue(FlexItemProperty, item);
-                }
-                return item;
-            
+            if (item is null)
+            {
+                item = new FlexItem();
+                element.SetValue(FlexItemProperty, item);
+            }
+            return item;
         }
+
         static void SetFlexItem(UIElement element, FlexItem value)
         {
             element.SetNewValue(FlexItemProperty, value);
             UpdateItemProperties(element, value);
         }
-#endregion FlexItem Property
-
-
-#region Order Property
-        public static readonly DependencyProperty OrderProperty = DependencyProperty.RegisterAttached(
-            "Order",
-            typeof(int),
-            typeof(FlexPanel),
-            new PropertyMetadata(default(int), OnOrderChanged)
-        );
-        static void OnOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
-            {
-                item.Order = (int) e.NewValue;
-                InternalInvalidateArrange(element);
-            }
-        }
-        public static int GetOrder(UIElement element)
-            => (int)element.GetValue(OrderProperty);
-        public static void SetOrder(UIElement element, int value)
-            => element.SetNewValue(OrderProperty, value);
-#endregion Order Property
-
-
-#region Grow Property
-        public static readonly DependencyProperty GrowProperty = DependencyProperty.RegisterAttached(
-            "Grow",
-            typeof(double),
-            typeof(FlexPanel),
-            new PropertyMetadata(default(double), OnGrowChanged)
-        );
-        static void OnGrowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
-            {
-                item.Grow = (double)e.NewValue;
-                InternalInvalidateArrange(element);
-            }
-        }
-        public static double GetGrow(UIElement element)
-            => (double)element.GetValue(GrowProperty);
-        public static void SetGrow(UIElement element, double value)
-            => element.SetNewValue(GrowProperty, value);
-#endregion Grow Property
-
-
-#region Shrink Property
-        public static readonly DependencyProperty ShrinkProperty = DependencyProperty.RegisterAttached(
-            "Shrink",
-            typeof(double),
-            typeof(FlexPanel),
-            new PropertyMetadata(1.0, OnShrinkChanged)
-        );
-        static void OnShrinkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
-            {
-                item.Shrink = (double)e.NewValue;
-                InternalInvalidateArrange(element);
-            }
-        }
-        public static double GetShrink(UIElement element)
-            => (double)element.GetValue(ShrinkProperty);
-        public static void SetShrink(UIElement element, double value)
-            => element.SetNewValue(ShrinkProperty, value);
-#endregion Shrink Property
-
-
-#region AlignSelf Property
-        public static readonly DependencyProperty AlignSelfProperty = DependencyProperty.RegisterAttached(
-            "AlignSelf",
-            typeof(FlexAlignSelf),
-            typeof(FlexPanel),
-            new PropertyMetadata(FlexAlignSelf.Auto, OnAlignSelfChanged)
-        );
-        static void OnAlignSelfChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
-            {
-                item.AlignSelf = (FlexAlignSelf)e.NewValue;
-                InternalInvalidateArrange(element);
-            }
-        }
-        public static FlexAlignSelf GetAlignSelf(UIElement element)
-            => (FlexAlignSelf)element.GetValue(AlignSelfProperty);
-        public static void SetAlignSelf(UIElement element, FlexAlignSelf value)
-            => element.SetNewValue(AlignSelfProperty, value);
-#endregion AlignSelf Property
-
-
-#region Basis Property
-        public static readonly DependencyProperty BasisProperty = DependencyProperty.RegisterAttached(
-            "Basis",
-            typeof(string),
-            typeof(FlexPanel),
-            new PropertyMetadata("auto", OnBasisChanged)
-        );
-        static void OnBasisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is FrameworkElement element && GetFlexItem(element) is FlexItem item)
-            {
-                if (e.NewValue is string value)
-                    item.Basis = FlexBasis.Parse(value);
-                else
-                    item.Basis = FlexBasis.Auto;
-                InternalInvalidateArrange(element);
-            }
-        }
-        public static string GetBasis(UIElement element)
-        {
-            if (element?.GetValue(BasisProperty) is string value)
-                return value;
-             return "auto";
-        }
-        public static void SetBasis(UIElement element, string value)
-            =>element?.SetNewValue(BasisProperty, value);
-        
-
-        static FlexBasis InternalGetFlexBasis(UIElement element)
-        {
-            if (element.GetValue(BasisProperty) is string value)
-                return FlexBasis.Parse(value);
-            return FlexBasis.Auto;
-        }
-        public static void SetBasis(UIElement element, FlexBasis value)
-            =>SetBasis(element, value.ToString());
-#endregion Basis Property
 
         static void InternalInvalidateArrange(UIElement element)
         {
@@ -348,7 +460,7 @@ namespace Bc3.Forms
         {
 
             item.IsVisible = view.Visibility == Visibility.Visible;
-
+            
             if (view is FrameworkElement element)
             {
                 item.MarginLeft = (double)element.Margin.Left;
@@ -369,31 +481,10 @@ namespace Bc3.Forms
                 item.SetPadding(richTextBlock.Padding);
 #endif
         }
-        #endregion
 
 
-        #region Fields
-        FlexItem _root; 
-#endregion
+        readonly FlexItem _root = new FlexItem(); 
 
-
-#region Construction
-        public FlexPanel()
-        {
-            InitLayoutProperties(_root = new FlexItem());
-        }
-#endregion
-
-
-#region Children Handlers
-        void InitLayoutProperties(FlexItem item)
-        {
-            item.AlignContent = (FlexAlignContent)GetValue(AlignContentProperty);
-            item.AlignItems = (FlexAlignItems)GetValue(AlignItemsProperty);
-            item.Direction = (FlexDirection)GetValue(DirectionProperty);
-            item.JustifyContent = (FlexJustify)GetValue(JustifyContentProperty);
-            item.Wrap = (FlexWrap)GetValue(WrapProperty);
-        }
 
         FlexItem AddChild(FrameworkElement view)
         {
@@ -434,11 +525,11 @@ namespace Bc3.Forms
 
         void InitItemProperties(FrameworkElement view, FlexItem item)
         {
-            item.Order = GetOrder(view);//  (int)view.GetValue(OrderProperty);
-            item.Grow = GetGrow(view); // (double)view.GetValue(GrowProperty);
-            item.Shrink = GetShrink(view); // (double)view.GetValue(ShrinkProperty);
-            item.Basis = GetBasis(view); //((FlexBasis)view.GetValue(BasisProperty)).ToFlexBasis();
-            item.AlignSelf = (FlexAlignSelf)GetAlignSelf(view); // (AlignSelf)(FlexAlignSelf)view.GetValue(AlignSelfProperty);
+            item.Order = GetOrder(view);
+            item.Grow = GetGrow(view);
+            item.Shrink = GetShrink(view);
+            item.Basis = GetBasis(view);
+            item.AlignSelf = GetAlignSelf(view);
 
             var margin = (Thickness)view.GetValue(MarginProperty);
             item.MarginLeft = (double)margin.Left;
@@ -446,28 +537,17 @@ namespace Bc3.Forms
             item.MarginRight = (double)margin.Right;
             item.MarginBottom = (double)margin.Bottom;
 
-            //var width = (double)view.GetValue(WidthProperty);
             var width = view.Width;
             item.Width = width <= 0 ? double.NaN : (double)width;
-            //var height = (double)view.GetValue(HeightProperty);
+
             var height = view.Height;
             item.Height = height <= 0 ? double.NaN : (double)height;
 
             item.IsVisible = Visibility.Visible == (Visibility)view.GetValue(VisibilityProperty);
-            if (view is FlexPanel flexPanel)
-            {
-                //var (pleft, ptop, pright, pbottom) = (Thickness)flexPanel.GetValue(PaddingProperty);
-                item.PaddingLeft = (double)flexPanel.Padding.Left;
-                item.PaddingTop = (double)flexPanel.Padding.Top;
-                item.PaddingRight = (double)flexPanel.Padding.Right;
-                item.PaddingBottom = (double)flexPanel.Padding.Bottom;
-            }
-
         }
-#endregion
 
 
-#region Layout Handlers
+
         protected override Size ArrangeOverride(Size finalSize)
         {
             var width = finalSize.Width;
@@ -485,7 +565,6 @@ namespace Bc3.Forms
                         || double.IsNaN(frame.Width)
                         || double.IsNaN(frame.Height))
                         throw new Exception("something is deeply wrong");
-                    //frame = frame.Offset(x, y); //flex doesn't support offset on _root
                     child.Arrange(frame);
                 }
             }
@@ -500,10 +579,6 @@ namespace Bc3.Forms
 
             if (_root == null)
                 return new Size(widthConstraint, heightConstraint);
-
-            //All of this is a HACK as X.Flex doesn't supports measuring
-            //if (!double.IsPositiveInfinity(widthConstraint) && !double.IsPositiveInfinity(heightConstraint))
-            //    return new Size(widthConstraint, heightConstraint);
 
             _measuring = true;
             //1. Keep track of missing layout items
@@ -567,7 +642,6 @@ namespace Bc3.Forms
             _root.Height = !double.IsPositiveInfinity((height)) ? (double)height : 0;
             _root.Layout();
         }
-#endregion
 
 
     }

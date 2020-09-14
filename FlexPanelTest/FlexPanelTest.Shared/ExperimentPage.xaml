@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:bc3="using:Bc3.Forms"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Content>
         <Grid Margin="10, 0">
@@ -71,7 +71,7 @@
                 Grid.Row="1" Grid.Column="0" 
                 VerticalAlignment="Center"       
                 />
-                        <local:EnumPicker EnumType="bc3:FlexDirection"
+                        <local:EnumPicker EnumType="controls:FlexDirection"
                               SelectedItem="{x:Bind flexPanel.Direction, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -82,7 +82,7 @@
                 VerticalAlignment="Center"       
                 />
 
-                        <local:EnumPicker EnumType="bc3:FlexWrap"
+                        <local:EnumPicker EnumType="controls:FlexWrap"
                               SelectedItem="{x:Bind flexPanel.Wrap, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -92,7 +92,7 @@
                    Grid.Row="3" Grid.Column="0" 
                 VerticalAlignment="Center"       
                 />
-                        <local:EnumPicker EnumType="bc3:FlexJustify"
+                        <local:EnumPicker EnumType="controls:FlexJustify"
                               SelectedItem="{x:Bind flexPanel.JustifyContent, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -102,7 +102,7 @@
                    Grid.Row="4" Grid.Column="0"
                 VerticalAlignment="Center"       
                 />
-                        <local:EnumPicker EnumType="bc3:FlexAlignItems"
+                        <local:EnumPicker EnumType="controls:FlexAlignItems"
                               SelectedItem="{x:Bind flexPanel.AlignItems, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -112,7 +112,7 @@
                    Grid.Row="5" Grid.Column="0"
                 VerticalAlignment="Center"       
                 />
-                        <local:EnumPicker EnumType="bc3:FlexAlignContent"
+                        <local:EnumPicker EnumType="controls:FlexAlignContent"
                               SelectedItem="{x:Bind flexPanel.AlignContent, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -121,7 +121,7 @@
                 </Grid>
 
                 <!-- FlexPanel -->
-                <bc3:FlexPanel x:Name="flexPanel"
+                <controls:FlexPanel x:Name="flexPanel"
                     Background="AliceBlue"
                     Grid.Row="1" />
             </Grid.Children>

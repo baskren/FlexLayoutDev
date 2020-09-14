@@ -5,7 +5,7 @@
     xmlns:local="using:FlexPanelTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:bc3="using:Bc3.Forms"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -134,7 +134,7 @@
 
 
                         <TextBlock Grid.Row="6" Text="Orientation" />
-                        <local:EnumPicker EnumType="bc3:FlexDirection"
+                        <local:EnumPicker EnumType="controls:FlexDirection"
                               SelectedItem="{x:Bind _flexLayout.Direction, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               HorizontalContentAlignment="Left"
@@ -145,7 +145,7 @@
                 </Grid>
 
                 <!-- FlexPanel -->
-                <bc3:FlexPanel 
+                <controls:FlexPanel 
                     x:Name="_flexLayout"
                     Grid.Row="1"
                     Direction="Row"
@@ -160,7 +160,7 @@
 
                     <Border 
                         x:Name="label2"
-                        bc3:FlexPanel.Basis="50"
+                        controls:FlexPanel.Basis="50"
                         Background="Cyan">
                         <!--TextBlock 
                             Text="TextBlock 2"
@@ -175,7 +175,7 @@
 
                     <Border  
                         x:Name="label4"
-                        bc3:FlexPanel.Basis="50"
+                        controls:FlexPanel.Basis="50"
                         Background="Cyan">
                         <!--TextBlock
                             Text="TextBlock 4"
@@ -187,7 +187,7 @@
                             Foreground="Blue"/>
                     </Border>
 
-                </bc3:FlexPanel>
+                </controls:FlexPanel>
             </Grid.Children>
         </Grid>
     </Page.Content>

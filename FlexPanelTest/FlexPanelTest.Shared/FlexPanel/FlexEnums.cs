@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See the LICENSE file in the project root
+// for the license information.
+// 
+// Author(s):
+//  - Laurent Sansonetti (native Xamarin flex https://github.com/xamarin/flex)
+//  - Stephane Delcroix (.NET port)
+//  - Ben Askren (UWP/Uno port)
+//
+using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Data;
 
-namespace Bc3.Forms
+namespace Microsoft.Toolkit.Uwp.UI.Controls
 {
-    #region Enums
-
-
-    #region FlexJustify
     [TypeConverter(typeof(FlexJustifyTypeConverter))]
 	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.FlexItem.Justify" />.
+	/// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Justify" />.
 	/// </summary>
 	public enum FlexJustify
 	{
@@ -45,7 +45,9 @@ namespace Bc3.Forms
 		SpaceEvenly = 7,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexJustify))]
+	/// <summary>
+	/// String to FlexJustify TypeConverter
+	/// </summary>
 	public class FlexJustifyTypeConverter : TypeConverter
 	{
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -73,28 +75,28 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexJustify)));
 		}
 	}
-    #endregion
 
 
-    #region FlexPosition
+
     /// <summary>
-    /// Values for <see cref="P:Bc3.Flex.FlexItem.Position" />.
+	/// Not implemented at this time
+    /// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Position" />.
     /// </summary>
-    public enum FlexPosition
+    enum FlexPosition
 	{
 		/// <summary>
-		/// Whether the item's frame will be determined by the flex rules of the layout system.
+		/// Whether the elements's frame will be determined by the flex rules of the layout system.
 		/// </summary>
 		Relative = 0,
 		/// <summary>
-		/// Whether the item's frame will be determined by fixed position values (<see cref="P:Bc3.Flex.FlexItem.Left" />, <see cref="P:Bc3.Flex.FlexItem.Right" />, <see cref="P:Bc3.Flex.FlexItem.Top" /> and <see cref="P:Bc3.Flex.FlexItem.Bottom" />).
+		/// Whether the elements's frame will be determined by fixed position values (<see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Left" />, <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Right" />, <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Top" /> and <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Bottom" />).
 		/// </summary>
 		Absolute = 1,
 	}
 
 	[TypeConverter(typeof(FlexDirectionTypeConverter))]
 	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.FlexItem.Direction" />.
+	/// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.Direction" />.
 	/// </summary>
 	public enum FlexDirection
 	{
@@ -116,7 +118,9 @@ namespace Bc3.Forms
 		ColumnReverse = 3,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexDirection))]
+	/// <summary>
+	/// String to FlexDirection type converter
+	/// </summary>
 	public class FlexDirectionTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -140,13 +144,12 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexDirection)));
 		}
 	}
-    #endregion
 
 
-    #region FlexAlignContent
+
     [TypeConverter(typeof(FlexAlignContentTypeConverter))]
 	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignContent" />.
+	/// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignContent" />.
 	/// </summary>
 	public enum FlexAlignContent
 	{
@@ -180,7 +183,9 @@ namespace Bc3.Forms
 		SpaceEvenly = 7,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexAlignContent))]
+	/// <summary>
+	/// String to FlexAlignContent TypeConverter
+	/// </summary>
 	public class FlexAlignContentTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -208,13 +213,12 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignContent)));
 		}
 	}
-    #endregion
 
 
-    #region FlexAlignItems
+
     [TypeConverter(typeof(FlexAlignItemsTypeConverter))]
 	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignItems" />.
+	/// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignItems" />.
 	/// </summary>
 	public enum FlexAlignItems
 	{
@@ -237,7 +241,9 @@ namespace Bc3.Forms
 		//Baseline = 8,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexAlignItems))]
+	/// <summary>
+	/// String to FlexAlignItems type converter
+	/// </summary>
 	public class FlexAlignItemsTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -261,13 +267,11 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignItems)));
 		}
 	}
-    #endregion
 
 
-    #region FlexAlignSelf
     [TypeConverter(typeof(FlexAlignSelfTypeConverter))]
 	/// <summary>
-	/// Values for <see cref="P:Bc3.Flex.FlexItem.AlignSelf" />.
+	/// Values for <see cref="P:Microsoft.Toolkit.Uwp.UI.Controls.FlexItem.AlignSelf" />.
 	/// </summary>
 	public enum FlexAlignSelf
 	{
@@ -293,7 +297,9 @@ namespace Bc3.Forms
 		End = 4,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexAlignSelf))]
+	/// <summary>
+	/// String to FlexAlignSelf TypeConverter
+	/// </summary>
 	public class FlexAlignSelfTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -317,10 +323,8 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexAlignSelf)));
 		}
 	}
-    #endregion
 
 
-    #region FlexWrap
     [TypeConverter(typeof(FlexWrapTypeConverter))]
 	/// <summary>
 	/// Values for <see cref="P:XamBc3arin.Flex.FlexItem.Wrap" />.
@@ -341,7 +345,9 @@ namespace Bc3.Forms
 		Reverse = 2,
 	}
 
-	//[Xaml.TypeConversion(typeof(FlexWrap))]
+	/// <summary>
+	/// String to FlexWrap type converter
+	/// </summary>
 	public class FlexWrapTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -363,20 +369,40 @@ namespace Bc3.Forms
 			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FlexWrap)));
 		}
 	}
-	#endregion
 
 
-	#endregion
 
 
 	public struct FlexBasis
 	{
 		bool _isLength;
 		bool _isRelative;
+
+		/// <summary>
+		/// Main-axis length of element is calculated by FlexPanel
+		/// </summary>
 		public static FlexBasis Auto = new FlexBasis();
+		
+		/// <summary>
+		/// Gets the main-axis length of the element in the FlexPanel
+		/// </summary>
 		public double Length { get; }
+
+		/// <summary>
+		/// Whether the basis is auto.
+		/// </summary>
 		internal bool IsAuto => !_isLength && !_isRelative;
+
+		/// <summary>
+		/// Whether the basis length is relative to parent's size.
+		/// </summary>
 		internal bool IsRelative => _isRelative;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Microsoft.Toolkit.Uwp.UI.Controls.FlexBasis"/> struct.
+		/// </summary>
+		/// <param name="length">Length.</param>
+		/// <param name="isRelative">If set to <c>true</c> is relative.</param>
 		public FlexBasis(double length, bool isRelative = false)
 		{
 			if (length < 0)
@@ -388,12 +414,24 @@ namespace Bc3.Forms
 			Length = length;
 		}
 
+		/// <summary>
+		/// Converts a double to a FlexBasis
+		/// </summary>
+		/// <param name="length"></param>
 		public static implicit operator FlexBasis(double length)
 			=> new FlexBasis(length);
 		
+		/// <summary>
+		/// Converts a string to a FlexBasis
+		/// </summary>
+		/// <param name="value"></param>
 		public static implicit operator FlexBasis(string value)
 			=> Parse(value);
 
+		/// <summary>
+		/// Converts a FlexBasis to a string
+		/// </summary>
+		/// <returns></returns>
         public override string ToString()
         {
 			if (IsAuto)
@@ -404,6 +442,11 @@ namespace Bc3.Forms
 			return result;
 		}
 
+		/// <summary>
+		/// Converts a string to a FlexBasis
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static FlexBasis Parse(string value)
 		{
 			value = value.Trim().ToLower();

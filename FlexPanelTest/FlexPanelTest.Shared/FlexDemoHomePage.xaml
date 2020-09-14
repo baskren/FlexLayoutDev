@@ -36,7 +36,7 @@
                             VerticalScrollMode="Auto"
                             >
                             <ScrollViewer.Content>
-                                <Frame x:Name="ContentFrame" not_win:Padding="0,30,0,0" win:Padding="0"  IsTabStop="True"
+                                <Frame x:Name="ContentFrame" Padding="0,30,0,0"  IsTabStop="True"
                                    NavigationFailed="ContentFrame_NavigationFailed"/>
                             </ScrollViewer.Content>
                         </ScrollViewer>

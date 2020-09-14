@@ -5,13 +5,13 @@
     xmlns:local="using:FlexPanelTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:bc3="using:Bc3.Forms"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Content>
         <Grid>
 
-            <bc3:FlexPanel Direction="Column">
+            <controls:FlexPanel Direction="Column">
 
                 <Border Background="Aqua">
                     <TextBlock
@@ -22,23 +22,23 @@
 
 
                 <!-- Body -->
-                <bc3:FlexPanel 
+                <controls:FlexPanel 
             Grid.Row="0"
             Direction="Row"
             Background="AliceBlue"
-            bc3:FlexPanel.Grow="1.0"
+            controls:FlexPanel.Grow="1.0"
             >
 
                     <!-- Navigation items-->
                     <Rectangle 
-                    bc3:FlexPanel.Order="-1"
-                    bc3:FlexPanel.Basis="50"
+                    controls:FlexPanel.Order="-1"
+                    controls:FlexPanel.Basis="50"
                      Fill="Blue" />
 
                     <!-- Content -->
                     <Border 
                     Background="Gray"
-                    bc3:FlexPanel.Grow="1" 
+                    controls:FlexPanel.Grow="1" 
                     >
                         <TextBlock 
                         Text="CONTENT"
@@ -53,17 +53,17 @@
                     <!-- Aside items -->
                     <Rectangle 
                     Fill="Green" 
-                    bc3:FlexPanel.Basis="50"
+                    controls:FlexPanel.Basis="50"
                     />
 
-                </bc3:FlexPanel>
+                </controls:FlexPanel>
                 <Border Background="Pink" >
                     <TextBlock Text="FOOTER"
                FontSize="40"
                HorizontalTextAlignment="Center" />
                 </Border>
 
-            </bc3:FlexPanel>
+            </controls:FlexPanel>
 
 
 
