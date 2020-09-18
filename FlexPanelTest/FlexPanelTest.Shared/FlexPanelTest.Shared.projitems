@@ -116,6 +116,7 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\OIP.jpg" />
     <Resource Include="$(MSBuildThisFileDirectory)Images\Banana.jpg" />
     <Resource Include="$(MSBuildThisFileDirectory)Images\FacePalm.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\monkey.png" />
