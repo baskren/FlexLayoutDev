@@ -10,20 +10,6 @@
     Padding="0"
     Margin="0"
     Background="LightGray">
-    <Page.Resources>
-        <Style TargetType="Border">
-            <Setter Property="Background" Value="LightYellow" />
-            <Setter Property="BorderBrush" Value="Blue" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Padding" Value="20" />
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="Width" Value="350"/>
-            <Setter Property="Height" Value="500" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-        </Style>
-
-    </Page.Resources>
 
     <Page.Content>
         <ScrollViewer
@@ -43,12 +29,72 @@
                     Margin="0"
                     Orientation="Horizontal"
                     >
-                    <Border/>
-                    <Border/>
-                    <Border/>
-                    <Border/>
-                    <Border/>
-                    <Border/>
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
+                    <Border
+                        Margin="10"
+                        Padding="20"
+                        VerticalAlignment="Top"
+                        Height="500"
+                        Width="350"
+                        CornerRadius="20"
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Yellow"
+                        />
 
                 </StackPanel>
             </ScrollViewer.Content>
