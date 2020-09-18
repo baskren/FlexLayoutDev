@@ -48,7 +48,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexJustify TypeConverter
 	/// </summary>
-	public class FlexJustifyTypeConverter : TypeConverter
+	class FlexJustifyTypeConverter : TypeConverter
 	{
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -121,7 +121,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexDirection type converter
 	/// </summary>
-	public class FlexDirectionTypeConverter : TypeConverter
+	class FlexDirectionTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
@@ -186,7 +186,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexAlignContent TypeConverter
 	/// </summary>
-	public class FlexAlignContentTypeConverter : TypeConverter
+	class FlexAlignContentTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
@@ -244,7 +244,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexAlignItems type converter
 	/// </summary>
-	public class FlexAlignItemsTypeConverter : TypeConverter
+	class FlexAlignItemsTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
@@ -300,7 +300,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexAlignSelf TypeConverter
 	/// </summary>
-	public class FlexAlignSelfTypeConverter : TypeConverter
+	class FlexAlignSelfTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
@@ -348,7 +348,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 	/// <summary>
 	/// String to FlexWrap type converter
 	/// </summary>
-	public class FlexWrapTypeConverter : TypeConverter
+	class FlexWrapTypeConverter : TypeConverter
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
