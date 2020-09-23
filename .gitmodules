@@ -1,0 +1,3 @@
+[submodule "WindowsCommunityToolkit"]
+	path = WindowsCommunityToolkit
+	url = https://github.com/baskren/WindowsCommunityToolkit.git
