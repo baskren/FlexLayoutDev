@@ -103,7 +103,7 @@ namespace FlexPanelTest
         void OnFlexDirectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //flexPanel.Direction = 
-            if (sender is EnumPicker picker)
+            if (sender is ComboBox picker)
             {
                 var direction = (FlexDirection)picker.SelectedItem;
                 flexPanel.Direction = direction;

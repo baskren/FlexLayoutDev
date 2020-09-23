@@ -21,33 +21,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)BasisExperimentPage.xaml.cs">
       <DependentUpon>BasisExperimentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BooleanInverseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CatalogItemsPage.xaml.cs">
       <DependentUpon>CatalogItemsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)CollectionClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CustomPanel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EnumPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExperimentPage.xaml.cs">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)FlexDemoHomePage.xaml.cs">
       <DependentUpon>FlexDemoHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FlexPanel\FlexPanel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GrowExperimentPage.xaml.cs">
       <DependentUpon>GrowExperimentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)HolyGrailLayoutPage.xaml.cs">
       <DependentUpon>HolyGrailLayoutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions\Type.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PhotoWrappingPage.xaml.cs">
       <DependentUpon>PhotoWrappingPage.xaml</DependentUpon>
     </Compile>
@@ -60,8 +48,36 @@
     <Compile Include="$(MSBuildThisFileDirectory)Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Global.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BooleanInverseConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UIElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions\Type.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Attributes\DoesNotReturnAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Diagnostics\Internals\ThrowHelper.Guard.Collection.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Diagnostics\Internals\ThrowHelper.Guard.Comparable.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Diagnostics\Internals\ThrowHelper.Guard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Diagnostics\ThrowHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit\Diagnostics\ThrowHelper.Generic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI\Extensions\Markup\EnumValuesExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexAlignContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexAlignItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexAlignSelf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexDirection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexJustify.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Enums\FlexWrap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\Extensions\FlexItemExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexAlignContentTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexAlignItemsTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexAlignSelfTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexDirectionTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexJustifyTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\TypeConverters\FlexWrapTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\FlexBasis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\WindowsCommunityToolkit\Microsoft.Toolkit.Uwp.UI.Controls\FlexPanel\FlexPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)BasisExperimentPage.xaml">
@@ -85,10 +101,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)HolyGrailLayoutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,13 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\OIP.jpg" />
-    <Resource Include="$(MSBuildThisFileDirectory)Images\Banana.jpg" />
-    <Resource Include="$(MSBuildThisFileDirectory)Images\FacePalm.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\monkey.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\SeatedMonkey.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Banana.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\FacePalm.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\monkey.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SeatedMonkey.jpg" />
   </ItemGroup>
 </Project>

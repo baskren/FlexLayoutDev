@@ -10,8 +10,4 @@
   <PropertyGroup />
   <Import Project="FlexPanelTest.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
-  <ItemGroup>
-    <Resource Remove="Images\Banana.jpg" />
-    <Resource Remove="Images\FacePalm.jpg" />
-  </ItemGroup>
 </Project>

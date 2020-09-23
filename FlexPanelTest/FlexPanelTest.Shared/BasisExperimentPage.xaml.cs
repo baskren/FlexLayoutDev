@@ -33,9 +33,9 @@ namespace FlexPanelTest
             if (autoSwitch2 is null || relativeSwitch2 is null)
                 return;
             if (autoSwitch2.IsOn)
-                FlexPanel.SetBasis(label2, FlexBasis.Auto.ToString());
+                FlexPanel.SetFlexBasis(label2, FlexBasis.Auto);
             else
-                FlexPanel.SetBasis(label2, new FlexBasis((float)slider2.Value, relativeSwitch2.IsOn));
+                FlexPanel.SetFlexBasis(label2, new FlexBasis((float)slider2.Value, relativeSwitch2.IsOn));
         }
 
         void OnLabel2IsRelativeSwitchToggled(object sender, RoutedEventArgs args)
@@ -62,7 +62,7 @@ namespace FlexPanelTest
         {
             if (label2 is null || relativeSwitch2 is null)
                 return;
-            FlexPanel.SetBasis(label2, new FlexBasis(args.NewValue, relativeSwitch2.IsOn));
+            FlexPanel.SetFlexBasis(label2, new FlexBasis(args.NewValue, relativeSwitch2.IsOn));
         }
 
         // Label 4 event handlers
@@ -71,9 +71,9 @@ namespace FlexPanelTest
             if (slider4 is null || autoSwitch4 is null)
                 return;
             if (autoSwitch4.IsOn)
-                FlexPanel.SetBasis(label4, FlexBasis.Auto.ToString());
+                FlexPanel.SetFlexBasis(label4, FlexBasis.Auto);
             else
-                FlexPanel.SetBasis(label4, new FlexBasis((float)slider4.Value, relativeSwitch4.IsOn));
+                FlexPanel.SetFlexBasis(label4, new FlexBasis((float)slider4.Value, relativeSwitch4.IsOn));
         }
 
         void OnLabel4IsRelativeSwitchToggled(object sender, RoutedEventArgs args)
@@ -100,7 +100,7 @@ namespace FlexPanelTest
         {
             if (label4 is null || relativeSwitch4 is null)
                 return;
-            FlexPanel.SetBasis(label4, new FlexBasis((float)args.NewValue, relativeSwitch4.IsOn));
+            FlexPanel.SetFlexBasis(label4, new FlexBasis((float)args.NewValue, relativeSwitch4.IsOn));
         }
 
     }
